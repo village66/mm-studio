@@ -1,15 +1,21 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useState } from "react";
+
+import Container from "@/components/ui/Container";
+import Logo from "./Logo";
+import DesktopNav from "./DesktopNav";
+import MobileNav from "./MobileNav";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 30);
+      setScrolled(window.scrollY > 40);
     };
+
+    handleScroll();
 
     window.addEventListener("scroll", handleScroll);
 
@@ -18,42 +24,29 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "bg-[#f8f8f5]/90 backdrop-blur-md shadow-sm"
+          ? "bg-white/90 backdrop-blur-xl shadow-[0_8px_40px_rgba(0,0,0,.06)]"
           : "bg-transparent"
       }`}
     >
-      <div className="max-w-screen-2xl mx-auto flex justify-between items-center px-8 lg:px-16 py-6">
+      <Container>
 
-        <Link
-          href="/"
-          className="text-2xl tracking-[0.3em] font-light hover:opacity-70 transition"
+        <div
+          className={`flex items-center justify-between border-b transition-all duration-500 ${
+            scrolled
+              ? "h-20 border-neutral-200"
+              : "h-28 border-black/10"
+          }`}
         >
-          MM Studio
-        </Link>
+          <Logo />
 
-        <nav className="hidden md:flex items-center gap-12 uppercase text-sm tracking-[0.25em]">
+          <DesktopNav />
 
-          <a href="/" className="hover:opacity-60 transition">
-            Home
-          </a>
+          <MobileNav />
+        </div>
 
-          <a href="#portfolio" className="hover:opacity-60 transition">
-            Portfolio
-          </a>
-
-          <a href="#about" className="hover:opacity-60 transition">
-            About
-          </a>
-
-          <a href="#contact" className="hover:opacity-60 transition">
-            Contact
-          </a>
-
-        </nav>
-
-      </div>
+      </Container>
     </header>
   );
 }

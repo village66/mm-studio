@@ -1,0 +1,28 @@
+{
+  "name": "MM Studio",
+  "short_name": "MM Studio",
+  "description": "Boutique Interior Design Studio",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8f8f5",
+  "theme_color": "#f8f8f5",
+  "orientation": "portrait",
+  "lang": "zh-TW",
+  "icons": [
+    {
+      "src": "/favicon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}

@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Geist, Geist_Mono } from "next/font/google";
+
 import "./globals.css";
+import JsonLd from "@/components/seo/JsonLd";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,22 +16,26 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.mmstudio.tw"),
+
   title: {
-    default: "MM Studio | Interior Architecture",
+    default: "MM Studio | Interior Design",
     template: "%s | MM Studio",
   },
 
   description:
-    "MM Studio is an interior architecture and design studio creating timeless residential and commercial spaces.",
+    "MM Studio is a boutique interior design studio creating timeless residential and commercial spaces through refined design, natural materials and thoughtful craftsmanship.",
 
   keywords: [
+    "MM Studio",
     "Interior Design",
     "Interior Architecture",
-    "Taiwan",
-    "Modern House",
-    "Minimal Design",
-    "Residential",
-    "Commercial Space",
+    "Residential Design",
+    "Commercial Design",
+    "Taiwan Interior Design",
+    "桃園室內設計",
+    "住宅設計",
+    "商業空間設計",
   ],
 
   authors: [
@@ -39,13 +46,43 @@ export const metadata: Metadata = {
 
   creator: "MM Studio",
 
+  publisher: "MM Studio",
+
   openGraph: {
-    title: "MM Studio",
+    title: "MM Studio | Interior Design",
     description:
-      "Timeless Interior Architecture & Design Studio.",
+      "Creating timeless residential and commercial interiors.",
+    url: "https://www.mmstudio.tw",
     siteName: "MM Studio",
-    locale: "en_US",
+    locale: "zh_TW",
     type: "website",
+
+    images: [
+      {
+        url: "/images/og-cover.jpg",
+        width: 1200,
+        height: 630,
+        alt: "MM Studio",
+      },
+    ],
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "MM Studio | Interior Design",
+    description:
+      "Creating timeless residential and commercial interiors.",
+    images: ["/images/og-cover.jpg"],
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+  },
+
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
   },
 };
 
@@ -55,12 +92,42 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="zh-Hant"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col bg-[#f8f8f5] text-[#111111]">
+    <html lang="zh-Hant">
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        <JsonLd />
         {children}
+
+        {/* Google Analytics */}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
+          strategy="afterInteractive"
+        />
+
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}');
+          `}
+        </Script>
+
+        {/* Microsoft Clarity */}
+        <Script id="clarity" strategy="afterInteractive">
+          {`
+            (function(c,l,a,r,i,t,y){
+              c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+              t=l.createElement(r);
+              t.async=1;
+              t.src="https://www.clarity.ms/tag/"+i;
+              y=l.getElementsByTagName(r)[0];
+              y.parentNode.insertBefore(t,y);
+            })(window,document,"clarity","script","${process.env.NEXT_PUBLIC_CLARITY_ID}");
+          `}
+        </Script>
       </body>
     </html>
   );

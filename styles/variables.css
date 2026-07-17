@@ -1,15 +1,55 @@
-:root{
+/* ==========================================================
+   MM Studio Premium V9 Design System
+========================================================== */
 
---background:#f8f8f5;
+:root {
 
---text:#111111;
+  /* Brand */
 
---muted:#777777;
+  --background: #f8f8f5;
+  --foreground: #181818;
 
---border:#EAEAEA;
+  --surface: #ffffff;
 
---max-width:1440px;
+  --text: #181818;
+  --text-light: #6f6f6f;
 
---section-space:180px;
+  --border: #e7e5df;
+
+  --accent: #b89a73;
+
+  /* Layout */
+
+  --container: 1440px;
+
+  --content: 760px;
+
+  --header-height: 96px;
+
+  --section-space: 180px;
+
+  /* Radius */
+
+  --radius-sm: 4px;
+
+  --radius-md: 8px;
+
+  --radius-lg: 12px;
+
+  --radius-xl: 999px;
+
+  /* Shadow */
+
+  --shadow-sm: 0 4px 16px rgba(0,0,0,.04);
+
+  --shadow-md: 0 12px 40px rgba(0,0,0,.06);
+
+  /* Motion */
+
+  --transition-fast: .25s ease;
+
+  --transition-normal: .4s ease;
+
+  --transition-slow: .7s ease;
 
 }

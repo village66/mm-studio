@@ -1,20 +1,80 @@
-export const projects = [
+export const projects: Project[] = [
   {
-    id: 1,
-    title: "Residence 01",
+    slug: "private-residence",
+
+    title: "Private Residence",
+
     category: "Residential",
-    image: "/images/hero/hero-home.jpg",
+
+    location: "Taoyuan",
+
+    year: "2025",
+
+    area: "38 sqm",
+
+    cover: "/images/projects/project01.jpg",
+
+    images: [
+      "/images/projects/project01.jpg",
+      "/images/hero/hero-home.jpg",
+      "/images/hero/hero-home1.jpg",
+      "/images/hero/hero-home2.jpg",
+      "/images/hero/hero-home3.jpg",
+    ],
+
+    description:
+      "A timeless residence designed with natural light, warm materials and refined proportions.",
   },
+
   {
-    id: 2,
-    title: "Residence 02",
-    category: "Modern Living",
-    image: "/images/hero/hero-home2.jpg",
+    slug: "modern-apartment",
+
+    title: "Modern Apartment",
+
+    category: "Apartment",
+
+    location: "Hsinchu",
+
+    year: "2024",
+
+    area: "42 sqm",
+
+    cover: "/images/projects/project02.jpg",
+
+    images: [
+      "/images/projects/project02.jpg",
+      "/images/hero/hero-home2.jpg",
+      "/images/hero/hero-home3.jpg",
+      "/images/hero/hero-home4.jpg",
+    ],
+
+    description:
+      "A contemporary apartment balancing clean lines, soft textures and everyday comfort.",
   },
+
   {
-    id: 3,
+    slug: "commercial-space",
+
     title: "Commercial Space",
-    category: "Office",
-    image: "/images/hero/hero-home.jpg",
+
+    category: "Commercial",
+
+    location: "Taipei",
+
+    year: "2024",
+
+    area: "85 sqm",
+
+    cover: "/images/projects/project03.jpg",
+
+    images: [
+      "/images/projects/project03.jpg",
+      "/images/hero/hero-home4.jpg",
+      "/images/hero/hero-home3.jpg",
+      "/images/hero/hero-home2.jpg",
+    ],
+
+    description:
+      "A commercial environment designed to express brand identity with clarity and elegance.",
   },
 ];
