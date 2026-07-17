@@ -1,4 +1,15 @@
-export const projects: Project[] = [
+export type Project = {
+  slug: string;
+  title: string;
+  category: string;
+  location: string;
+  year: string;
+  area: string;
+  cover: string;
+  images: string[];
+  description: string;
+};
+
   {
     slug: "private-residence",
 
