@@ -2,51 +2,82 @@
 
 import { useEffect, useState } from "react";
 
-import Container from "@/components/ui/Container";
 import Logo from "./Logo";
 import DesktopNav from "./DesktopNav";
 import MobileNav from "./MobileNav";
 
+import { useMusic } from "@/components/audio/BackgroundMusic";
+
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
 
+  const { playing, toggle } = useMusic();
+
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 40);
-    };
+    const onScroll = () => setScrolled(window.scrollY > 20);
 
-    handleScroll();
+    onScroll();
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", onScroll);
 
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "bg-white/90 backdrop-blur-xl shadow-[0_8px_40px_rgba(0,0,0,.06)]"
+          ? "bg-[#f8f8f5]/90 backdrop-blur-xl shadow-[0_8px_30px_rgba(0,0,0,.05)]"
           : "bg-transparent"
       }`}
     >
-      <Container>
+      <div className="mx-auto w-full max-w-[1440px] px-8 lg:px-12 xl:px-16">
 
         <div
-          className={`flex items-center justify-between border-b transition-all duration-500 ${
-            scrolled
-              ? "h-20 border-neutral-200"
-              : "h-28 border-black/10"
+          className={`flex items-center justify-between border-b border-black/10 transition-all duration-500 ${
+            scrolled ? "h-20" : "h-24"
           }`}
         >
           <Logo />
 
-          <DesktopNav />
+          <div className="flex items-center gap-8">
+
+            <DesktopNav />
+
+            <button
+              type="button"
+              onClick={toggle}
+              className="
+                hidden
+                lg:flex
+                items-center
+                gap-3
+                text-[11px]
+                uppercase
+                tracking-[0.32em]
+                text-neutral-500
+                transition
+                hover:text-[#b6925d]
+              "
+            >
+              <span
+                className={`h-2 w-2 rounded-full transition ${
+                  playing
+                    ? "bg-[#b6925d] shadow-[0_0_12px_#b6925d]"
+                    : "bg-neutral-300"
+                }`}
+              />
+
+              {playing ? "Sound On" : "Sound Off"}
+            </button>
+
+          </div>
 
           <MobileNav />
+
         </div>
 
-      </Container>
+      </div>
     </header>
   );
 }

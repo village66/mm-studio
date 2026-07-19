@@ -3,7 +3,12 @@ import Script from "next/script";
 import { Geist, Geist_Mono } from "next/font/google";
 
 import "./globals.css";
+
 import JsonLd from "@/components/seo/JsonLd";
+
+import BackgroundMusic from "@/components/audio/BackgroundMusic";
+import SoundButton from "@/components/audio/SoundButton";
+import AutoPlayUnlock from "@/components/audio/AutoPlayUnlock";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -92,12 +97,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="zh-Hant">
+    <html lang="zh-Hant" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <JsonLd />
-        {children}
+        <BackgroundMusic>
+          <JsonLd />
+
+          <AutoPlayUnlock />
+
+          <SoundButton />
+
+          {children}
+        </BackgroundMusic>
 
         {/* Google Analytics */}
         <Script
