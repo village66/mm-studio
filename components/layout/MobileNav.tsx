@@ -18,13 +18,13 @@ export default function MobileNav() {
 
   return (
     <>
+      {/* Menu Button */}
       <button
         onClick={() => setOpen(!open)}
         aria-label="Menu"
-        className="relative z-[110] flex h-11 w-11 items-center justify-center lg:hidden"
+        className="relative z-[10001] flex h-11 w-11 items-center justify-center lg:hidden"
       >
         <div className="relative h-5 w-6">
-
           <span
             className={`absolute left-0 top-0 h-px w-full bg-black transition-all duration-300 ${
               open ? "top-2 rotate-45" : ""
@@ -42,21 +42,25 @@ export default function MobileNav() {
               open ? "top-2 -rotate-45" : ""
             }`}
           />
-
         </div>
       </button>
 
+      {/* Full Screen Menu */}
       <aside
-        className={`fixed inset-0 z-[100] bg-[#f8f8f5] transition-all duration-500 lg:hidden ${
+        style={{
+          position: "fixed",
+          inset: 0,
+          isolation: "isolate",
+        }}
+        className={`fixed inset-0 z-[9999] bg-[#f8f8f5] transition-all duration-500 lg:hidden ${
           open
             ? "translate-y-0 opacity-100 visible"
             : "-translate-y-full opacity-0 invisible"
         }`}
       >
-        <div className="flex h-full flex-col overflow-y-auto pt-32 pb-12 px-8">
+        <div className="relative z-[10000] flex h-full flex-col overflow-y-auto px-8 pt-32 pb-12">
 
           <nav className="space-y-8">
-
             {navigation.map((item) => (
               <Link
                 key={item.name}
@@ -67,12 +71,11 @@ export default function MobileNav() {
                 {item.name}
               </Link>
             ))}
-
           </nav>
 
           <div className="mt-auto pt-16">
 
-            <p className="text-[11px] uppercase tracking-[0.4em] text-neutral-400">
+            <p className="text-[11px] uppercase tracking-[0.40em] text-neutral-400">
               MM STUDIO
             </p>
 
