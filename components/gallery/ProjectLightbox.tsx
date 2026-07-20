@@ -47,7 +47,6 @@ export default function ProjectLightbox({
         <div className="grid grid-cols-1 gap-6 md:grid-cols-12">
 
           {images.map((image, i) => {
-
             const layout =
               i === 0
                 ? "md:col-span-12 aspect-[16/9]"
@@ -75,28 +74,21 @@ export default function ProjectLightbox({
                   className="object-cover transition duration-700 group-hover:scale-105"
                 />
 
-                {/* Overlay */}
-
                 <div className="absolute inset-0 bg-black/0 transition duration-500 group-hover:bg-black/20" />
 
                 <div className="absolute bottom-6 left-6 translate-y-4 opacity-0 transition duration-500 group-hover:translate-y-0 group-hover:opacity-100">
-
                   <span className="rounded-full bg-white/90 px-4 py-2 text-[11px] uppercase tracking-[0.25em]">
                     View
                   </span>
-
                 </div>
 
               </button>
             );
-
           })}
 
         </div>
 
       </section>
-
-      {/* Lightbox */}
 
       <Lightbox
         open={open}
@@ -110,6 +102,11 @@ export default function ProjectLightbox({
         }}
         controller={{
           closeOnBackdropClick: true,
+        }}
+        styles={{
+          container: {
+            zIndex: 9000,
+          },
         }}
       />
     </>
