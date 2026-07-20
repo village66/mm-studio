@@ -32,7 +32,6 @@ export default function Header() {
       }`}
     >
       <div className="mx-auto w-full max-w-[1440px] px-8 lg:px-12 xl:px-16">
-
         <div
           className={`flex items-center justify-between border-b border-black/10 transition-all duration-500 ${
             scrolled ? "h-20" : "h-24"
@@ -40,13 +39,14 @@ export default function Header() {
         >
           <Logo />
 
-          <div className="flex items-center gap-8">
-
+          <div className="flex items-center gap-12">
             <DesktopNav />
 
+            {/* Music */}
             <button
               type="button"
               onClick={toggle}
+              aria-label="Background Music"
               className="
                 hidden
                 lg:flex
@@ -54,29 +54,55 @@ export default function Header() {
                 gap-3
                 text-[11px]
                 uppercase
-                tracking-[0.32em]
-                text-neutral-500
-                transition
+                tracking-[0.35em]
+                transition-all
+                duration-300
                 hover:text-[#b6925d]
               "
             >
-              <span
-                className={`h-2 w-2 rounded-full transition ${
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className={`transition-all duration-500 ${
                   playing
-                    ? "bg-[#b6925d] shadow-[0_0_12px_#b6925d]"
-                    : "bg-neutral-300"
+                    ? "text-[#b6925d] animate-pulse"
+                    : "text-neutral-400"
                 }`}
-              />
+              >
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+                {playing ? (
+                  <>
+                    <path d="M15.5 8.5a5 5 0 0 1 0 7" />
+                    <path d="M18.5 5.5a9 9 0 0 1 0 13" />
+                  </>
+                ) : (
+                  <>
+                    <line x1="23" y1="9" x2="17" y2="15" />
+                    <line x1="17" y1="9" x2="23" y2="15" />
+                  </>
+                )}
+              </svg>
 
-              {playing ? "Sound On" : "Sound Off"}
+              <span
+                className={`transition-colors duration-300 ${
+                  playing
+                    ? "text-[#b6925d]"
+                    : "text-neutral-500"
+                }`}
+              >
+                {playing ? "Sound On" : "Sound Off"}
+              </span>
             </button>
-
           </div>
 
           <MobileNav />
-
         </div>
-
       </div>
     </header>
   );

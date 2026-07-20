@@ -7,7 +7,6 @@ import "./globals.css";
 import JsonLd from "@/components/seo/JsonLd";
 
 import BackgroundMusic from "@/components/audio/BackgroundMusic";
-import SoundButton from "@/components/audio/SoundButton";
 import AutoPlayUnlock from "@/components/audio/AutoPlayUnlock";
 
 const geistSans = Geist({
@@ -106,7 +105,6 @@ export default function RootLayout({
 
           <AutoPlayUnlock />
 
-          <SoundButton />
 
           {children}
         </BackgroundMusic>
