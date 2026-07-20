@@ -14,7 +14,17 @@ export default function Section({
   return (
     <section
       id={id}
-      className={`relative w-full py-24 md:py-32 xl:py-40 ${className}`}
+      className={`
+        relative
+        w-full
+        scroll-mt-28
+        py-20
+        md:py-28
+        lg:py-36
+        xl:py-44
+        2xl:py-52
+        ${className}
+      `}
     >
       {children}
     </section>

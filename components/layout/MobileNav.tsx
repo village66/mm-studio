@@ -9,39 +9,36 @@ export default function MobileNav() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
+    document.body.style.overflow = open ? "hidden" : "auto";
 
     return () => {
-      document.body.style.overflow = "";
+      document.body.style.overflow = "auto";
     };
   }, [open]);
 
   return (
     <>
-      {/* Toggle */}
-
       <button
-        type="button"
-        aria-label="Open Menu"
         onClick={() => setOpen(!open)}
-        className="relative z-[60] flex h-11 w-11 items-center justify-center lg:hidden"
+        aria-label="Menu"
+        className="relative z-[110] flex h-11 w-11 items-center justify-center lg:hidden"
       >
         <div className="relative h-5 w-6">
 
           <span
-            className={`absolute left-0 top-0 h-px w-6 bg-[#181818] transition-all duration-300 ${
+            className={`absolute left-0 top-0 h-px w-full bg-black transition-all duration-300 ${
               open ? "top-2 rotate-45" : ""
             }`}
           />
 
           <span
-            className={`absolute left-0 top-2 h-px w-6 bg-[#181818] transition-all duration-300 ${
+            className={`absolute left-0 top-2 h-px w-full bg-black transition-all duration-300 ${
               open ? "opacity-0" : ""
             }`}
           />
 
           <span
-            className={`absolute left-0 top-4 h-px w-6 bg-[#181818] transition-all duration-300 ${
+            className={`absolute left-0 top-4 h-px w-full bg-black transition-all duration-300 ${
               open ? "top-2 -rotate-45" : ""
             }`}
           />
@@ -49,73 +46,48 @@ export default function MobileNav() {
         </div>
       </button>
 
-      {/* Overlay */}
-
-      <div
-        className={`fixed inset-0 z-50 bg-[#f8f8f5] transition-all duration-500 lg:hidden ${
+      <aside
+        className={`fixed inset-0 z-[100] bg-[#f8f8f5] transition-all duration-500 lg:hidden ${
           open
-            ? "visible opacity-100"
-            : "invisible opacity-0"
+            ? "translate-y-0 opacity-100 visible"
+            : "-translate-y-full opacity-0 invisible"
         }`}
       >
-
-        <div className="flex h-full flex-col justify-center px-10">
+        <div className="flex h-full flex-col overflow-y-auto pt-32 pb-12 px-8">
 
           <nav className="space-y-8">
 
-            {navigation.map((item, index) => (
+            {navigation.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="group flex items-center justify-between border-b border-neutral-200 pb-5"
+                className="block border-b border-neutral-200 pb-5 text-[34px] font-light tracking-[0.03em] text-[#181818]"
               >
-
-                <span className="text-[34px] font-extralight tracking-tight transition group-hover:text-[#b6925d]">
-                  {item.name}
-                </span>
-
-                <span className="text-neutral-400 transition group-hover:translate-x-1 group-hover:text-[#b6925d]">
-                  →
-                </span>
-
+                {item.name}
               </Link>
             ))}
 
           </nav>
 
-          <div className="mt-20 border-t border-neutral-200 pt-8">
+          <div className="mt-auto pt-16">
 
-            <p className="text-[11px] uppercase tracking-[0.3em] text-neutral-500">
-              Contact
+            <p className="text-[11px] uppercase tracking-[0.4em] text-neutral-400">
+              MM STUDIO
             </p>
 
-            <a
-              href="mailto:hello@mmstudio.tw"
-              className="mt-5 block text-lg font-light"
-            >
+            <p className="mt-8 text-lg text-[#181818]">
               hello@mmstudio.tw
-            </a>
+            </p>
 
-            <a
-              href="tel:+886912345678"
-              className="mt-3 block text-lg font-light"
-            >
+            <p className="mt-3 text-neutral-600">
               +886 912 345 678
-            </a>
-
-            <button
-              type="button"
-              className="mt-10 text-[11px] uppercase tracking-[0.35em] text-neutral-500 transition hover:text-[#b6925d]"
-            >
-              繁｜EN
-            </button>
+            </p>
 
           </div>
 
         </div>
-
-      </div>
+      </aside>
     </>
   );
 }

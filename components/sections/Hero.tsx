@@ -26,55 +26,43 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative overflow-hidden bg-[#f8f8f5] pt-40 pb-24">
-
+    <section className="relative overflow-hidden bg-[#f8f8f5] pt-36 lg:pt-44 2xl:pt-52 pb-24 lg:pb-32">
       <Container>
 
-        <div className="grid items-center gap-20 lg:grid-cols-12">
+        <div className="grid items-center gap-16 xl:gap-24 2xl:gap-32 lg:grid-cols-12">
 
           {/* Left */}
+          <div className="lg:col-span-5 2xl:pr-12">
 
-          <div className="lg:col-span-5">
-
-            <p className="caption tracking-[0.28em] text-neutral-500">
+            <p className="caption tracking-[0.30em] text-neutral-500">
               MM STUDIO ・ BOUTIQUE INTERIOR DESIGN
             </p>
 
-            {/* Hero Title */}
-
-            <div className="group relative mt-8 h-[170px] max-w-[560px]">
+            {/* Title */}
+            <div className="group relative mt-10 h-[220px] max-w-[720px]">
 
               {/* 中文 */}
-
-              <div className="absolute inset-0 flex items-center justify-start transition-opacity duration-700 opacity-100 group-hover:opacity-0">
-
-                <h1 className="text-[42px] md:text-[52px] xl:text-[60px] font-extralight leading-[1.25] tracking-[0.08em] text-[#222222]">
+              <div className="absolute inset-0 flex items-center transition-opacity duration-700 opacity-100 group-hover:opacity-0">
+                <h1 className="text-[44px] md:text-[58px] xl:text-[72px] 2xl:text-[82px] font-extralight leading-[1.15] tracking-[0.06em] text-[#222222]">
                   打造歷久彌新的空間
                 </h1>
-
               </div>
 
               {/* English */}
-
-              <div className="absolute inset-0 flex items-center justify-start transition-opacity duration-700 opacity-0 group-hover:opacity-100">
-
-                <h1 className="text-[42px] md:text-[52px] xl:text-[60px] font-extralight leading-[1.08] tracking-[-0.03em] text-[#b6925d]">
+              <div className="absolute inset-0 flex items-center transition-opacity duration-700 opacity-0 group-hover:opacity-100">
+                <h1 className="text-[44px] md:text-[58px] xl:text-[72px] 2xl:text-[82px] font-extralight leading-[1.02] tracking-[-0.04em] text-[#b6925d]">
                   Designing
                   <br />
                   Timeless
                   <br />
                   Spaces.
                 </h1>
-
               </div>
 
             </div>
 
             {/* Description */}
-
-            <div className="group relative mt-8 h-[120px] max-w-[520px]">
-
-              {/* 中文 */}
+            <div className="group relative mt-10 h-[140px] max-w-[640px]">
 
               <p className="absolute inset-0 text-[18px] leading-10 text-neutral-600 transition-opacity duration-700 opacity-100 group-hover:opacity-0">
                 我們專注於住宅與商業空間設計，
@@ -83,8 +71,6 @@ export default function Hero() {
                 <br />
                 打造歷久彌新的空間體驗。
               </p>
-
-              {/* English */}
 
               <p className="absolute inset-0 text-[18px] leading-10 text-[#a98b63] transition-opacity duration-700 opacity-0 group-hover:opacity-100">
                 We specialize in residential and commercial interiors,
@@ -97,29 +83,24 @@ export default function Hero() {
             </div>
 
             {/* Buttons */}
-
-            <div className="mt-12 flex flex-wrap gap-5">
+            <div className="mt-14 flex flex-wrap gap-5">
 
               <Link
-  href="#portfolio"
-  className="group relative inline-flex h-14 w-[190px] items-center justify-center overflow-hidden rounded-full border border-[#c9b08a] bg-white transition-all duration-500 hover:bg-[#f6f4ef]"
->
-  <span
-    className="absolute transition-opacity duration-500 opacity-100 group-hover:opacity-0 text-[13px] tracking-[0.28em] text-neutral-800"
-  >
-    作 品 案 例
-  </span>
+                href="#portfolio"
+                className="group relative inline-flex h-14 w-[200px] items-center justify-center overflow-hidden rounded-full border border-[#c9b08a] bg-white transition-all duration-500 hover:bg-[#f5f3ee]"
+              >
+                <span className="absolute text-[13px] tracking-[0.30em] text-neutral-800 transition-opacity duration-500 opacity-100 group-hover:opacity-0">
+                  作 品 案 例
+                </span>
 
-  <span
-    className="absolute transition-opacity duration-500 opacity-0 group-hover:opacity-100 text-[13px] uppercase tracking-[0.22em] text-[#9d8462]"
-  >
-    VIEW PROJECTS
-  </span>
-</Link>
+                <span className="absolute text-[13px] uppercase tracking-[0.25em] text-[#9d8462] transition-opacity duration-500 opacity-0 group-hover:opacity-100">
+                  VIEW PROJECTS
+                </span>
+              </Link>
 
               <Link
                 href="#contact"
-                className="inline-flex h-14 items-center text-[13px] tracking-[0.25em] text-[#555] transition hover:text-[#b6925d]"
+                className="inline-flex h-14 items-center text-[13px] tracking-[0.28em] text-neutral-600 transition hover:text-[#b6925d]"
               >
                 聯絡我們 →
               </Link>
@@ -129,10 +110,9 @@ export default function Hero() {
           </div>
 
           {/* Right */}
+          <div className="relative lg:col-span-7 2xl:pl-8">
 
-          <div className="relative lg:col-span-7">
-
-            <div className="relative aspect-[4/5] overflow-hidden rounded-sm">
+            <div className="relative aspect-[5/6] overflow-hidden rounded-sm">
 
               {slides.map((src, index) => (
                 <Image
@@ -142,9 +122,7 @@ export default function Hero() {
                   fill
                   priority={index === 0}
                   className={`object-cover transition-opacity duration-1000 ${
-                    current === index
-                      ? "opacity-100"
-                      : "opacity-0"
+                    current === index ? "opacity-100" : "opacity-0"
                   }`}
                 />
               ))}
@@ -152,17 +130,17 @@ export default function Hero() {
             </div>
 
             {/* Dots */}
-
-            <div className="mt-8 flex gap-4">
+            <div className="mt-10 flex gap-4">
 
               {slides.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrent(index)}
+                  aria-label={`Slide ${index + 1}`}
                   className={`h-[3px] transition-all duration-300 ${
                     current === index
                       ? "w-10 bg-[#b6925d]"
-                      : "w-6 bg-neutral-300"
+                      : "w-6 bg-neutral-300 hover:bg-neutral-500"
                   }`}
                 />
               ))}
@@ -174,7 +152,6 @@ export default function Hero() {
         </div>
 
       </Container>
-
     </section>
   );
 }

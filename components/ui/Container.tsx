@@ -11,7 +11,18 @@ export default function Container({
 }: Props) {
   return (
     <div
-      className={`w-full max-w-[1440px] mx-auto px-8 lg:px-12 xl:px-16 ${className}`}
+      className={`
+        mx-auto
+        w-full
+        max-w-[1800px]
+        px-6
+        sm:px-8
+        md:px-10
+        lg:px-14
+        xl:px-20
+        2xl:px-24
+        ${className}
+      `}
     >
       {children}
     </div>

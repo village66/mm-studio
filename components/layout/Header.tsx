@@ -14,7 +14,7 @@ export default function Header() {
   const { playing, toggle } = useMusic();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    const onScroll = () => setScrolled(window.scrollY > 24);
 
     onScroll();
 
@@ -25,36 +25,51 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
-        scrolled
-          ? "bg-[#f8f8f5]/90 backdrop-blur-xl shadow-[0_8px_30px_rgba(0,0,0,.05)]"
-          : "bg-transparent"
-      }`}
+      className={`
+        fixed
+        inset-x-0
+        top-0
+        z-[120]
+        transition-all
+        duration-500
+        ${
+          scrolled
+            ? "bg-[#f8f8f5]/92 backdrop-blur-2xl shadow-[0_10px_40px_rgba(0,0,0,.06)]"
+            : "bg-transparent"
+        }
+      `}
     >
-      <div className="mx-auto w-full max-w-[1440px] px-8 lg:px-12 xl:px-16">
+      <div className="mx-auto w-full max-w-[1800px] px-6 sm:px-8 md:px-10 lg:px-14 xl:px-20 2xl:px-24">
+
         <div
-          className={`flex items-center justify-between border-b border-black/10 transition-all duration-500 ${
-            scrolled ? "h-20" : "h-24"
-          }`}
+          className={`
+            flex
+            items-center
+            justify-between
+            border-b
+            border-black/10
+            transition-all
+            duration-500
+            ${scrolled ? "h-[78px]" : "h-[96px]"}
+          `}
         >
           <Logo />
 
-          <div className="flex items-center gap-12">
+          <div className="hidden lg:flex items-center gap-10">
+
             <DesktopNav />
 
-            {/* Music */}
             <button
               type="button"
               onClick={toggle}
               aria-label="Background Music"
               className="
-                hidden
-                lg:flex
+                flex
                 items-center
                 gap-3
                 text-[11px]
                 uppercase
-                tracking-[0.35em]
+                tracking-[0.32em]
                 transition-all
                 duration-300
                 hover:text-[#b6925d]
@@ -76,6 +91,7 @@ export default function Header() {
                 }`}
               >
                 <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+
                 {playing ? (
                   <>
                     <path d="M15.5 8.5a5 5 0 0 1 0 7" />
@@ -89,20 +105,19 @@ export default function Header() {
                 )}
               </svg>
 
-              <span
-                className={`transition-colors duration-300 ${
-                  playing
-                    ? "text-[#b6925d]"
-                    : "text-neutral-500"
-                }`}
-              >
+              <span>
                 {playing ? "Sound On" : "Sound Off"}
               </span>
             </button>
+
           </div>
 
-          <MobileNav />
+          <div className="lg:hidden">
+            <MobileNav />
+          </div>
+
         </div>
+
       </div>
     </header>
   );
