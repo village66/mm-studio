@@ -144,28 +144,21 @@ export default function Contact() {
               </div>
 
               {/* Action Button */}
-
               <div className="mt-8 lg:mt-10">
-                <Link
+                <a
                   href="#contact"
                   className="group relative inline-flex h-12 lg:h-14 w-[200px] lg:w-[220px] items-center justify-center overflow-hidden rounded-full border border-[#c9b08a] bg-white transition duration-500 hover:bg-[#f6f4ef] shadow-sm"
                 >
-
                   {/* 中文 */}
-                  <span
-                    className="absolute inset-0 flex items-center justify-center text-xs lg:text-[13px] tracking-[0.28em] text-neutral-800 transition-opacity duration-500 opacity-100 group-hover:opacity-0"
-                  >
+                  <span className="absolute inset-0 flex items-center justify-center text-xs lg:text-[13px] tracking-[0.28em] text-neutral-800 transition-opacity duration-500 opacity-100 group-hover:opacity-0">
                     開始您的專案
                   </span>
 
                   {/* English */}
-                  <span
-                    className="absolute inset-0 flex items-center justify-center text-xs lg:text-[13px] uppercase tracking-[0.20em] text-[#9d8462] transition-opacity duration-500 opacity-0 group-hover:opacity-100"
-                  >
+                  <span className="absolute inset-0 flex items-center justify-center text-xs lg:text-[13px] uppercase tracking-[0.20em] text-[#9d8462] transition-opacity duration-500 opacity-0 group-hover:opacity-100">
                     START YOUR PROJECT
                   </span>
-
-                </Link>
+                </a>
               </div>
 
             </div>

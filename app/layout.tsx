@@ -5,7 +5,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 import JsonLd from "@/components/seo/JsonLd";
-
 import BackgroundMusic from "@/components/audio/BackgroundMusic";
 import AutoPlayUnlock from "@/components/audio/AutoPlayUnlock";
 
@@ -38,8 +37,10 @@ export const metadata: Metadata = {
     "Commercial Design",
     "Taiwan Interior Design",
     "桃園室內設計",
+    "台北室內設計",
     "住宅設計",
     "商業空間設計",
+    "精品室內設計",
   ],
 
   authors: [
@@ -49,7 +50,6 @@ export const metadata: Metadata = {
   ],
 
   creator: "MM Studio",
-
   publisher: "MM Studio",
 
   openGraph: {
@@ -96,7 +96,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="zh-Hant" suppressHydrationWarning>
+    /* 加入 scroll-smooth 確保點擊選單時錨點滾動非常平滑 */
+    <html lang="zh-Hant" className="scroll-smooth" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
@@ -104,7 +105,6 @@ export default function RootLayout({
           <JsonLd />
 
           <AutoPlayUnlock />
-
 
           {children}
         </BackgroundMusic>
