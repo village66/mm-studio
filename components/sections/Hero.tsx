@@ -31,55 +31,46 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative overflow-hidden bg-[#f8f8f5] pt-36 lg:pt-44 2xl:pt-52 pb-24 lg:pb-32">
+    <section className="relative overflow-hidden bg-[#f8f8f5] pt-28 sm:pt-36 lg:pt-44 2xl:pt-52 pb-16 sm:pb-24 lg:pb-32">
       <Container>
-        <div className="grid items-center gap-16 xl:gap-24 2xl:gap-32 lg:grid-cols-12">
-          {/* Left */}
-          <div className="lg:col-span-5 2xl:pr-12">
-            <p className="caption tracking-[0.30em] text-neutral-500">
+        <div className="grid items-center gap-12 lg:gap-16 xl:gap-24 2xl:gap-32 lg:grid-cols-12">
+          {/* Left Column: Text Content */}
+          <div className="lg:col-span-5 2xl:pr-8">
+            <p className="caption text-xs sm:text-sm tracking-[0.3em] uppercase text-neutral-500 font-light">
               MM STUDIO ・ BOUTIQUE INTERIOR DESIGN
             </p>
 
-            {/* Title */}
-
+            {/* Main Title */}
             <div
-              className={`mt-10 transition-all duration-1000 ${
+              className={`mt-6 sm:mt-8 transition-all duration-1000 ${
                 showText
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-4"
               }`}
             >
-              <h1 className="text-[44px] md:text-[58px] xl:text-[72px] 2xl:text-[82px] font-extralight leading-[1.02] tracking-[-0.04em] text-[#b6925d]">
+              <h1 className="text-4xl sm:text-5xl lg:text-[60px] xl:text-[72px] 2xl:text-[80px] font-extralight leading-[1.08] tracking-tight text-[#2c2825]">
                 Designing
-                <br />
-                Timeless
-                <br />
-                Spaces.
+                <span className="block">Timeless</span>
+                <span className="block text-[#a38252]">Spaces.</span>
               </h1>
             </div>
 
-            {/* Description */}
-
+            {/* Description Paragraph */}
             <div
-              className={`mt-10 max-w-[640px] transition-all duration-1000 delay-300 ${
+              className={`mt-6 sm:mt-8 max-w-xl transition-all duration-1000 delay-300 ${
                 showText
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-4"
               }`}
             >
-              <p className="text-[18px] leading-10 text-[#a98b63]">
-                We specialize in residential and commercial interiors,
-                <br />
-                shaping timeless spaces through
-                <br />
-                light, materials, proportion and detail.
+              <p className="text-base sm:text-lg leading-relaxed text-neutral-600 font-light">
+                We specialize in residential and commercial interiors, shaping timeless spaces through light, materials, proportion, and detail.
               </p>
             </div>
 
-            {/* Buttons */}
-
+            {/* Action Buttons */}
             <div
-              className={`mt-14 flex flex-wrap gap-5 transition-all duration-1000 delay-500 ${
+              className={`mt-10 sm:mt-12 flex flex-wrap items-center gap-6 transition-all duration-1000 delay-500 ${
                 showText
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-4"
@@ -87,56 +78,56 @@ export default function Hero() {
             >
               <Link
                 href="#portfolio"
-                className="group relative inline-flex h-14 w-[200px] items-center justify-center overflow-hidden rounded-full border border-[#c9b08a] bg-white transition-all duration-500 hover:bg-[#f5f3ee]"
+                className="group relative inline-flex h-13 sm:h-14 w-[180px] sm:w-[200px] items-center justify-center overflow-hidden rounded-full border border-[#b6925d]/40 bg-white/80 backdrop-blur-sm transition-all duration-500 hover:border-[#b6925d] hover:bg-white shadow-sm"
               >
-                <span className="absolute text-[13px] tracking-[0.30em] text-neutral-800 transition-opacity duration-500 opacity-100 group-hover:opacity-0">
+                <span className="absolute text-xs sm:text-[13px] tracking-[0.25em] text-neutral-800 transition-all duration-300 group-hover:-translate-y-8 group-hover:opacity-0">
                   作 品 案 例
                 </span>
 
-                <span className="absolute text-[13px] uppercase tracking-[0.25em] text-[#9d8462] transition-opacity duration-500 opacity-0 group-hover:opacity-100">
+                <span className="absolute text-xs sm:text-[13px] uppercase tracking-[0.2em] text-[#a38252] transition-all duration-300 translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100">
                   VIEW PROJECTS
                 </span>
               </Link>
 
               <Link
                 href="#contact"
-                className="inline-flex h-14 items-center text-[13px] tracking-[0.28em] text-neutral-600 transition hover:text-[#b6925d]"
+                className="inline-flex h-13 sm:h-14 items-center text-xs sm:text-[13px] tracking-[0.25em] text-neutral-600 transition duration-300 hover:text-[#a38252] hover:translate-x-1"
               >
-                聯絡我們 →
+                聯絡我們 <span className="ml-2 font-serif">→</span>
               </Link>
             </div>
           </div>
 
-          {/* Right */}
-
-          <div className="relative lg:col-span-7 2xl:pl-8">
-            <div className="relative aspect-[5/6] overflow-hidden rounded-sm">
+          {/* Right Column: Hero Slider */}
+          <div className="relative lg:col-span-7">
+            {/* Image Frame with Aspect Ratio */}
+            <div className="relative aspect-[4/3] sm:aspect-[5/6] w-full overflow-hidden rounded-sm bg-neutral-200 shadow-sm">
               {slides.map((src, index) => (
                 <Image
                   key={src}
                   src={src}
-                  alt="MM Studio"
+                  alt="MM Studio Interior Architecture"
                   fill
                   priority={index === 0}
-                  className={`object-cover transition-opacity duration-1000 ${
-                    current === index ? "opacity-100" : "opacity-0"
+                  sizes="(max-width: 1024px) 100vw, 55vw"
+                  className={`object-cover transition-all duration-1000 ease-out ${
+                    current === index ? "opacity-100 scale-100" : "opacity-0 scale-105"
                   }`}
                 />
               ))}
             </div>
 
-            {/* Dots */}
-
-            <div className="mt-10 flex gap-4">
+            {/* Slider Dots Indicator */}
+            <div className="mt-6 sm:mt-8 flex items-center justify-start gap-3">
               {slides.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrent(index)}
                   aria-label={`Slide ${index + 1}`}
-                  className={`h-[3px] transition-all duration-300 ${
+                  className={`h-[2px] transition-all duration-500 ease-out ${
                     current === index
-                      ? "w-10 bg-[#b6925d]"
-                      : "w-6 bg-neutral-300 hover:bg-neutral-500"
+                      ? "w-10 bg-[#a38252]"
+                      : "w-5 bg-neutral-300 hover:bg-neutral-400"
                   }`}
                 />
               ))}
