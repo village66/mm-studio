@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import Container from "@/components/ui/Container";
+import LanguageReveal from "@/components/ui/LanguageReveal";
 
 const slides = [
   "/images/hero/hero-home.jpg",
@@ -39,50 +40,59 @@ export default function Hero() {
             </p>
 
             {/* Title */}
-            <div className="group relative mt-10 h-[220px] max-w-[720px]">
 
-              {/* 中文 */}
-              <div className="absolute inset-0 flex items-center transition-opacity duration-700 opacity-100 group-hover:opacity-0">
-                <h1 className="text-[44px] md:text-[58px] xl:text-[72px] 2xl:text-[82px] font-extralight leading-[1.15] tracking-[0.06em] text-[#222222]">
-                  打造歷久彌新的空間
-                </h1>
-              </div>
+            <div className="mt-10 max-w-[720px]">
 
-              {/* English */}
-              <div className="absolute inset-0 flex items-center transition-opacity duration-700 opacity-0 group-hover:opacity-100">
-                <h1 className="text-[44px] md:text-[58px] xl:text-[72px] 2xl:text-[82px] font-extralight leading-[1.02] tracking-[-0.04em] text-[#b6925d]">
-                  Designing
-                  <br />
-                  Timeless
-                  <br />
-                  Spaces.
-                </h1>
-              </div>
+              <LanguageReveal
+                className="min-h-[220px]"
+                zh={
+                  <h1 className="text-[44px] md:text-[58px] xl:text-[72px] 2xl:text-[82px] font-extralight leading-[1.15] tracking-[0.06em] text-[#222222]">
+                    打造歷久彌新的空間
+                  </h1>
+                }
+                en={
+                  <h1 className="text-[44px] md:text-[58px] xl:text-[72px] 2xl:text-[82px] font-extralight leading-[1.02] tracking-[-0.04em] text-[#b6925d]">
+                    Designing
+                    <br />
+                    Timeless
+                    <br />
+                    Spaces.
+                  </h1>
+                }
+              />
 
             </div>
 
             {/* Description */}
-            <div className="group relative mt-10 h-[140px] max-w-[640px]">
 
-              <p className="absolute inset-0 text-[18px] leading-10 text-neutral-600 transition-opacity duration-700 opacity-100 group-hover:opacity-0">
-                我們專注於住宅與商業空間設計，
-                <br />
-                透過光線、材質、比例與細節，
-                <br />
-                打造歷久彌新的空間體驗。
-              </p>
+            <div className="mt-10 max-w-[640px]">
 
-              <p className="absolute inset-0 text-[18px] leading-10 text-[#a98b63] transition-opacity duration-700 opacity-0 group-hover:opacity-100">
-                We specialize in residential and commercial interiors,
-                <br />
-                shaping timeless spaces through
-                <br />
-                light, materials, proportion and detail.
-              </p>
+              <LanguageReveal
+                className="min-h-[140px]"
+                zh={
+                  <p className="text-[18px] leading-10 text-neutral-600">
+                    我們專注於住宅與商業空間設計，
+                    <br />
+                    透過光線、材質、比例與細節，
+                    <br />
+                    打造歷久彌新的空間體驗。
+                  </p>
+                }
+                en={
+                  <p className="text-[18px] leading-10 text-[#a98b63]">
+                    We specialize in residential and commercial interiors,
+                    <br />
+                    shaping timeless spaces through
+                    <br />
+                    light, materials, proportion and detail.
+                  </p>
+                }
+              />
 
             </div>
 
             {/* Buttons */}
+
             <div className="mt-14 flex flex-wrap gap-5">
 
               <Link
@@ -110,6 +120,7 @@ export default function Hero() {
           </div>
 
           {/* Right */}
+
           <div className="relative lg:col-span-7 2xl:pl-8">
 
             <div className="relative aspect-[5/6] overflow-hidden rounded-sm">
@@ -122,7 +133,9 @@ export default function Hero() {
                   fill
                   priority={index === 0}
                   className={`object-cover transition-opacity duration-1000 ${
-                    current === index ? "opacity-100" : "opacity-0"
+                    current === index
+                      ? "opacity-100"
+                      : "opacity-0"
                   }`}
                 />
               ))}
@@ -130,6 +143,7 @@ export default function Hero() {
             </div>
 
             {/* Dots */}
+
             <div className="mt-10 flex gap-4">
 
               {slides.map((_, index) => (
@@ -152,6 +166,7 @@ export default function Hero() {
         </div>
 
       </Container>
+
     </section>
   );
 }
