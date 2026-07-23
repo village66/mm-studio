@@ -40,10 +40,8 @@ const steps = [
 
 export default function Process() {
   return (
-    <Section
-      id="process"
-      className="bg-white"
-    >
+    /* 關鍵：關閉一屏限制，讓 3 個步驟各自有完整的顯示空間 */
+    <Section id="process" className="bg-[#f8f8f5]" fullScreen={false}>
       <Container>
 
         <Reveal>
@@ -53,7 +51,7 @@ export default function Process() {
           />
         </Reveal>
 
-        <div className="mt-8 lg:mt-12 space-y-12 lg:space-y-16">
+        <div className="mt-16 space-y-20 lg:space-y-28">
 
           {steps.map((step, index) => (
 
@@ -63,7 +61,7 @@ export default function Process() {
             >
 
               <div
-                className={`grid items-center gap-8 lg:gap-12 xl:gap-16 lg:grid-cols-2 ${
+                className={`grid items-center gap-10 lg:gap-16 lg:grid-cols-2 ${
                   index % 2 === 1
                     ? "lg:[&>*:first-child]:order-2"
                     : ""
@@ -72,7 +70,7 @@ export default function Process() {
 
                 {/* Image */}
 
-                <div className="relative aspect-[4/3] max-h-[300px] lg:max-h-[360px] w-full overflow-hidden rounded-sm">
+                <div className="relative aspect-[4/3] w-full overflow-hidden rounded-md bg-neutral-200 shadow-sm">
 
                   <Image
                     src={step.image}
@@ -88,15 +86,15 @@ export default function Process() {
 
                 <div className="group">
 
-                  <p className="text-[52px] lg:text-[60px] font-extralight leading-none text-[#c8a06b]">
+                  <p className="text-[52px] lg:text-[64px] font-extralight leading-none text-[#c8a06b]">
                     {step.no}
                   </p>
 
-                  <div className="mt-3 lg:mt-4 h-12 overflow-hidden">
+                  <div className="mt-4 h-12 overflow-hidden">
 
                     <div className="transition-transform duration-300 group-hover:-translate-y-12">
 
-                      <h3 className="h-12 text-[30px] lg:text-[36px] font-light leading-[48px] text-neutral-900">
+                      <h3 className="h-12 text-[28px] lg:text-[36px] font-light leading-[48px] text-neutral-900">
                         {step.en}
                       </h3>
 
@@ -108,15 +106,15 @@ export default function Process() {
 
                   </div>
 
-                  <div className="mt-4 lg:mt-6 h-[80px] lg:h-[90px] overflow-hidden">
+                  <div className="mt-4 h-[90px] overflow-hidden">
 
-                    <div className="transition-transform duration-300 group-hover:-translate-y-[80px] lg:group-hover:-translate-y-[90px]">
+                    <div className="transition-transform duration-300 group-hover:-translate-y-[90px]">
 
-                      <p className="h-[80px] lg:h-[90px] max-w-lg text-sm lg:text-base leading-7 lg:leading-8 text-neutral-600">
+                      <p className="h-[90px] max-w-lg text-base leading-8 text-neutral-600 font-light">
                         {step.enDescription}
                       </p>
 
-                      <p className="h-[80px] lg:h-[90px] max-w-lg text-sm lg:text-base leading-7 lg:leading-8 text-[#8a7356]">
+                      <p className="h-[90px] max-w-lg text-base leading-8 text-[#8a7356] font-light">
                         {step.zhDescription}
                       </p>
 
@@ -124,7 +122,7 @@ export default function Process() {
 
                   </div>
 
-                  <div className="mt-6 lg:mt-8 h-px w-20 bg-[#c8a06b]" />
+                  <div className="mt-6 h-px w-20 bg-[#c8a06b]" />
 
                 </div>
 

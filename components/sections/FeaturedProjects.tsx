@@ -29,7 +29,8 @@ const projects = [
 
 export default function FeaturedProjects() {
   return (
-    <Section id="portfolio" className="bg-white">
+    /* 關鍵：關閉一屏限制，讓內容舒服展開 */
+    <Section id="portfolio" className="bg-white" fullScreen={false}>
       <Container>
         <Reveal>
           <SectionTitle
@@ -38,7 +39,7 @@ export default function FeaturedProjects() {
           />
         </Reveal>
 
-        <div className="mt-8 lg:mt-12 grid gap-8 lg:grid-cols-3">
+        <div className="mt-12 lg:mt-16 grid gap-8 lg:gap-10 md:grid-cols-3">
           {projects.map((project, index) => (
             <Reveal
               key={project.title}
@@ -48,23 +49,23 @@ export default function FeaturedProjects() {
                 href={project.href}
                 className="group block"
               >
-                {/* 加入 max-h 防裁切，確保圖片與下方標題不擠出螢幕 */}
-                <div className="relative aspect-[4/5] max-h-[320px] xl:max-h-[380px] w-full overflow-hidden rounded-md bg-neutral-100">
+                {/* 圖片採用優雅的 4/3 比例，圖片與文字完美獨立 */}
+                <div className="relative aspect-[4/3] w-full overflow-hidden rounded-md bg-neutral-100 shadow-sm transition-all duration-500 group-hover:shadow-md">
                   <Image
                     src={project.image}
                     alt={project.title}
                     fill
                     sizes="(max-width:1024px)100vw,33vw"
-                    className="object-cover transition duration-700 group-hover:scale-105"
+                    className="object-cover transition duration-700 ease-out group-hover:scale-105"
                   />
                 </div>
 
-                <div className="mt-4 lg:mt-5">
-                  <p className="text-[11px] uppercase tracking-[0.3em] text-neutral-500">
+                <div className="mt-5">
+                  <p className="text-[11px] uppercase tracking-[0.25em] text-neutral-400 font-light">
                     {project.category}
                   </p>
 
-                  <h3 className="mt-1.5 lg:mt-2 text-[24px] lg:text-[28px] font-light tracking-tight text-[#181818] transition-colors duration-300 group-hover:text-[#b89a73]">
+                  <h3 className="mt-2 text-xl lg:text-2xl font-light tracking-tight text-[#181818] transition-colors duration-300 group-hover:text-[#b89a73]">
                     {project.title}
                   </h3>
                 </div>
