@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 
 import Container from "@/components/ui/Container";
-import LanguageReveal from "@/components/ui/LanguageReveal";
 
 const slides = [
   "/images/hero/hero-home.jpg",
@@ -17,6 +16,11 @@ const slides = [
 
 export default function Hero() {
   const [current, setCurrent] = useState(0);
+  const [showText, setShowText] = useState(false);
+
+  useEffect(() => {
+    setShowText(true);
+  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -29,72 +33,58 @@ export default function Hero() {
   return (
     <section className="relative overflow-hidden bg-[#f8f8f5] pt-36 lg:pt-44 2xl:pt-52 pb-24 lg:pb-32">
       <Container>
-
         <div className="grid items-center gap-16 xl:gap-24 2xl:gap-32 lg:grid-cols-12">
-
           {/* Left */}
           <div className="lg:col-span-5 2xl:pr-12">
-
             <p className="caption tracking-[0.30em] text-neutral-500">
               MM STUDIO ・ BOUTIQUE INTERIOR DESIGN
             </p>
 
             {/* Title */}
 
-            <div className="mt-10 max-w-[720px]">
-
-              <LanguageReveal
-                className="h-[220px]"
-                zh={
-                  <h1 className="text-[44px] md:text-[58px] xl:text-[72px] 2xl:text-[82px] font-extralight leading-[1.15] tracking-[0.06em] text-[#222222]">
-                    打造歷久彌新的空間
-                  </h1>
-                }
-                en={
-                  <h1 className="text-[44px] md:text-[58px] xl:text-[72px] 2xl:text-[82px] font-extralight leading-[1.02] tracking-[-0.04em] text-[#b6925d]">
-                    Designing
-                    <br />
-                    Timeless
-                    <br />
-                    Spaces.
-                  </h1>
-                }
-              />
-
+            <div
+              className={`mt-10 transition-all duration-1000 ${
+                showText
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-4"
+              }`}
+            >
+              <h1 className="text-[44px] md:text-[58px] xl:text-[72px] 2xl:text-[82px] font-extralight leading-[1.02] tracking-[-0.04em] text-[#b6925d]">
+                Designing
+                <br />
+                Timeless
+                <br />
+                Spaces.
+              </h1>
             </div>
 
             {/* Description */}
 
-            <div className="mt-10 max-w-[640px]">
-
-              <LanguageReveal
-                className="h-[140px]"
-                zh={
-                  <p className="text-[18px] leading-10 text-neutral-600">
-                    我們專注於住宅與商業空間設計，
-                    <br />
-                    透過光線、材質、比例與細節，
-                    <br />
-                    打造歷久彌新的空間體驗。
-                  </p>
-                }
-                en={
-                  <p className="text-[18px] leading-10 text-[#a98b63]">
-                    We specialize in residential and commercial interiors,
-                    <br />
-                    shaping timeless spaces through
-                    <br />
-                    light, materials, proportion and detail.
-                  </p>
-                }
-              />
-
+            <div
+              className={`mt-10 max-w-[640px] transition-all duration-1000 delay-300 ${
+                showText
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-4"
+              }`}
+            >
+              <p className="text-[18px] leading-10 text-[#a98b63]">
+                We specialize in residential and commercial interiors,
+                <br />
+                shaping timeless spaces through
+                <br />
+                light, materials, proportion and detail.
+              </p>
             </div>
 
             {/* Buttons */}
 
-            <div className="mt-14 flex flex-wrap gap-5">
-
+            <div
+              className={`mt-14 flex flex-wrap gap-5 transition-all duration-1000 delay-500 ${
+                showText
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-4"
+              }`}
+            >
               <Link
                 href="#portfolio"
                 className="group relative inline-flex h-14 w-[200px] items-center justify-center overflow-hidden rounded-full border border-[#c9b08a] bg-white transition-all duration-500 hover:bg-[#f5f3ee]"
@@ -114,17 +104,13 @@ export default function Hero() {
               >
                 聯絡我們 →
               </Link>
-
             </div>
-
           </div>
 
           {/* Right */}
 
           <div className="relative lg:col-span-7 2xl:pl-8">
-
             <div className="relative aspect-[5/6] overflow-hidden rounded-sm">
-
               {slides.map((src, index) => (
                 <Image
                   key={src}
@@ -133,19 +119,15 @@ export default function Hero() {
                   fill
                   priority={index === 0}
                   className={`object-cover transition-opacity duration-1000 ${
-                    current === index
-                      ? "opacity-100"
-                      : "opacity-0"
+                    current === index ? "opacity-100" : "opacity-0"
                   }`}
                 />
               ))}
-
             </div>
 
             {/* Dots */}
 
             <div className="mt-10 flex gap-4">
-
               {slides.map((_, index) => (
                 <button
                   key={index}
@@ -158,15 +140,10 @@ export default function Hero() {
                   }`}
                 />
               ))}
-
             </div>
-
           </div>
-
         </div>
-
       </Container>
-
     </section>
   );
 }
