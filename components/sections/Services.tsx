@@ -42,7 +42,7 @@ export default function Services() {
   return (
     <Section
       id="services"
-      className="bg-[#f8f8f5] py-28 lg:py-36"
+      className="bg-[#f8f8f5]"
     >
       <Container>
 
@@ -53,7 +53,7 @@ export default function Services() {
           />
         </Reveal>
 
-        <div className="mt-20 grid gap-12 lg:grid-cols-3">
+        <div className="mt-8 lg:mt-12 grid gap-8 lg:grid-cols-3">
 
           {services.map((service, index) => (
 
@@ -64,9 +64,9 @@ export default function Services() {
 
               <article className="group">
 
-                {/* Image */}
+                {/* Image (限制最大高度防止下方文字被擠出畫面) */}
 
-                <div className="relative aspect-[4/5] overflow-hidden rounded-sm">
+                <div className="relative aspect-[4/5] max-h-[280px] xl:max-h-[340px] w-full overflow-hidden rounded-sm">
 
                   <Image
                     src={service.image}
@@ -80,23 +80,23 @@ export default function Services() {
 
                 {/* Content */}
 
-                <div className="mt-8 border-t border-neutral-200 pt-6 transition-all duration-300 group-hover:border-[#b6925d]">
+                <div className="mt-5 border-t border-neutral-200 pt-4 transition-all duration-300 group-hover:border-[#b6925d]">
 
-                  <p className="text-[52px] font-extralight leading-none text-[#c8a06b]">
+                  <p className="text-[40px] lg:text-[46px] font-extralight leading-none text-[#c8a06b]">
                     {service.number}
                   </p>
 
                   {/* Title */}
 
-                  <div className="mt-5 h-10 overflow-hidden">
+                  <div className="mt-3 h-10 overflow-hidden">
 
                     <div className="transition-transform duration-300 ease-out group-hover:-translate-y-10">
 
-                      <h3 className="h-10 text-[30px] font-light leading-10 text-neutral-900">
+                      <h3 className="h-10 text-[24px] lg:text-[26px] font-light leading-10 text-neutral-900">
                         {service.en}
                       </h3>
 
-                      <h3 className="h-10 text-[28px] font-light leading-10 text-[#b6925d]">
+                      <h3 className="h-10 text-[22px] lg:text-[24px] font-light leading-10 text-[#b6925d]">
                         {service.zh}
                       </h3>
 
@@ -106,15 +106,15 @@ export default function Services() {
 
                   {/* Description */}
 
-                  <div className="mt-5 h-[96px] overflow-hidden">
+                  <div className="mt-3 h-[96px] overflow-hidden">
 
                     <div className="transition-transform duration-300 ease-out group-hover:-translate-y-[96px]">
 
-                      <p className="h-[96px] leading-8 text-neutral-600">
+                      <p className="h-[96px] text-sm lg:text-base leading-7 lg:leading-8 text-neutral-600">
                         {service.enDescription}
                       </p>
 
-                      <p className="h-[96px] leading-8 text-[#8a7356]">
+                      <p className="h-[96px] text-sm lg:text-base leading-7 lg:leading-8 text-[#8a7356]">
                         {service.zhDescription}
                       </p>
 

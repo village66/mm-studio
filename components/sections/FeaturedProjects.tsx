@@ -38,7 +38,7 @@ export default function FeaturedProjects() {
           />
         </Reveal>
 
-        <div className="mt-20 grid gap-10 lg:grid-cols-3">
+        <div className="mt-8 lg:mt-12 grid gap-8 lg:grid-cols-3">
           {projects.map((project, index) => (
             <Reveal
               key={project.title}
@@ -48,7 +48,8 @@ export default function FeaturedProjects() {
                 href={project.href}
                 className="group block"
               >
-                <div className="relative aspect-[4/5] overflow-hidden rounded-md bg-neutral-100">
+                {/* 加入 max-h 防裁切，確保圖片與下方標題不擠出螢幕 */}
+                <div className="relative aspect-[4/5] max-h-[320px] xl:max-h-[380px] w-full overflow-hidden rounded-md bg-neutral-100">
                   <Image
                     src={project.image}
                     alt={project.title}
@@ -58,12 +59,12 @@ export default function FeaturedProjects() {
                   />
                 </div>
 
-                <div className="mt-6">
+                <div className="mt-4 lg:mt-5">
                   <p className="text-[11px] uppercase tracking-[0.3em] text-neutral-500">
                     {project.category}
                   </p>
 
-                  <h3 className="mt-3 text-[30px] font-light tracking-tight text-[#181818] transition-colors duration-300 group-hover:text-[#b89a73]">
+                  <h3 className="mt-1.5 lg:mt-2 text-[24px] lg:text-[28px] font-light tracking-tight text-[#181818] transition-colors duration-300 group-hover:text-[#b89a73]">
                     {project.title}
                   </h3>
                 </div>
