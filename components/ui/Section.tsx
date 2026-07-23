@@ -17,12 +17,13 @@ export default function Section({
       className={`
         relative
         w-full
+        min-h-screen
+        flex
+        flex-col
+        justify-center
         scroll-mt-28
-        py-20
-        md:py-28
-        lg:py-36
-        xl:py-44
-        2xl:py-52
+        py-16
+        lg:py-24
         ${className}
       `}
     >

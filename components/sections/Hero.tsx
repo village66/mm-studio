@@ -31,7 +31,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative overflow-hidden bg-[#f8f8f5] pt-28 sm:pt-36 lg:pt-44 2xl:pt-52 pb-16 sm:pb-24 lg:pb-32">
+    <section className="relative min-h-screen w-full flex flex-col justify-center overflow-hidden bg-[#f8f8f5] pt-28 lg:pt-36 pb-16 lg:pb-24">
       <Container>
         <div className="grid items-center gap-12 lg:gap-16 xl:gap-24 2xl:gap-32 lg:grid-cols-12">
           {/* Left Column: Text Content */}
