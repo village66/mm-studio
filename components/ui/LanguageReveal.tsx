@@ -13,49 +13,39 @@ export default function LanguageReveal({
   en,
   className = "",
 }: Props) {
-  const [active, setActive] = useState(false);
+  const [showEnglish, setShowEnglish] = useState(false);
 
   return (
     <div
-      onMouseEnter={() => setActive(true)}
-      onMouseLeave={() => setActive(false)}
-      onClick={() => setActive((v) => !v)}
-      className={`group relative cursor-pointer select-none overflow-hidden ${className}`}
+      onMouseEnter={() => setShowEnglish(true)}
+      onMouseLeave={() => setShowEnglish(false)}
+      onClick={() => setShowEnglish((v) => !v)}
+      className={`group cursor-pointer select-none ${className}`}
     >
-      {/* 中文 */}
+      <div className="overflow-hidden">
 
-      <div
-        className={`
-          transition-all
-          duration-500
-          ease-[cubic-bezier(.22,.61,.36,1)]
-          ${
-            active
-              ? "-translate-y-full opacity-0"
-              : "translate-y-0 opacity-100"
-          }
-        `}
-      >
-        {zh}
-      </div>
+        <div
+          className="transition-transform duration-700 ease-[cubic-bezier(.22,1,.36,1)] will-change-transform"
+          style={{
+            transform: showEnglish
+              ? "translate3d(0,-50%,0)"
+              : "translate3d(0,0,0)",
+          }}
+        >
+          {/* Chinese */}
 
-      {/* English */}
+          <div className="flex min-h-full items-center">
+            {zh}
+          </div>
 
-      <div
-        className={`
-          absolute
-          inset-0
-          transition-all
-          duration-500
-          ease-[cubic-bezier(.22,.61,.36,1)]
-          ${
-            active
-              ? "translate-y-0 opacity-100"
-              : "translate-y-full opacity-0"
-          }
-        `}
-      >
-        {en}
+          {/* English */}
+
+          <div className="flex min-h-full items-center">
+            {en}
+          </div>
+
+        </div>
+
       </div>
     </div>
   );

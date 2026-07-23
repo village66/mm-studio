@@ -44,7 +44,7 @@ export default function Hero() {
             <div className="mt-10 max-w-[720px]">
 
               <LanguageReveal
-                className="min-h-[220px]"
+                className="h-[220px]"
                 zh={
                   <h1 className="text-[44px] md:text-[58px] xl:text-[72px] 2xl:text-[82px] font-extralight leading-[1.15] tracking-[0.06em] text-[#222222]">
                     打造歷久彌新的空間
@@ -68,7 +68,7 @@ export default function Hero() {
             <div className="mt-10 max-w-[640px]">
 
               <LanguageReveal
-                className="min-h-[140px]"
+                className="h-[140px]"
                 zh={
                   <p className="text-[18px] leading-10 text-neutral-600">
                     我們專注於住宅與商業空間設計，
