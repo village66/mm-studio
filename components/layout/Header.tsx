@@ -56,29 +56,31 @@ export default function Header() {
           >
             <Logo />
 
-            <div className="hidden lg:flex items-center gap-10">
+            <div className="flex items-center gap-3 lg:gap-10">
 
-              <DesktopNav />
+              <div className="hidden lg:flex items-center gap-10">
+                <DesktopNav />
+              </div>
 
               <button
                 type="button"
                 onClick={toggle}
-                aria-label="Background Music"
+                aria-label={playing ? "Mute background music" : "Play background music"}
                 className="
                   flex
+                  h-9
+                  w-9
                   items-center
-                  gap-3
-                  text-[11px]
-                  uppercase
-                  tracking-[0.32em]
+                  justify-center
+                  rounded-full
                   transition-all
                   duration-300
-                  hover:text-[#b6925d]
+                  hover:bg-black/5
                 "
               >
                 <svg
-                  width="18"
-                  height="18"
+                  width="16"
+                  height="16"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
@@ -105,17 +107,6 @@ export default function Header() {
                     </>
                   )}
                 </svg>
-
-                <span
-                  className={`transition-colors duration-300 ${
-                    playing
-                      ? "text-[#b6925d]"
-                      : "text-neutral-500"
-                  }`}
-                >
-                  {playing ? "Sound On" : "Sound Off"}
-                </span>
-
               </button>
 
             </div>

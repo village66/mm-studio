@@ -31,14 +31,19 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative w-full lg:h-screen lg:max-h-[1080px] lg:min-h-[680px] flex flex-col justify-center overflow-hidden bg-[#f8f8f5] pt-20 lg:pt-16 pb-10 lg:pb-0">
+    <section className="relative w-full lg:min-h-screen flex flex-col justify-center overflow-hidden bg-[#f8f8f5] pt-16 lg:pt-36 pb-10 lg:pb-16">
       <Container>
         <div className="grid items-center gap-8 lg:gap-12 xl:gap-16 lg:grid-cols-12">
           {/* Left Column: Text Content */}
           <div className="lg:col-span-5">
-            <p className="caption text-xs tracking-[0.3em] uppercase text-neutral-500 font-light">
-              MM STUDIO ・ BOUTIQUE INTERIOR DESIGN
-            </p>
+            <div className="group relative h-5 lg:h-6 cursor-default overflow-hidden">
+              <p className="absolute inset-0 flex items-center caption text-xs tracking-[0.3em] uppercase text-neutral-500 font-light transition-opacity duration-700 opacity-100 group-hover:opacity-0">
+                台中在地 ・ 精品室內設計工作室
+              </p>
+              <p className="absolute inset-0 flex items-center caption text-xs tracking-[0.3em] uppercase text-[#a38252] font-light transition-opacity duration-700 opacity-0 group-hover:opacity-100">
+                TAICHUNG, TAIWAN ・ BOUTIQUE INTERIOR DESIGN
+              </p>
+            </div>
 
             {/* Main Title */}
             <div
@@ -109,7 +114,7 @@ export default function Hero() {
                   alt="MM Studio Interior Architecture"
                   fill
                   priority={index === 0}
-                  sizes="(max-width: 1024px) 100vw, 55vw"
+                  sizes="(max-width: 1024px) 100vw, 756px"
                   className={`object-cover transition-all duration-1000 ease-out ${
                     current === index ? "opacity-100 scale-100" : "opacity-0 scale-105"
                   }`}
