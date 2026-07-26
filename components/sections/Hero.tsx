@@ -31,17 +31,22 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative w-full lg:min-h-screen flex flex-col justify-center overflow-hidden bg-[#f8f8f5] pt-16 lg:pt-36 pb-10 lg:pb-16">
+    <section className="relative w-full lg:min-h-screen flex flex-col justify-center overflow-hidden bg-[#f8f8f5] pt-[112px] pb-10 lg:pb-16">
       <Container>
         <div className="grid items-center gap-8 lg:gap-12 xl:gap-16 lg:grid-cols-12">
           {/* Left Column: Text Content */}
           <div className="lg:col-span-5">
+            {/* Eyebrow：中文為主要顯示，電腦版 hover 才切換為英文，中間用細直線分隔 */}
             <div className="group relative h-5 lg:h-6 cursor-default overflow-hidden">
-              <p className="absolute inset-0 flex items-center caption text-xs tracking-[0.3em] uppercase text-neutral-500 font-light transition-opacity duration-700 opacity-100 group-hover:opacity-0">
-                台中在地 ・ 精品室內設計工作室
+              <p className="absolute inset-0 flex items-center gap-3 caption text-xs tracking-[0.25em] lg:tracking-[0.3em] uppercase text-neutral-500 font-light transition-opacity duration-700 opacity-100 lg:group-hover:opacity-0">
+                <span>台中在地</span>
+                <span className="h-3 w-px bg-neutral-300" />
+                <span>精品室內設計工作室</span>
               </p>
-              <p className="absolute inset-0 flex items-center caption text-xs tracking-[0.3em] uppercase text-[#a38252] font-light transition-opacity duration-700 opacity-0 group-hover:opacity-100">
-                TAICHUNG, TAIWAN ・ BOUTIQUE INTERIOR DESIGN
+              <p className="absolute inset-0 hidden lg:flex items-center gap-3 caption text-xs tracking-[0.3em] uppercase text-[#a38252] font-light transition-opacity duration-700 opacity-0 group-hover:opacity-100">
+                <span>Taichung, Taiwan</span>
+                <span className="h-3 w-px bg-[#a38252]/40" />
+                <span>Boutique Interior Design</span>
               </p>
             </div>
 
@@ -53,10 +58,20 @@ export default function Hero() {
                   : "opacity-0 translate-y-4"
               }`}
             >
-              <h1 className="text-3xl sm:text-4xl lg:text-[48px] xl:text-[58px] 2xl:text-[68px] font-extralight leading-[1.08] tracking-tight text-[#2c2825]">
-                Designing
-                <span className="block">Timeless</span>
-                <span className="block text-[#a38252]">Spaces.</span>
+              <h1 className="group relative grid cursor-default text-2xl sm:text-3xl md:text-4xl lg:text-[48px] xl:text-[58px] 2xl:text-[68px] font-extralight leading-[1.25] lg:leading-[1.08] tracking-tight text-[#2c2825]">
+                {/* 中文：預設顯示 */}
+                <span className="col-start-1 row-start-1 transition-opacity duration-700 opacity-100 lg:group-hover:opacity-0">
+                  <span className="inline lg:block">打造 </span>
+                  <span className="inline lg:block">屬於你的 </span>
+                  <span className="inline lg:block text-[#a38252]">理想空間。</span>
+                </span>
+
+                {/* 英文：電腦版 hover 才顯示 */}
+                <span className="col-start-1 row-start-1 hidden lg:block transition-opacity duration-700 opacity-0 group-hover:opacity-100">
+                  Designing
+                  <span className="block">Timeless</span>
+                  <span className="block text-[#a38252]">Spaces.</span>
+                </span>
               </h1>
             </div>
 
@@ -68,8 +83,16 @@ export default function Hero() {
                   : "opacity-0 translate-y-4"
               }`}
             >
-              <p className="text-sm sm:text-base lg:text-[15px] xl:text-base leading-relaxed text-neutral-600 font-light">
-                We specialize in residential and commercial interiors, shaping timeless spaces through light, materials, proportion, and detail.
+              <p className="group relative grid cursor-default text-sm sm:text-base lg:text-[15px] xl:text-base leading-relaxed text-neutral-600 font-light">
+                {/* 中文：預設顯示 */}
+                <span className="col-start-1 row-start-1 transition-opacity duration-700 opacity-100 lg:group-hover:opacity-0">
+                  我們專注於住宅與商業空間設計，透過光線、材質、比例與細節，打造歷久彌新的空間體驗。
+                </span>
+
+                {/* 英文：電腦版 hover 才顯示 */}
+                <span className="col-start-1 row-start-1 hidden lg:block transition-opacity duration-700 opacity-0 group-hover:opacity-100">
+                  We specialize in residential and commercial interiors, shaping timeless spaces through light, materials, proportion, and detail.
+                </span>
               </p>
             </div>
 
