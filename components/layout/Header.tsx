@@ -62,14 +62,27 @@ export default function Header() {
                 <DesktopNav />
               </div>
 
+              {/*
+                手機版：fixed 定位，放在漢堡選單（top-8 right-6，寬 40px）左側，
+                留 22px 安全間距，避免重疊。
+                電腦版：改回正常排版方式，跟隨 Header 內容排列。
+              */}
               <button
                 type="button"
                 onClick={toggle}
                 aria-label={playing ? "Mute background music" : "Play background music"}
                 className="
+                  fixed
+                  top-[34px]
+                  right-[86px]
+                  z-[99999]
+                  lg:static
+                  lg:top-auto
+                  lg:right-auto
+                  lg:z-auto
                   flex
-                  h-9
-                  w-9
+                  h-8
+                  w-8
                   items-center
                   justify-center
                   rounded-full
@@ -79,8 +92,8 @@ export default function Header() {
                 "
               >
                 <svg
-                  width="16"
-                  height="16"
+                  width="15"
+                  height="15"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
