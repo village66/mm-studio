@@ -62,7 +62,7 @@ export default function Contact() {
                   <div className="absolute inset-0 flex items-center transition-opacity duration-700 opacity-0 group-hover:opacity-100">
 
                     <h2 className="text-[34px] sm:text-[40px] lg:text-[46px] font-extralight leading-[1.1] tracking-[-0.02em] text-[#222]">
-                      Let's Start
+                      Let&apos;s Start
                       <br />
                       Your Project
                     </h2>
@@ -101,12 +101,12 @@ export default function Contact() {
 
                     <div className="absolute inset-0 flex items-center justify-between text-sm transition-opacity duration-500 opacity-100 group-hover/item:opacity-0 text-neutral-600">
                       <span className="text-neutral-400">電子信箱</span>
-                      <span>info@mmstudio.com</span>
+                      <span>mm.interdesign@gmail.com</span>
                     </div>
 
                     <div className="absolute inset-0 flex items-center justify-between text-sm transition-opacity duration-500 opacity-0 group-hover/item:opacity-100 text-[#9d8462]">
                       <span className="text-[#9d8462]/70">Email</span>
-                      <span>info@mmstudio.com</span>
+                      <span>mm.interdesign@gmail.com</span>
                     </div>
 
                   </div>
@@ -115,12 +115,12 @@ export default function Contact() {
 
                     <div className="absolute inset-0 flex items-center justify-between text-sm transition-opacity duration-500 opacity-100 group-hover/item:opacity-0 text-neutral-600">
                       <span className="text-neutral-400">聯絡電話</span>
-                      <span>+886 2 1234 5678</span>
+                      <span>+886 912 379 200</span>
                     </div>
 
                     <div className="absolute inset-0 flex items-center justify-between text-sm transition-opacity duration-500 opacity-0 group-hover/item:opacity-100 text-[#9d8462]">
                       <span className="text-[#9d8462]/70">Phone</span>
-                      <span>+886 2 1234 5678</span>
+                      <span>+886 912 379 200</span>
                     </div>
 
                   </div>
@@ -128,13 +128,13 @@ export default function Contact() {
                   <div className="group/item relative h-7">
 
                     <div className="absolute inset-0 flex items-center justify-between text-sm transition-opacity duration-500 opacity-100 group-hover/item:opacity-0 text-neutral-600">
-                      <span className="text-neutral-400">公司地址</span>
-                      <span>Taipei, Taiwan</span>
+                      <span className="text-neutral-400">服務地區</span>
+                      <span>台中市及鄰近地區</span>
                     </div>
 
                     <div className="absolute inset-0 flex items-center justify-between text-sm transition-opacity duration-500 opacity-0 group-hover/item:opacity-100 text-[#9d8462]">
-                      <span className="text-[#9d8462]/70">Address</span>
-                      <span>Taipei, Taiwan</span>
+                      <span className="text-[#9d8462]/70">Service Area</span>
+                      <span>Taichung &amp; Nearby</span>
                     </div>
 
                   </div>
@@ -146,7 +146,7 @@ export default function Contact() {
               {/* Action Button */}
               <div className="mt-8 lg:mt-10">
                 <a
-                  href="#contact"
+                  href="mailto:mm.interdesign@gmail.com"
                   className="group relative inline-flex h-12 lg:h-14 w-[200px] lg:w-[220px] items-center justify-center overflow-hidden rounded-full border border-[#c9b08a] bg-white transition duration-500 hover:bg-[#f6f4ef] shadow-sm"
                 >
                   {/* 中文 */}
