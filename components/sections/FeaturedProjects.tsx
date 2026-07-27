@@ -28,17 +28,17 @@ type Project = {
 };
 
 /*
-  新增作品时，只需要在 projects 内新增一组资料。
+  新增作品時，只需要在 projects 內新增一組資料。
 
-  category 分类：
-  residential = 居住空间
-  commercial  = 商业空间
+  category 分類：
+  residential = 居住空間
+  commercial  = 商業空間
   renovation  = 老屋新生
 */
 const projects: Project[] = [
   {
     id: "private-residence",
-    titleZh: "静谧私宅",
+    titleZh: "靜謐私宅",
     titleEn: "Private Residence",
     category: "residential",
     image: "/images/projects/project01.jpg",
@@ -48,7 +48,7 @@ const projects: Project[] = [
   },
   {
     id: "modern-apartment",
-    titleZh: "现代寓所",
+    titleZh: "現代寓所",
     titleEn: "Modern Apartment",
     category: "residential",
     image: "/images/projects/project02.jpg",
@@ -58,7 +58,7 @@ const projects: Project[] = [
   },
   {
     id: "commercial-space",
-    titleZh: "品牌商业空间",
+    titleZh: "品牌商業空間",
     titleEn: "Commercial Space",
     category: "commercial",
     image: "/images/projects/project03.jpg",
@@ -80,12 +80,12 @@ const filters: {
   },
   {
     value: "residential",
-    zh: "居住空间",
+    zh: "居住空間",
     en: "Residential",
   },
   {
     value: "commercial",
-    zh: "商业空间",
+    zh: "商業空間",
     en: "Commercial",
   },
   {
@@ -103,11 +103,11 @@ const categoryLabels: Record<
   }
 > = {
   residential: {
-    zh: "居住空间",
+    zh: "居住空間",
     en: "Residential",
   },
   commercial: {
-    zh: "商业空间",
+    zh: "商業空間",
     en: "Commercial",
   },
   renovation: {
@@ -163,7 +163,7 @@ export default function FeaturedProjects() {
       "
     >
       <Container>
-        {/* Heading */}
+        {/* 標題區 */}
         <Reveal>
           <div
             className="
@@ -195,24 +195,24 @@ export default function FeaturedProjects() {
                   xl:text-[50px]
                 "
               >
-                精选作品
+                精選作品
               </h2>
             </div>
 
             <div className="lg:col-span-5 lg:flex lg:justify-end">
               <p className="max-w-[470px] text-[14px] font-light leading-7 text-[#68645f] sm:text-[15px]">
-                汇集居住空间、商业空间与老屋新生案例，
-                从格局、材质与生活需求，看见每个空间不同的设计回应。
+                彙集居住空間、商業空間與老屋新生案例，
+                從格局、材質與生活需求，看見每個空間不同的設計回應。
               </p>
             </div>
           </div>
         </Reveal>
 
-        {/* Category navigation */}
+        {/* 作品分類 */}
         <Reveal delay={0.05}>
           <div className="border-b border-[#e2ded6]">
             <nav
-              aria-label="作品分类"
+              aria-label="作品分類"
               className="
                 -mx-6
                 flex
@@ -337,7 +337,7 @@ export default function FeaturedProjects() {
           </div>
         </Reveal>
 
-        {/* Project index */}
+        {/* 作品列表 */}
         {visibleProjects.length > 0 ? (
           <div
             key={activeFilter}
@@ -368,14 +368,10 @@ export default function FeaturedProjects() {
                   >
                     <Link
                       href={project.href}
-                      className="
-                        group
-                        block
-                        outline-none
-                      "
+                      className="group block outline-none"
                     >
                       <article>
-                        {/* Image */}
+                        {/* 作品圖片 */}
                         <div
                           className="
                             relative
@@ -420,7 +416,7 @@ export default function FeaturedProjects() {
                             "
                           />
 
-                          {/* Category label */}
+                          {/* 圖片分類標示 */}
                           <div
                             className="
                               absolute
@@ -443,7 +439,7 @@ export default function FeaturedProjects() {
                             </p>
                           </div>
 
-                          {/* View indicator */}
+                          {/* 查看作品提示 */}
                           <div
                             className="
                               absolute
@@ -492,7 +488,7 @@ export default function FeaturedProjects() {
                           </div>
                         </div>
 
-                        {/* Information */}
+                        {/* 作品資訊 */}
                         <div
                           className="
                             border-b
@@ -557,7 +553,7 @@ export default function FeaturedProjects() {
             )}
           </div>
         ) : (
-          /* Category without projects */
+          /* 分類尚無作品 */
           <Reveal>
             <div className="mt-10 border-b border-[#dcd8cf] py-20 text-center sm:mt-12 lg:py-24">
               <p className="text-[9px] font-medium uppercase tracking-[0.32em] text-[#9a7d56]">
@@ -569,8 +565,8 @@ export default function FeaturedProjects() {
               </h3>
 
               <p className="mx-auto mt-4 max-w-[430px] text-[14px] font-light leading-7 text-neutral-500">
-                此分类的完整作品内容正在整理，
-                敬请期待 MM Studio 最新空间案例。
+                此分類的完整作品內容正在整理，
+                敬請期待 MM Studio 最新空間案例。
               </p>
             </div>
           </Reveal>
