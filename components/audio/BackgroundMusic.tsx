@@ -32,7 +32,9 @@ export default function BackgroundMusic({
 }) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const fadeRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
   const userMutedRef = useRef(false);
+  const playRequestRef = useRef(false);
 
   const [playing, setPlaying] = useState(true);
 
@@ -43,36 +45,64 @@ export default function BackgroundMusic({
     }
   }, []);
 
+  const fadeIn = useCallback(() => {
+    const audio = audioRef.current;
+
+    if (!audio) return;
+
+    clearFade();
+
+    if (audio.volume >= TARGET_VOLUME) {
+      audio.volume = TARGET_VOLUME;
+      return;
+    }
+
+    fadeRef.current = setInterval(() => {
+      if (audio.volume < TARGET_VOLUME) {
+        audio.volume = Math.min(
+          audio.volume + 0.02,
+          TARGET_VOLUME
+        );
+        return;
+      }
+
+      clearFade();
+    }, 60);
+  }, [clearFade]);
+
   const playAudio = useCallback(async () => {
     const audio = audioRef.current;
 
-    if (!audio || userMutedRef.current) return;
+    if (
+      !audio ||
+      userMutedRef.current ||
+      playRequestRef.current
+    ) {
+      return;
+    }
 
+    playRequestRef.current = true;
     clearFade();
 
     audio.loop = true;
     audio.preload = "auto";
 
-    if (audio.volume <= 0) {
-      audio.volume = 0;
-    }
-
     try {
       await audio.play();
+
+      userMutedRef.current = false;
       setPlaying(true);
 
-      fadeRef.current = setInterval(() => {
-        if (audio.volume < TARGET_VOLUME) {
-          audio.volume = Math.min(audio.volume + 0.02, TARGET_VOLUME);
-          return;
-        }
-
-        clearFade();
-      }, 60);
+      fadeIn();
     } catch {
-      setPlaying(true);
+      /*
+        瀏覽器阻擋自動播放時，維持預設開啟圖示。
+        等待第一次使用者互動後，由 unlock 再次播放。
+      */
+    } finally {
+      playRequestRef.current = false;
     }
-  }, [clearFade]);
+  }, [clearFade, fadeIn]);
 
   const stopAudio = useCallback(() => {
     const audio = audioRef.current;
@@ -96,7 +126,14 @@ export default function BackgroundMusic({
   }, [clearFade]);
 
   const unlock = useCallback(async () => {
-    if (userMutedRef.current) return;
+    const audio = audioRef.current;
+
+    if (!audio || userMutedRef.current) return;
+
+    if (!audio.paused) {
+      setPlaying(true);
+      return;
+    }
 
     await playAudio();
   }, [playAudio]);
@@ -112,6 +149,7 @@ export default function BackgroundMusic({
     audio.preload = "auto";
     audio.volume = TARGET_VOLUME;
 
+    setPlaying(true);
     void playAudio();
 
     return () => {
@@ -125,17 +163,22 @@ export default function BackgroundMusic({
 
     if (!audio) return;
 
-    if (playing) {
-      userMutedRef.current = true;
-      setPlaying(false);
-      stopAudio();
+    /*
+      瀏覽器阻擋自動播放時：
+      圖示雖然顯示開啟，但 audio 實際仍是 paused。
+      此時第一次按音樂按鈕應直接播放，而不是關閉。
+    */
+    if (audio.paused) {
+      userMutedRef.current = false;
+      setPlaying(true);
+      void playAudio();
       return;
     }
 
-    userMutedRef.current = false;
-    setPlaying(true);
-    void playAudio();
-  }, [playAudio, playing, stopAudio]);
+    userMutedRef.current = true;
+    setPlaying(false);
+    stopAudio();
+  }, [playAudio, stopAudio]);
 
   return (
     <MusicContext.Provider
