@@ -13,6 +13,8 @@ type ProjectCategory =
   | "commercial"
   | "renovation";
 
+type FilterValue = "all" | ProjectCategory;
+
 type Project = {
   id: string;
   titleZh: string;
@@ -25,20 +27,18 @@ type Project = {
   area?: string;
 };
 
-type FilterValue = "all" | ProjectCategory;
-
 /*
-  新增作品時，只需複製其中一組資料並修改內容。
+  新增作品时，只需要在 projects 内新增一组资料。
 
-  category 可使用：
-  residential = 居住空間
-  commercial  = 商業空間
+  category 分类：
+  residential = 居住空间
+  commercial  = 商业空间
   renovation  = 老屋新生
 */
 const projects: Project[] = [
   {
     id: "private-residence",
-    titleZh: "靜謐私宅",
+    titleZh: "静谧私宅",
     titleEn: "Private Residence",
     category: "residential",
     image: "/images/projects/project01.jpg",
@@ -48,7 +48,7 @@ const projects: Project[] = [
   },
   {
     id: "modern-apartment",
-    titleZh: "現代寓所",
+    titleZh: "现代寓所",
     titleEn: "Modern Apartment",
     category: "residential",
     image: "/images/projects/project02.jpg",
@@ -58,7 +58,7 @@ const projects: Project[] = [
   },
   {
     id: "commercial-space",
-    titleZh: "品牌商業空間",
+    titleZh: "品牌商业空间",
     titleEn: "Commercial Space",
     category: "commercial",
     image: "/images/projects/project03.jpg",
@@ -68,7 +68,7 @@ const projects: Project[] = [
   },
 ];
 
-const categories: {
+const filters: {
   value: FilterValue;
   zh: string;
   en: string;
@@ -76,16 +76,16 @@ const categories: {
   {
     value: "all",
     zh: "全部作品",
-    en: "All Projects",
+    en: "All",
   },
   {
     value: "residential",
-    zh: "居住空間",
+    zh: "居住空间",
     en: "Residential",
   },
   {
     value: "commercial",
-    zh: "商業空間",
+    zh: "商业空间",
     en: "Commercial",
   },
   {
@@ -95,7 +95,7 @@ const categories: {
   },
 ];
 
-const categoryNames: Record<
+const categoryLabels: Record<
   ProjectCategory,
   {
     zh: string;
@@ -103,11 +103,11 @@ const categoryNames: Record<
   }
 > = {
   residential: {
-    zh: "居住空間",
+    zh: "居住空间",
     en: "Residential",
   },
   commercial: {
-    zh: "商業空間",
+    zh: "商业空间",
     en: "Commercial",
   },
   renovation: {
@@ -125,21 +125,18 @@ function getProjectMeta(project: Project) {
 }
 
 export default function FeaturedProjects() {
-  const [activeCategory, setActiveCategory] =
+  const [activeFilter, setActiveFilter] =
     useState<FilterValue>("all");
 
-  const filteredProjects =
-    activeCategory === "all"
+  const visibleProjects =
+    activeFilter === "all"
       ? projects
       : projects.filter(
           (project) =>
-            project.category === activeCategory
+            project.category === activeFilter
         );
 
-  const featuredProject = filteredProjects[0];
-  const remainingProjects = filteredProjects.slice(1);
-
-  const getCategoryCount = (
+  const getProjectCount = (
     category: FilterValue
   ) => {
     if (category === "all") {
@@ -161,147 +158,175 @@ export default function FeaturedProjects() {
         bg-[#f8f8f5]
         !py-16
         sm:!py-20
-        lg:!py-24
-        xl:!py-28
+        lg:!py-20
+        xl:!py-24
       "
     >
       <Container>
         {/* Heading */}
         <Reveal>
-          <div className="grid gap-8 border-b border-[#dcd8cf] pb-9 lg:grid-cols-12 lg:items-end lg:pb-12">
-            <div className="lg:col-span-8">
+          <div
+            className="
+              grid
+              gap-7
+              border-b
+              border-[#dcd8cf]
+              pb-8
+              lg:grid-cols-12
+              lg:items-end
+              lg:pb-10
+            "
+          >
+            <div className="lg:col-span-7">
               <p className="text-[10px] font-medium uppercase tracking-[0.4em] text-[#9a7d56] sm:text-[11px]">
                 Selected Works
               </p>
 
               <h2
                 className="
-                  mt-4
-                  text-[36px]
+                  mt-3
+                  text-[34px]
                   font-extralight
                   leading-[1.2]
                   tracking-[-0.04em]
                   text-[#292929]
-                  sm:text-[44px]
-                  lg:text-[52px]
-                  xl:text-[58px]
+                  sm:text-[40px]
+                  lg:text-[46px]
+                  xl:text-[50px]
                 "
               >
-                精選作品
+                精选作品
               </h2>
             </div>
 
-            <div className="lg:col-span-4 lg:flex lg:justify-end">
-              <p className="max-w-[430px] text-[14px] font-light leading-7 text-[#68645f] sm:text-[15px] sm:leading-8">
-                從生活需求、空間條件到材質細節，
-                每個作品都回應不同的居住與使用方式。
+            <div className="lg:col-span-5 lg:flex lg:justify-end">
+              <p className="max-w-[470px] text-[14px] font-light leading-7 text-[#68645f] sm:text-[15px]">
+                汇集居住空间、商业空间与老屋新生案例，
+                从格局、材质与生活需求，看见每个空间不同的设计回应。
               </p>
             </div>
           </div>
         </Reveal>
 
-        {/* Categories */}
-        <Reveal delay={0.06}>
-          <div className="relative">
+        {/* Category navigation */}
+        <Reveal delay={0.05}>
+          <div className="border-b border-[#e2ded6]">
             <nav
-              aria-label="作品分類"
+              aria-label="作品分类"
               className="
                 -mx-6
                 flex
-                gap-8
                 overflow-x-auto
                 px-6
-                py-6
                 [scrollbar-width:none]
                 sm:-mx-8
                 sm:px-8
                 lg:mx-0
-                lg:gap-12
                 lg:px-0
-                lg:py-8
                 [&::-webkit-scrollbar]:hidden
               "
             >
-              {categories.map((category) => {
+              {filters.map((filter) => {
                 const active =
-                  activeCategory === category.value;
+                  filter.value === activeFilter;
 
-                const count = getCategoryCount(
-                  category.value
+                const count = getProjectCount(
+                  filter.value
                 );
 
                 return (
                   <button
-                    key={category.value}
+                    key={filter.value}
                     type="button"
                     aria-pressed={active}
                     onClick={() =>
-                      setActiveCategory(category.value)
+                      setActiveFilter(filter.value)
                     }
                     className="
                       group/filter
                       relative
+                      flex
                       shrink-0
-                      pb-4
+                      items-center
+                      gap-3
+                      px-5
+                      py-5
                       text-left
                       outline-none
+                      first:pl-0
+                      sm:px-7
+                      lg:px-8
+                      lg:py-6
+                      lg:first:pl-0
                     "
                   >
-                    <div className="flex items-start gap-2">
-                      <span
-                        className={`
-                          whitespace-nowrap
-                          text-[15px]
-                          font-light
-                          tracking-[0.02em]
-                          transition-colors
-                          duration-300
-                          sm:text-[16px]
-                          ${
-                            active
-                              ? "text-[#292929]"
-                              : "text-neutral-500 group-hover/filter:text-[#292929]"
-                          }
-                        `}
-                      >
-                        {category.zh}
-                      </span>
+                    <span
+                      className={`
+                        whitespace-nowrap
+                        text-[14px]
+                        font-light
+                        tracking-[0.02em]
+                        transition-colors
+                        duration-300
+                        sm:text-[15px]
+                        ${
+                          active
+                            ? "text-[#292929]"
+                            : "text-neutral-500 group-hover/filter:text-[#292929]"
+                        }
+                      `}
+                    >
+                      {filter.zh}
+                    </span>
 
-                      <span
-                        className={`
-                          pt-[1px]
-                          text-[9px]
-                          tracking-[0.12em]
-                          transition-colors
-                          duration-300
-                          ${
-                            active
-                              ? "text-[#a4865d]"
-                              : "text-neutral-400"
-                          }
-                        `}
-                      >
-                        {String(count).padStart(2, "0")}
-                      </span>
-                    </div>
+                    <span
+                      className={`
+                        whitespace-nowrap
+                        text-[9px]
+                        uppercase
+                        tracking-[0.18em]
+                        transition-colors
+                        duration-300
+                        ${
+                          active
+                            ? "text-[#a4865d]"
+                            : "text-neutral-400"
+                        }
+                      `}
+                    >
+                      {filter.en}
+                    </span>
 
-                    <p className="mt-1 text-[9px] uppercase tracking-[0.22em] text-neutral-400">
-                      {category.en}
-                    </p>
+                    <span
+                      className={`
+                        text-[9px]
+                        font-light
+                        tracking-[0.08em]
+                        ${
+                          active
+                            ? "text-[#a4865d]"
+                            : "text-neutral-400"
+                        }
+                      `}
+                    >
+                      {String(count).padStart(2, "0")}
+                    </span>
 
                     <span
                       className={`
                         absolute
+                        inset-x-5
                         bottom-0
-                        left-0
                         h-px
+                        origin-left
                         bg-[#a4865d]
-                        transition-all
+                        transition-transform
                         duration-500
+                        first:left-0
                         ${
                           active
-                            ? "w-full"
-                            : "w-0 group-hover/filter:w-full"
+                            ? "scale-x-100"
+                            : "scale-x-0 group-hover/filter:scale-x-100"
                         }
                       `}
                     />
@@ -312,291 +337,244 @@ export default function FeaturedProjects() {
           </div>
         </Reveal>
 
-        {/* Projects */}
-        <div
-          key={activeCategory}
-          className="mt-2 lg:mt-4"
-        >
-          {featuredProject ? (
-            <>
-              {/* Featured project */}
-              <Reveal>
-                <Link
-                  href={featuredProject.href}
-                  className="group block"
-                >
-                  <article>
-                    <div
+        {/* Project index */}
+        {visibleProjects.length > 0 ? (
+          <div
+            key={activeFilter}
+            className="
+              mt-10
+              grid
+              grid-cols-1
+              gap-x-6
+              gap-y-12
+              sm:mt-12
+              md:grid-cols-2
+              lg:grid-cols-3
+              lg:gap-x-7
+              lg:gap-y-14
+              2xl:grid-cols-4
+              2xl:gap-x-6
+            "
+          >
+            {visibleProjects.map(
+              (project, index) => {
+                const meta =
+                  getProjectMeta(project);
+
+                return (
+                  <Reveal
+                    key={project.id}
+                    delay={index * 0.05}
+                  >
+                    <Link
+                      href={project.href}
                       className="
-                        relative
-                        aspect-[4/3]
-                        w-full
-                        overflow-hidden
-                        bg-[#e8e5de]
-                        sm:aspect-[16/10]
-                        lg:aspect-[16/8]
+                        group
+                        block
+                        outline-none
                       "
                     >
-                      <Image
-                        src={featuredProject.image}
-                        alt={`${featuredProject.titleZh}｜${featuredProject.titleEn}`}
-                        fill
-                        priority={activeCategory === "all"}
-                        sizes="(max-width: 1024px) 100vw, 90vw"
-                        className="
-                          object-cover
-                          transition-transform
-                          duration-[1000ms]
-                          ease-out
-                          group-hover:scale-[1.025]
-                        "
-                      />
+                      <article>
+                        {/* Image */}
+                        <div
+                          className="
+                            relative
+                            aspect-[4/3]
+                            overflow-hidden
+                            bg-[#e8e5de]
+                          "
+                        >
+                          <Image
+                            src={project.image}
+                            alt={`${project.titleZh}｜${project.titleEn}`}
+                            fill
+                            sizes="
+                              (max-width: 768px) 100vw,
+                              (max-width: 1024px) 50vw,
+                              (max-width: 1536px) 33vw,
+                              25vw
+                            "
+                            className="
+                              object-cover
+                              transition-transform
+                              duration-[900ms]
+                              ease-out
+                              group-hover:scale-[1.035]
+                              group-focus-visible:scale-[1.035]
+                            "
+                          />
 
-                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-black/[0.03] to-transparent" />
+                          <div
+                            className="
+                              pointer-events-none
+                              absolute
+                              inset-0
+                              bg-gradient-to-t
+                              from-black/25
+                              via-transparent
+                              to-transparent
+                              opacity-30
+                              transition-opacity
+                              duration-500
+                              group-hover:opacity-100
+                            "
+                          />
 
-                      <div
-                        className="
-                          absolute
-                          inset-x-0
-                          bottom-0
-                          flex
-                          items-end
-                          justify-between
-                          gap-6
-                          p-6
-                          sm:p-8
-                          lg:p-10
-                          xl:p-12
-                        "
-                      >
-                        <div>
-                          <div className="flex items-center gap-4">
-                            <p className="text-[9px] font-medium uppercase tracking-[0.3em] text-white/75 sm:text-[10px]">
+                          {/* Category label */}
+                          <div
+                            className="
+                              absolute
+                              left-4
+                              top-4
+                              bg-[#f8f8f5]/90
+                              px-3
+                              py-2
+                              backdrop-blur-md
+                              sm:left-5
+                              sm:top-5
+                            "
+                          >
+                            <p className="text-[9px] font-medium uppercase tracking-[0.22em] text-[#796446]">
                               {
-                                categoryNames[
-                                  featuredProject.category
+                                categoryLabels[
+                                  project.category
                                 ].en
                               }
                             </p>
-
-                            <span className="h-px w-10 bg-white/50 sm:w-14" />
                           </div>
 
-                          <h3 className="mt-3 text-[27px] font-extralight tracking-[-0.025em] text-white sm:text-[34px] lg:text-[42px]">
-                            {featuredProject.titleZh}
-                          </h3>
-
-                          <p className="mt-2 text-[11px] font-light uppercase tracking-[0.2em] text-white/70 sm:text-[12px]">
-                            {featuredProject.titleEn}
-                          </p>
-                        </div>
-
-                        <span
-                          className="
-                            hidden
-                            items-center
-                            gap-4
-                            text-[10px]
-                            uppercase
-                            tracking-[0.26em]
-                            text-white/80
-                            sm:flex
-                          "
-                        >
-                          View Project
-
-                          <span
+                          {/* View indicator */}
+                          <div
                             className="
-                              inline-block
-                              transition-transform
+                              absolute
+                              bottom-4
+                              right-4
+                              flex
+                              translate-y-2
+                              items-center
+                              gap-3
+                              opacity-0
+                              transition-all
                               duration-500
-                              group-hover:translate-x-2
+                              group-hover:translate-y-0
+                              group-hover:opacity-100
+                              group-focus-visible:translate-y-0
+                              group-focus-visible:opacity-100
+                              sm:bottom-5
+                              sm:right-5
                             "
                           >
-                            →
-                          </span>
-                        </span>
-                      </div>
-                    </div>
+                            <span className="hidden text-[9px] uppercase tracking-[0.22em] text-white sm:block">
+                              View Project
+                            </span>
 
-                    <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[#dcd8cf] py-5">
-                      <div className="flex items-center gap-3">
-                        <p className="text-[13px] font-light text-[#45433f]">
-                          {
-                            categoryNames[
-                              featuredProject.category
-                            ].zh
-                          }
-                        </p>
+                            <span
+                              className="
+                                flex
+                                h-9
+                                w-9
+                                items-center
+                                justify-center
+                                rounded-full
+                                border
+                                border-white/60
+                                bg-black/10
+                                text-[15px]
+                                text-white
+                                backdrop-blur-md
+                                transition-transform
+                                duration-500
+                                group-hover:translate-x-1
+                              "
+                            >
+                              →
+                            </span>
+                          </div>
+                        </div>
 
-                        <span className="h-3 w-px bg-[#d2ccc2]" />
-
-                        <p className="text-[10px] uppercase tracking-[0.2em] text-neutral-400">
-                          Featured Project
-                        </p>
-                      </div>
-
-                      {getProjectMeta(
-                        featuredProject
-                      ).length > 0 && (
-                        <p className="text-[11px] font-light tracking-[0.08em] text-neutral-500 sm:text-[12px]">
-                          {getProjectMeta(
-                            featuredProject
-                          ).join(" · ")}
-                        </p>
-                      )}
-                    </div>
-                  </article>
-                </Link>
-              </Reveal>
-
-              {/* Remaining projects */}
-              {remainingProjects.length > 0 && (
-                <div className="mt-14 grid gap-x-8 gap-y-14 md:grid-cols-2 lg:mt-20 lg:gap-x-10 lg:gap-y-20">
-                  {remainingProjects.map(
-                    (project, index) => (
-                      <Reveal
-                        key={project.id}
-                        delay={index * 0.06}
-                      >
-                        <Link
-                          href={project.href}
-                          className="group block"
+                        {/* Information */}
+                        <div
+                          className="
+                            border-b
+                            border-[#dcd8cf]
+                            pb-5
+                            pt-4
+                            transition-colors
+                            duration-500
+                            group-hover:border-[#a4865d]
+                          "
                         >
-                          <article>
-                            <div className="relative aspect-[4/3] overflow-hidden bg-[#e8e5de]">
-                              <Image
-                                src={project.image}
-                                alt={`${project.titleZh}｜${project.titleEn}`}
-                                fill
-                                sizes="(max-width: 768px) 100vw, 50vw"
-                                className="
-                                  object-cover
-                                  transition-transform
-                                  duration-[900ms]
-                                  ease-out
-                                  group-hover:scale-[1.035]
-                                "
-                              />
+                          <div className="flex items-start justify-between gap-5">
+                            <div>
+                              <p className="text-[10px] font-light tracking-[0.16em] text-[#9a7d56]">
+                                {
+                                  categoryLabels[
+                                    project.category
+                                  ].zh
+                                }
+                              </p>
 
-                              <div
+                              <h3
                                 className="
-                                  pointer-events-none
-                                  absolute
-                                  inset-0
-                                  bg-black/0
+                                  mt-2
+                                  text-[21px]
+                                  font-light
+                                  leading-[1.3]
+                                  tracking-[-0.025em]
+                                  text-[#292929]
                                   transition-colors
-                                  duration-500
-                                  group-hover:bg-black/[0.08]
-                                "
-                              />
-
-                              <div
-                                className="
-                                  absolute
-                                  bottom-5
-                                  right-5
-                                  flex
-                                  h-11
-                                  w-11
-                                  translate-y-2
-                                  items-center
-                                  justify-center
-                                  rounded-full
-                                  border
-                                  border-white/50
-                                  bg-black/10
-                                  text-lg
-                                  text-white
-                                  opacity-0
-                                  backdrop-blur-md
-                                  transition-all
-                                  duration-500
-                                  group-hover:translate-y-0
-                                  group-hover:opacity-100
+                                  duration-300
+                                  group-hover:text-[#9a7b54]
+                                  xl:text-[23px]
                                 "
                               >
-                                →
-                              </div>
+                                {project.titleZh}
+                              </h3>
+
+                              <p className="mt-1.5 text-[10px] font-light uppercase tracking-[0.18em] text-neutral-400">
+                                {project.titleEn}
+                              </p>
                             </div>
 
-                            <div className="border-b border-[#dcd8cf] py-5">
-                              <div className="flex items-start justify-between gap-5">
-                                <div>
-                                  <p className="text-[9px] font-medium uppercase tracking-[0.28em] text-[#9a7d56]">
-                                    {
-                                      categoryNames[
-                                        project.category
-                                      ].en
-                                    }
-                                  </p>
+                            <p className="pt-1 text-[10px] font-light tracking-[0.08em] text-neutral-400">
+                              {String(
+                                index + 1
+                              ).padStart(2, "0")}
+                            </p>
+                          </div>
 
-                                  <h3
-                                    className="
-                                      mt-2
-                                      text-[23px]
-                                      font-light
-                                      tracking-[-0.025em]
-                                      text-[#292929]
-                                      transition-colors
-                                      duration-300
-                                      group-hover:text-[#9a7b54]
-                                      sm:text-[26px]
-                                    "
-                                  >
-                                    {project.titleZh}
-                                  </h3>
+                          {meta.length > 0 && (
+                            <p className="mt-4 text-[11px] font-light tracking-[0.06em] text-neutral-500">
+                              {meta.join(" · ")}
+                            </p>
+                          )}
+                        </div>
+                      </article>
+                    </Link>
+                  </Reveal>
+                );
+              }
+            )}
+          </div>
+        ) : (
+          /* Category without projects */
+          <Reveal>
+            <div className="mt-10 border-b border-[#dcd8cf] py-20 text-center sm:mt-12 lg:py-24">
+              <p className="text-[9px] font-medium uppercase tracking-[0.32em] text-[#9a7d56]">
+                Coming Soon
+              </p>
 
-                                  <p className="mt-1 text-[11px] font-light uppercase tracking-[0.16em] text-neutral-400">
-                                    {project.titleEn}
-                                  </p>
-                                </div>
+              <h3 className="mt-4 text-[25px] font-extralight tracking-[-0.025em] text-[#292929] sm:text-[30px]">
+                作品整理中
+              </h3>
 
-                                <p className="pt-1 text-[12px] font-light text-neutral-500">
-                                  {String(index + 2).padStart(
-                                    2,
-                                    "0"
-                                  )}
-                                </p>
-                              </div>
-
-                              {getProjectMeta(project).length >
-                                0 && (
-                                <p className="mt-4 text-[11px] font-light tracking-[0.08em] text-neutral-500 sm:text-[12px]">
-                                  {getProjectMeta(
-                                    project
-                                  ).join(" · ")}
-                                </p>
-                              )}
-                            </div>
-                          </article>
-                        </Link>
-                      </Reveal>
-                    )
-                  )}
-                </div>
-              )}
-            </>
-          ) : (
-            /* Empty category */
-            <Reveal>
-              <div className="border-y border-[#dcd8cf] py-24 text-center sm:py-28 lg:py-32">
-                <p className="text-[10px] font-medium uppercase tracking-[0.35em] text-[#9a7d56]">
-                  Coming Soon
-                </p>
-
-                <h3 className="mt-5 text-[27px] font-extralight tracking-[-0.025em] text-[#292929] sm:text-[34px]">
-                  作品整理中
-                </h3>
-
-                <p className="mx-auto mt-4 max-w-[460px] text-[14px] font-light leading-7 text-neutral-500 sm:text-[15px]">
-                  此分類的完整作品內容正在整理，
-                  敬請期待 MM Studio 最新空間案例。
-                </p>
-              </div>
-            </Reveal>
-          )}
-        </div>
+              <p className="mx-auto mt-4 max-w-[430px] text-[14px] font-light leading-7 text-neutral-500">
+                此分类的完整作品内容正在整理，
+                敬请期待 MM Studio 最新空间案例。
+              </p>
+            </div>
+          </Reveal>
+        )}
       </Container>
     </Section>
   );
