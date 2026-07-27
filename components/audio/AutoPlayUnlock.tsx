@@ -8,33 +8,60 @@ export default function AutoPlayUnlock() {
   const { unlock } = useMusic();
 
   useEffect(() => {
-    let unlocked = false;
-
-    const handleUnlock = async () => {
-      if (unlocked) return;
-
-      unlocked = true;
-
-      removeListeners();
-
-      await unlock();
-    };
+    let completed = false;
 
     const removeListeners = () => {
-      window.removeEventListener("pointerdown", handleUnlock);
-      window.removeEventListener("touchstart", handleUnlock);
-      window.removeEventListener("keydown", handleUnlock);
+      window.removeEventListener(
+        "pointerdown",
+        handleUnlock
+      );
+
+      window.removeEventListener(
+        "touchstart",
+        handleUnlock
+      );
+
+      window.removeEventListener(
+        "keydown",
+        handleUnlock
+      );
     };
 
-    window.addEventListener("pointerdown", handleUnlock, {
-      passive: true,
-    });
+    const handleUnlock = async () => {
+      if (completed) return;
 
-    window.addEventListener("touchstart", handleUnlock, {
-      passive: true,
-    });
+      const success = await unlock();
 
-    window.addEventListener("keydown", handleUnlock);
+      /*
+        只有真正播放成功後才移除監聽器。
+        若第一次互動仍被瀏覽器阻擋，下一次互動會再嘗試。
+      */
+      if (success) {
+        completed = true;
+        removeListeners();
+      }
+    };
+
+    window.addEventListener(
+      "pointerdown",
+      handleUnlock,
+      {
+        passive: true,
+      }
+    );
+
+    window.addEventListener(
+      "touchstart",
+      handleUnlock,
+      {
+        passive: true,
+      }
+    );
+
+    window.addEventListener(
+      "keydown",
+      handleUnlock
+    );
 
     return () => {
       removeListeners();

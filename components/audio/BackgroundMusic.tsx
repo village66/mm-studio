@@ -12,13 +12,13 @@ import {
 type MusicContextType = {
   playing: boolean;
   toggle: () => void;
-  unlock: () => Promise<void>;
+  unlock: () => Promise<boolean>;
 };
 
 const MusicContext = createContext<MusicContextType>({
   playing: true,
   toggle: () => {},
-  unlock: async () => {},
+  unlock: async () => false,
 });
 
 export const useMusic = () => useContext(MusicContext);
@@ -63,6 +63,7 @@ export default function BackgroundMusic({
           audio.volume + 0.02,
           TARGET_VOLUME
         );
+
         return;
       }
 
@@ -78,7 +79,7 @@ export default function BackgroundMusic({
       userMutedRef.current ||
       playRequestRef.current
     ) {
-      return;
+      return false;
     }
 
     playRequestRef.current = true;
@@ -92,13 +93,11 @@ export default function BackgroundMusic({
 
       userMutedRef.current = false;
       setPlaying(true);
-
       fadeIn();
+
+      return true;
     } catch {
-      /*
-        瀏覽器阻擋自動播放時，維持預設開啟圖示。
-        等待第一次使用者互動後，由 unlock 再次播放。
-      */
+      return false;
     } finally {
       playRequestRef.current = false;
     }
@@ -113,7 +112,11 @@ export default function BackgroundMusic({
 
     fadeRef.current = setInterval(() => {
       if (audio.volume > 0.02) {
-        audio.volume = Math.max(audio.volume - 0.02, 0);
+        audio.volume = Math.max(
+          audio.volume - 0.02,
+          0
+        );
+
         return;
       }
 
@@ -125,18 +128,41 @@ export default function BackgroundMusic({
     }, 60);
   }, [clearFade]);
 
+  /*
+    第一次點擊頁面時直接呼叫 audio.play()。
+
+    不經過 playRequestRef 的阻擋，避免網站載入時的
+    autoplay 請求與第一次點擊互相衝突。
+  */
   const unlock = useCallback(async () => {
     const audio = audioRef.current;
 
-    if (!audio || userMutedRef.current) return;
+    if (!audio || userMutedRef.current) {
+      return false;
+    }
 
     if (!audio.paused) {
       setPlaying(true);
-      return;
+      return true;
     }
 
-    await playAudio();
-  }, [playAudio]);
+    clearFade();
+
+    audio.loop = true;
+    audio.preload = "auto";
+
+    try {
+      await audio.play();
+
+      userMutedRef.current = false;
+      setPlaying(true);
+      fadeIn();
+
+      return true;
+    } catch {
+      return false;
+    }
+  }, [clearFade, fadeIn]);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -163,15 +189,11 @@ export default function BackgroundMusic({
 
     if (!audio) return;
 
-    /*
-      瀏覽器阻擋自動播放時：
-      圖示雖然顯示開啟，但 audio 實際仍是 paused。
-      此時第一次按音樂按鈕應直接播放，而不是關閉。
-    */
     if (audio.paused) {
       userMutedRef.current = false;
       setPlaying(true);
       void playAudio();
+
       return;
     }
 
