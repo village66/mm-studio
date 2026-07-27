@@ -41,12 +41,12 @@ export default function Hero() {
               <p className="absolute inset-0 flex items-center gap-3 caption text-xs tracking-[0.25em] lg:tracking-[0.3em] uppercase text-neutral-500 font-light transition-opacity duration-700 opacity-100 lg:group-hover:opacity-0">
                 <span>台中在地</span>
                 <span className="h-3 w-px bg-neutral-300" />
-                <span>精品室內設計工作室</span>
+                <span>室內設計</span>
               </p>
               <p className="absolute inset-0 hidden lg:flex items-center gap-3 caption text-xs tracking-[0.3em] uppercase text-[#a38252] font-light transition-opacity duration-700 opacity-0 group-hover:opacity-100">
                 <span>Taichung, Taiwan</span>
                 <span className="h-3 w-px bg-[#a38252]/40" />
-                <span>Boutique Interior Design</span>
+                <span>Interior Design</span>
               </p>
             </div>
 

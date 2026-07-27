@@ -50,38 +50,52 @@ export default function BackgroundMusic({
     audio.preload = "auto";
     audio.volume = 0.28;
 
+    // 是否已經解鎖播放權限（自動播放成功，或使用者互動後成功）
+    let unlocked = false;
+
+    // 不管走哪條路徑成功播放，都要把監聽器清乾淨，
+    // 避免之後任何一次點擊都再偷偷觸發一次 play()
+    const removeUnlockListeners = () => {
+      window.removeEventListener("pointerdown", unlock);
+      window.removeEventListener("touchstart", unlock);
+      window.removeEventListener("keydown", unlock);
+    };
+
     const tryPlay = async () => {
       try {
         await audio.play();
         setPlaying(true);
         localStorage.setItem("mmstudio-music", "on");
+        unlocked = true;
+        removeUnlockListeners();
       } catch {
-        // 等第一次互動
+        // 自動播放被瀏覽器擋下，等第一次互動再解鎖
       }
     };
 
-    tryPlay();
-
     const unlock = async () => {
+      if (unlocked) return;
+
+      unlocked = true;
+      removeUnlockListeners();
+
       try {
         await audio.play();
         setPlaying(true);
         localStorage.setItem("mmstudio-music", "on");
-      } catch {}
-
-      window.removeEventListener("pointerdown", unlock);
-      window.removeEventListener("touchstart", unlock);
-      window.removeEventListener("keydown", unlock);
+      } catch {
+        unlocked = false;
+      }
     };
+
+    tryPlay();
 
     window.addEventListener("pointerdown", unlock);
     window.addEventListener("touchstart", unlock);
     window.addEventListener("keydown", unlock);
 
     return () => {
-      window.removeEventListener("pointerdown", unlock);
-      window.removeEventListener("touchstart", unlock);
-      window.removeEventListener("keydown", unlock);
+      removeUnlockListeners();
     };
   }, []);
 
