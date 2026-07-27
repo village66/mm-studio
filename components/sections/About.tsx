@@ -15,7 +15,7 @@ const process = [
   {
     number: "02",
     title: "整合格局與機能",
-    text: "兼顧動線、採光與收納，讓美感自然融入日常使用。",
+    text: "兼顧動線、採光與收納，讓空間自然融入日常使用。",
   },
   {
     number: "03",
@@ -33,50 +33,74 @@ export default function About() {
   return (
     <Section
       id="about"
-      className="overflow-x-clip bg-[#faf9f6] py-20 sm:py-24 lg:flex lg:min-h-[calc(100svh-96px)] lg:items-center lg:py-10 xl:py-12"
+      className="
+        scroll-mt-[92px]
+        overflow-hidden
+        bg-[#faf9f6]
+        py-16
+        sm:py-20
+        lg:py-8
+        xl:py-10
+      "
     >
       <Container>
         <Reveal>
-          <div className="overflow-hidden border border-[#e4e0d8] bg-[#fdfcf9]">
-            <div className="grid lg:grid-cols-[56%_44%]">
+          <div className="overflow-hidden border border-[#e2ded6] bg-[#fdfcf9]">
+            <div className="grid lg:grid-cols-[57%_43%]">
               {/* Left */}
-              <div className="flex flex-col border-[#e4e0d8] lg:border-r">
+              <div className="border-[#e2ded6] lg:border-r">
                 {/* Image */}
                 <div className="relative overflow-hidden bg-[#e9e6df]">
-                  <div className="relative aspect-[4/3] sm:aspect-[16/10] lg:aspect-[16/9]">
+                  <div className="relative aspect-[4/3] sm:aspect-[16/10] lg:h-[390px] lg:aspect-auto xl:h-[430px]">
                     <Image
                       src="/images/about/about.jpg"
                       alt="MM Studio 室內設計作品與空間細節"
                       fill
-                      priority={false}
-                      sizes="(max-width: 1024px) 100vw, 56vw"
-                      className="object-cover transition-transform duration-[1200ms] ease-out hover:scale-[1.02]"
+                      sizes="(max-width: 1024px) 100vw, 57vw"
+                      className="
+                        object-cover
+                        transition-transform
+                        duration-[1200ms]
+                        ease-out
+                        hover:scale-[1.02]
+                      "
                     />
 
-                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-black/[0.03] to-transparent" />
 
-                    <div className="absolute bottom-5 left-5 sm:bottom-7 sm:left-7 lg:bottom-8 lg:left-8">
+                    <div className="absolute bottom-5 left-5 sm:bottom-7 sm:left-7 lg:bottom-7 lg:left-8">
                       <div className="flex items-center gap-4">
                         <p className="text-[9px] font-medium uppercase tracking-[0.3em] text-white sm:text-[10px]">
                           Thoughtful Space
                         </p>
 
-                        <span className="h-px w-10 bg-white/70 sm:w-16" />
+                        <span className="h-px w-10 bg-white/65 sm:w-14" />
                       </div>
 
-                      <p className="mt-3 text-[13px] font-light tracking-[0.08em] text-white/90 sm:text-[14px]">
+                      <p className="mt-2 text-[12px] font-light tracking-[0.06em] text-white/90 sm:text-[13px]">
                         每一個細節，都是為了讓生活更好。
                       </p>
                     </div>
                   </div>
                 </div>
 
-                {/* About Content */}
-                <div className="relative flex flex-1 flex-col justify-between px-6 py-10 sm:px-9 sm:py-12 lg:min-h-[300px] lg:px-10 lg:py-10 xl:min-h-[320px] xl:px-12 xl:py-12">
+                {/* About Text */}
+                <div className="relative px-6 py-8 sm:px-9 sm:py-10 lg:min-h-[265px] lg:px-10 lg:py-8 xl:min-h-[285px] xl:px-12 xl:py-9">
                   {/* Decorative drawing */}
                   <div
                     aria-hidden="true"
-                    className="pointer-events-none absolute bottom-0 right-0 hidden h-[82%] w-[43%] opacity-[0.055] lg:block"
+                    className="
+                      pointer-events-none
+                      absolute
+                      bottom-0
+                      right-0
+                      hidden
+                      h-[78%]
+                      w-[42%]
+                      text-[#8b7558]
+                      opacity-[0.045]
+                      lg:block
+                    "
                   >
                     <svg
                       viewBox="0 0 480 360"
@@ -97,76 +121,75 @@ export default function About() {
                     </svg>
                   </div>
 
-                  <div className="relative z-10">
-                    <p className="text-[10px] font-medium uppercase tracking-[0.38em] text-[#9a7d56] sm:text-[11px]">
+                  <div className="relative z-10 max-w-[700px]">
+                    <p className="text-[10px] font-medium uppercase tracking-[0.36em] text-[#9a7d56] sm:text-[11px]">
                       About MM Studio
                     </p>
 
-                    <h2 className="mt-5 max-w-[720px] text-[32px] font-extralight leading-[1.35] tracking-[-0.03em] text-[#292929] sm:text-[39px] md:text-[44px] lg:text-[38px] xl:text-[46px]">
+                    <h2 className="mt-4 text-[30px] font-extralight leading-[1.35] tracking-[-0.03em] text-[#292929] sm:text-[37px] md:text-[42px] lg:text-[35px] xl:text-[41px]">
                       我們相信，
                       <br />
                       好的設計來自理解生活。
                     </h2>
 
-                    <div className="mt-7 h-px w-full max-w-[520px] bg-[#dcd7ce]" />
+                    <div className="mt-5 h-px w-full max-w-[500px] bg-[#ddd8cf]" />
 
-                    <div className="mt-7 max-w-[610px] space-y-2 text-[15px] font-light leading-[1.9] text-[#625f59] sm:text-[16px] lg:text-[15px] xl:text-[16px]">
+                    <div className="mt-5 max-w-[610px] space-y-1.5 text-[14px] font-light leading-[1.85] text-[#625f59] sm:text-[15px] lg:text-[14px] xl:text-[15px]">
                       <p>我們不以風格定義設計，而是從真實需求出發。</p>
 
-                      <p>
-                        兼顧美感、動線與機能，讓空間自然融入生活。
-                      </p>
+                      <p>兼顧美感、動線與機能，讓空間自然融入生活。</p>
 
-                      <p>每一個決定，都是為了讓家更舒適、更長久。</p>
+                      <p>讓每一個家，都能舒適、耐看並長久使用。</p>
                     </div>
-                  </div>
-
-                  <div className="relative z-10 mt-9 flex flex-wrap items-center gap-x-5 gap-y-3 sm:mt-10">
-                    <p className="text-[17px] font-light italic tracking-[0.08em] text-[#a28761]">
-                      mm studio
-                    </p>
-
-                    <span className="hidden h-5 w-px bg-[#d8d2c8] sm:block" />
-
-                    <p className="text-[9px] uppercase tracking-[0.3em] text-neutral-400 sm:text-[10px]">
-                      Boutique Interior Design
-                    </p>
                   </div>
                 </div>
               </div>
 
               {/* Right */}
-              <div className="flex flex-col px-6 py-10 sm:px-9 sm:py-12 lg:px-9 lg:py-9 xl:px-12 xl:py-11">
-                {/* Process Heading */}
+              <div className="flex flex-col px-6 py-8 sm:px-9 sm:py-10 lg:px-8 lg:py-7 xl:px-10 xl:py-8">
+                {/* Heading */}
                 <div className="shrink-0">
-                  <p className="text-[10px] font-medium uppercase tracking-[0.36em] text-[#9a7d56] sm:text-[11px]">
+                  <p className="text-[10px] font-medium uppercase tracking-[0.34em] text-[#9a7d56] sm:text-[11px]">
                     Our Approach
                   </p>
 
-                  <h3 className="mt-4 text-[27px] font-extralight leading-[1.4] tracking-[-0.025em] text-[#292929] sm:text-[32px] lg:text-[29px] xl:text-[34px]">
-                    清楚的流程，
-                    <br className="sm:hidden lg:block xl:hidden" />
-                    安心的設計體驗。
+                  <h3 className="mt-3 text-[25px] font-extralight leading-[1.4] tracking-[-0.025em] text-[#292929] sm:text-[30px] lg:text-[27px] xl:text-[31px]">
+                    清楚的流程，安心的設計體驗。
                   </h3>
                 </div>
 
-                {/* Process List */}
-                <div className="mt-7 border-t border-[#ddd8cf] sm:mt-9 lg:mt-7 xl:mt-9">
+                {/* Process */}
+                <div className="mt-5 border-t border-[#ddd8cf] lg:mt-4 xl:mt-5">
                   {process.map((item) => (
                     <article
                       key={item.number}
-                      className="group grid grid-cols-[44px_1fr] gap-3 border-b border-[#ddd8cf] py-5 sm:grid-cols-[58px_1fr] sm:gap-5 sm:py-6 lg:grid-cols-[50px_1fr] lg:py-5 xl:grid-cols-[62px_1fr] xl:py-6"
+                      className="
+                        group
+                        grid
+                        grid-cols-[42px_1fr]
+                        gap-3
+                        border-b
+                        border-[#ddd8cf]
+                        py-4
+                        sm:grid-cols-[54px_1fr]
+                        sm:gap-4
+                        sm:py-5
+                        lg:grid-cols-[46px_1fr]
+                        lg:py-[18px]
+                        xl:grid-cols-[54px_1fr]
+                        xl:py-5
+                      "
                     >
-                      <span className="pt-[3px] text-[18px] font-extralight tracking-[0.06em] text-[#ad926d] transition-colors duration-500 group-hover:text-[#755b39] sm:text-[22px] lg:text-[20px] xl:text-[24px]">
+                      <span className="pt-[2px] text-[18px] font-extralight tracking-[0.05em] text-[#ad926d] transition-colors duration-500 group-hover:text-[#755b39] sm:text-[21px] lg:text-[19px] xl:text-[22px]">
                         {item.number}
                       </span>
 
                       <div>
-                        <h4 className="text-[19px] font-light tracking-[-0.015em] text-[#302f2c] transition-transform duration-500 group-hover:translate-x-1 sm:text-[21px] lg:text-[19px] xl:text-[22px]">
+                        <h4 className="text-[18px] font-light tracking-[-0.015em] text-[#302f2c] transition-transform duration-500 group-hover:translate-x-1 sm:text-[20px] lg:text-[18px] xl:text-[20px]">
                           {item.title}
                         </h4>
 
-                        <p className="mt-2 max-w-[470px] text-[14px] font-light leading-[1.75] text-[#68645f] sm:text-[15px] sm:leading-[1.8] lg:text-[14px] xl:text-[15px]">
+                        <p className="mt-1.5 max-w-[460px] text-[13px] font-light leading-[1.75] text-[#68645f] sm:text-[14px] sm:leading-[1.8] lg:text-[13px] xl:text-[14px]">
                           {item.text}
                         </p>
                       </div>
@@ -175,16 +198,16 @@ export default function About() {
                 </div>
 
                 {/* Trust Statement */}
-                <div className="mt-7 bg-[#f2efe8] px-5 py-5 sm:px-7 sm:py-6 lg:mt-6 lg:px-6 lg:py-5 xl:mt-7 xl:px-7 xl:py-6">
-                  <div className="flex items-start gap-4">
+                <div className="mt-5 bg-[#f2efe8] px-5 py-4 sm:px-6 sm:py-5 lg:mt-4 lg:px-5 lg:py-4 xl:mt-5 xl:px-6 xl:py-5">
+                  <div className="flex items-start gap-3">
                     <span
                       aria-hidden="true"
-                      className="mt-[-2px] shrink-0 font-serif text-[34px] leading-none text-[#aa8d64]"
+                      className="mt-[-2px] shrink-0 font-serif text-[30px] leading-none text-[#aa8d64]"
                     >
                       “
                     </span>
 
-                    <p className="text-[14px] font-light leading-[1.85] text-[#625d56] sm:text-[15px] lg:text-[14px] xl:text-[15px]">
+                    <p className="text-[13px] font-light leading-[1.75] text-[#625d56] sm:text-[14px] lg:text-[13px] xl:text-[14px]">
                       我們重視的不只是完工時的畫面，更是入住多年後，
                       空間依然符合生活並值得信任。
                     </p>
