@@ -53,7 +53,7 @@ export default function About() {
                 <div className="relative overflow-hidden bg-[#e9e6df]">
                   <div className="relative aspect-[4/3] sm:aspect-[16/10] lg:h-[390px] lg:aspect-auto xl:h-[430px]">
                     <Image
-                      src="/images/about/about.jpg"
+                      src="/images/about/about-v1.jpg"
                       alt="MM Studio 室內設計作品與空間細節"
                       fill
                       sizes="(max-width: 1024px) 100vw, 57vw"
