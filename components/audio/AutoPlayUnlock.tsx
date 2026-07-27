@@ -9,59 +9,44 @@ export default function AutoPlayUnlock() {
 
   useEffect(() => {
     let completed = false;
+    let attempting = false;
 
     const removeListeners = () => {
-      window.removeEventListener(
-        "pointerdown",
-        handleUnlock
-      );
-
-      window.removeEventListener(
-        "touchstart",
-        handleUnlock
-      );
-
-      window.removeEventListener(
-        "keydown",
-        handleUnlock
-      );
+      document.removeEventListener("click", handleUnlock, true);
+      document.removeEventListener("touchend", handleUnlock, true);
+      document.removeEventListener("keydown", handleUnlock, true);
     };
 
-    const handleUnlock = async () => {
-      if (completed) return;
+    const handleUnlock = () => {
+      if (completed || attempting) return;
 
-      const success = await unlock();
+      attempting = true;
 
       /*
-        只有真正播放成功後才移除監聽器。
-        若第一次互動仍被瀏覽器阻擋，下一次互動會再嘗試。
+        不在事件處理器內先等待其他程式，
+        直接於這次使用者操作中呼叫 unlock。
       */
-      if (success) {
-        completed = true;
-        removeListeners();
-      }
+      void unlock()
+        .then((success) => {
+          if (success) {
+            completed = true;
+            removeListeners();
+          }
+        })
+        .finally(() => {
+          attempting = false;
+        });
     };
 
-    window.addEventListener(
-      "pointerdown",
-      handleUnlock,
-      {
-        passive: true,
-      }
-    );
-
-    window.addEventListener(
-      "touchstart",
-      handleUnlock,
-      {
-        passive: true,
-      }
-    );
-
-    window.addEventListener(
-      "keydown",
-      handleUnlock
-    );
+    /*
+      使用 capture=true，讓播放解鎖早於：
+      - Next.js Link 導航
+      - Hero 按鈕事件
+      - 其他元件的 onClick
+    */
+    document.addEventListener("click", handleUnlock, true);
+    document.addEventListener("touchend", handleUnlock, true);
+    document.addEventListener("keydown", handleUnlock, true);
 
     return () => {
       removeListeners();
