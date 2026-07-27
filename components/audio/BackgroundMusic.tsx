@@ -128,21 +128,22 @@ export default function BackgroundMusic({
     }, 60);
   }, [clearFade]);
 
-  /*
-    第一次點擊頁面時直接呼叫 audio.play()。
-
-    不經過 playRequestRef 的阻擋，避免網站載入時的
-    autoplay 請求與第一次點擊互相衝突。
-  */
   const unlock = useCallback(async () => {
+    console.log("unlock() called");
+
     const audio = audioRef.current;
 
     if (!audio || userMutedRef.current) {
+      console.log("audio not ready or user muted");
+
       return false;
     }
 
     if (!audio.paused) {
+      console.log("already playing");
+
       setPlaying(true);
+
       return true;
     }
 
@@ -154,12 +155,16 @@ export default function BackgroundMusic({
     try {
       await audio.play();
 
+      console.log("play success");
+
       userMutedRef.current = false;
       setPlaying(true);
       fadeIn();
 
       return true;
-    } catch {
+    } catch (error) {
+      console.log("play failed", error);
+
       return false;
     }
   }, [clearFade, fadeIn]);
