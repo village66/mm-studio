@@ -94,12 +94,59 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const googleAnalyticsId = process.env.NEXT_PUBLIC_GA_ID;
+  const clarityId = process.env.NEXT_PUBLIC_CLARITY_ID;
+
   return (
-    /* 加入 scroll-smooth 確保點擊選單時錨點滾動非常平滑 */
-    <html lang="zh-Hant" className="scroll-smooth" suppressHydrationWarning>
+    <html
+      lang="zh-Hant"
+      className="scroll-smooth"
+      suppressHydrationWarning
+    >
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        {/* 每次開啟首頁時，清除舊錨點並回到 Hero 最上方 */}
+        <Script id="home-entry-reset" strategy="beforeInteractive">
+          {`
+            (function () {
+              if (window.location.pathname !== "/") return;
+
+              if ("scrollRestoration" in window.history) {
+                window.history.scrollRestoration = "manual";
+              }
+
+              if (window.location.hash) {
+                var cleanUrl =
+                  window.location.pathname +
+                  window.location.search;
+
+                window.history.replaceState(
+                  null,
+                  "",
+                  cleanUrl
+                );
+              }
+
+              function resetHomePosition() {
+                window.scrollTo({
+                  top: 0,
+                  left: 0,
+                  behavior: "auto"
+                });
+              }
+
+              resetHomePosition();
+
+              window.addEventListener(
+                "pageshow",
+                resetHomePosition,
+                { once: true }
+              );
+            })();
+          `}
+        </Script>
+
         <BackgroundMusic>
           <JsonLd />
 
@@ -107,34 +154,65 @@ export default function RootLayout({
         </BackgroundMusic>
 
         {/* Google Analytics */}
-        <Script
-          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
-          strategy="afterInteractive"
-        />
+        {googleAnalyticsId && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}
+              strategy="afterInteractive"
+            />
 
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
+            <Script
+              id="google-analytics"
+              strategy="afterInteractive"
+            >
+              {`
+                window.dataLayer = window.dataLayer || [];
 
-            gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}');
-          `}
-        </Script>
+                function gtag() {
+                  window.dataLayer.push(arguments);
+                }
+
+                gtag("js", new Date());
+
+                gtag(
+                  "config",
+                  "${googleAnalyticsId}"
+                );
+              `}
+            </Script>
+          </>
+        )}
 
         {/* Microsoft Clarity */}
-        <Script id="clarity" strategy="afterInteractive">
-          {`
-            (function(c,l,a,r,i,t,y){
-              c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-              t=l.createElement(r);
-              t.async=1;
-              t.src="https://www.clarity.ms/tag/"+i;
-              y=l.getElementsByTagName(r)[0];
-              y.parentNode.insertBefore(t,y);
-            })(window,document,"clarity","script","${process.env.NEXT_PUBLIC_CLARITY_ID}");
-          `}
-        </Script>
+        {clarityId && (
+          <Script
+            id="clarity"
+            strategy="afterInteractive"
+          >
+            {`
+              (function(c,l,a,r,i,t,y){
+                c[a] =
+                  c[a] ||
+                  function(){
+                    (c[a].q = c[a].q || []).push(arguments);
+                  };
+
+                t = l.createElement(r);
+                t.async = 1;
+                t.src = "https://www.clarity.ms/tag/" + i;
+
+                y = l.getElementsByTagName(r)[0];
+                y.parentNode.insertBefore(t,y);
+              })(
+                window,
+                document,
+                "clarity",
+                "script",
+                "${clarityId}"
+              );
+            `}
+          </Script>
+        )}
       </body>
     </html>
   );

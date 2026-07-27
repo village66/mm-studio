@@ -1,33 +1,45 @@
 "use client";
 
 import { useEffect } from "react";
+
 import { useMusic } from "./BackgroundMusic";
 
 export default function AutoPlayUnlock() {
-  const { playing, toggle } = useMusic();
+  const { unlock } = useMusic();
 
   useEffect(() => {
-    if (!playing) return;
+    let unlocked = false;
 
-    const unlock = () => {
-      toggle();
-      setTimeout(() => toggle(), 60);
+    const handleUnlock = async () => {
+      if (unlocked) return;
 
-      window.removeEventListener("pointerdown", unlock);
-      window.removeEventListener("keydown", unlock);
-      window.removeEventListener("touchstart", unlock);
+      unlocked = true;
+
+      removeListeners();
+
+      await unlock();
     };
 
-    window.addEventListener("pointerdown", unlock, { once: true });
-    window.addEventListener("keydown", unlock, { once: true });
-    window.addEventListener("touchstart", unlock, { once: true });
+    const removeListeners = () => {
+      window.removeEventListener("pointerdown", handleUnlock);
+      window.removeEventListener("touchstart", handleUnlock);
+      window.removeEventListener("keydown", handleUnlock);
+    };
+
+    window.addEventListener("pointerdown", handleUnlock, {
+      passive: true,
+    });
+
+    window.addEventListener("touchstart", handleUnlock, {
+      passive: true,
+    });
+
+    window.addEventListener("keydown", handleUnlock);
 
     return () => {
-      window.removeEventListener("pointerdown", unlock);
-      window.removeEventListener("keydown", unlock);
-      window.removeEventListener("touchstart", unlock);
+      removeListeners();
     };
-  }, [playing, toggle]);
+  }, [unlock]);
 
   return null;
 }

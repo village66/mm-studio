@@ -2,6 +2,7 @@
 
 import {
   createContext,
+  useCallback,
   useContext,
   useEffect,
   useRef,
@@ -11,14 +12,18 @@ import {
 type MusicContextType = {
   playing: boolean;
   toggle: () => void;
+  unlock: () => Promise<void>;
 };
 
 const MusicContext = createContext<MusicContextType>({
-  playing: false,
+  playing: true,
   toggle: () => {},
+  unlock: async () => {},
 });
 
 export const useMusic = () => useContext(MusicContext);
+
+const TARGET_VOLUME = 0.28;
 
 export default function BackgroundMusic({
   children,
@@ -26,153 +31,127 @@ export default function BackgroundMusic({
   children: React.ReactNode;
 }) {
   const audioRef = useRef<HTMLAudioElement>(null);
+  const fadeRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const userMutedRef = useRef(false);
 
-  const fadeRef = useRef<NodeJS.Timeout | null>(null);
+  const [playing, setPlaying] = useState(true);
 
-  const [playing, setPlaying] = useState(false);
-
-  // 讀取上次狀態
-  useEffect(() => {
-    const saved = localStorage.getItem("mmstudio-music");
-
-    if (saved === "on") {
-      setPlaying(true);
-    }
-  }, []);
-
-  // 第一次進站，自動嘗試播放（瀏覽器允許時）
-  useEffect(() => {
-    const audio = audioRef.current;
-
-    if (!audio) return;
-
-    audio.loop = true;
-    audio.preload = "auto";
-    audio.volume = 0.28;
-
-    // 是否已經解鎖播放權限（自動播放成功，或使用者互動後成功）
-    let unlocked = false;
-
-    // 不管走哪條路徑成功播放，都要把監聽器清乾淨，
-    // 避免之後任何一次點擊都再偷偷觸發一次 play()
-    const removeUnlockListeners = () => {
-      window.removeEventListener("pointerdown", unlock);
-      window.removeEventListener("touchstart", unlock);
-      window.removeEventListener("keydown", unlock);
-    };
-
-    const tryPlay = async () => {
-      try {
-        await audio.play();
-        setPlaying(true);
-        localStorage.setItem("mmstudio-music", "on");
-        unlocked = true;
-        removeUnlockListeners();
-      } catch {
-        // 自動播放被瀏覽器擋下，等第一次互動再解鎖
-      }
-    };
-
-    const unlock = async () => {
-      if (unlocked) return;
-
-      unlocked = true;
-      removeUnlockListeners();
-
-      try {
-        await audio.play();
-        setPlaying(true);
-        localStorage.setItem("mmstudio-music", "on");
-      } catch {
-        unlocked = false;
-      }
-    };
-
-    tryPlay();
-
-    window.addEventListener("pointerdown", unlock);
-    window.addEventListener("touchstart", unlock);
-    window.addEventListener("keydown", unlock);
-
-    return () => {
-      removeUnlockListeners();
-    };
-  }, []);
-
-  // 播放 / 停止
-  useEffect(() => {
-    const audio = audioRef.current;
-
-    if (!audio) return;
-
+  const clearFade = useCallback(() => {
     if (fadeRef.current) {
       clearInterval(fadeRef.current);
       fadeRef.current = null;
     }
+  }, []);
 
-    if (playing) {
-      localStorage.setItem("mmstudio-music", "on");
+  const playAudio = useCallback(async () => {
+    const audio = audioRef.current;
 
-      audio.play().catch(() => {});
+    if (!audio || userMutedRef.current) return;
 
-      fadeRef.current = setInterval(() => {
-        if (audio.volume < 0.28) {
-          audio.volume = Math.min(audio.volume + 0.02, 0.28);
-        } else {
-          if (fadeRef.current) {
-            clearInterval(fadeRef.current);
-            fadeRef.current = null;
-          }
-        }
-      }, 60);
-    } else {
-      localStorage.setItem("mmstudio-music", "off");
+    clearFade();
 
-      fadeRef.current = setInterval(() => {
-        if (audio.volume > 0.02) {
-          audio.volume = Math.max(audio.volume - 0.02, 0);
-        } else {
-          if (fadeRef.current) {
-            clearInterval(fadeRef.current);
-            fadeRef.current = null;
-          }
+    audio.loop = true;
+    audio.preload = "auto";
 
-          audio.pause();
-          audio.currentTime = 0;
-          audio.volume = 0.28;
-        }
-      }, 60);
+    if (audio.volume <= 0) {
+      audio.volume = 0;
     }
 
-    return () => {
-      if (fadeRef.current) {
-        clearInterval(fadeRef.current);
-        fadeRef.current = null;
-      }
-    };
-  }, [playing]);
+    try {
+      await audio.play();
+      setPlaying(true);
 
-  const toggle = () => {
+      fadeRef.current = setInterval(() => {
+        if (audio.volume < TARGET_VOLUME) {
+          audio.volume = Math.min(audio.volume + 0.02, TARGET_VOLUME);
+          return;
+        }
+
+        clearFade();
+      }, 60);
+    } catch {
+      setPlaying(true);
+    }
+  }, [clearFade]);
+
+  const stopAudio = useCallback(() => {
+    const audio = audioRef.current;
+
+    if (!audio) return;
+
+    clearFade();
+
+    fadeRef.current = setInterval(() => {
+      if (audio.volume > 0.02) {
+        audio.volume = Math.max(audio.volume - 0.02, 0);
+        return;
+      }
+
+      clearFade();
+
+      audio.pause();
+      audio.currentTime = 0;
+      audio.volume = TARGET_VOLUME;
+    }, 60);
+  }, [clearFade]);
+
+  const unlock = useCallback(async () => {
+    if (userMutedRef.current) return;
+
+    await playAudio();
+  }, [playAudio]);
+
+  useEffect(() => {
+    const audio = audioRef.current;
+
+    if (!audio) return;
+
+    userMutedRef.current = false;
+
+    audio.loop = true;
+    audio.preload = "auto";
+    audio.volume = TARGET_VOLUME;
+
+    void playAudio();
+
+    return () => {
+      clearFade();
+      audio.pause();
+    };
+  }, [clearFade, playAudio]);
+
+  const toggle = useCallback(() => {
     const audio = audioRef.current;
 
     if (!audio) return;
 
     if (playing) {
+      userMutedRef.current = true;
       setPlaying(false);
-    } else {
-      audio.play().catch(() => {});
-      setPlaying(true);
+      stopAudio();
+      return;
     }
-  };
+
+    userMutedRef.current = false;
+    setPlaying(true);
+    void playAudio();
+  }, [playAudio, playing, stopAudio]);
 
   return (
     <MusicContext.Provider
       value={{
         playing,
         toggle,
+        unlock,
       }}
     >
-      <audio ref={audioRef}>
+      <audio
+        ref={audioRef}
+        loop
+        preload="auto"
+        playsInline
+        aria-hidden="true"
+      >
         <source
           src="/audio/background.mp3"
           type="audio/mpeg"
