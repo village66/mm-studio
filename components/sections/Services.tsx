@@ -9,7 +9,7 @@ const services = [
     number: "01",
     en: "Residential Design",
     zh: "住宅空間設計",
-    image: "/images/services/service01.jpg",
+    image: "/images/services/service01-v1.jpg",
     enDescription:
       "Thoughtfully designed homes balancing natural materials, proportion and timeless aesthetics.",
     zhDescription:
@@ -19,7 +19,7 @@ const services = [
     number: "02",
     en: "Commercial Design",
     zh: "商業空間設計",
-    image: "/images/services/service02.jpg",
+    image: "/images/services/service02-v4.jpg",
     enDescription:
       "Boutique commercial environments crafted to strengthen brand identity and customer experience.",
     zhDescription:
@@ -29,7 +29,7 @@ const services = [
     number: "03",
     en: "Renovation",
     zh: "老屋翻新工程",
-    image: "/images/services/service03.jpg",
+    image: "/images/services/service03-v1.jpg",
     enDescription:
       "Transforming existing spaces through refined detailing, spatial planning and premium materials.",
     zhDescription:
