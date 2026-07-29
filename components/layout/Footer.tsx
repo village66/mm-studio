@@ -2,194 +2,300 @@ import Link from "next/link";
 
 import Container from "@/components/ui/Container";
 
+const footerNavigation = [
+  {
+    zh: "關於我們",
+    en: "About",
+    href: "/#about",
+  },
+  {
+    zh: "設計服務",
+    en: "Services",
+    href: "/#services",
+  },
+  {
+    zh: "作品案例",
+    en: "Projects",
+    href: "/#portfolio",
+  },
+  {
+    zh: "聯絡我們",
+    en: "Contact",
+    href: "/#contact",
+  },
+];
+
 export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-neutral-200 bg-white">
-
+    <footer className="border-t border-[#e2ded7] bg-white">
       <Container>
-
-        <div className="grid gap-20 py-20 lg:grid-cols-12">
-
-          {/* Brand */}
-
-          <div className="lg:col-span-5">
-
-            {/*
-              TODO：公司中文名稱待確認。
-              「工厘室內設計」疑似模板殘留，與 MM Studio 發音對不上，
-              請確認正確中文名稱後再套用「中文為主、hover 顯示英文」的順序。
-            */}
-            <div className="group inline-block h-[54px] overflow-hidden cursor-default">
-
-              <div className="transition-transform duration-500 ease-out group-hover:-translate-y-[54px]">
-
-                <h2 className="font-serif text-[40px] font-light uppercase tracking-[0.18em] text-[#181818] leading-[54px]">
-                  MM Studio
-                </h2>
-
-                <h2 className="font-serif text-[36px] font-light tracking-[0.12em] text-[#b6925d] leading-[54px]">
-                  工厘室內設計
-                </h2>
-
-              </div>
-
-            </div>
-
-            <div className="group mt-5 inline-block h-6 overflow-hidden cursor-default">
-
-              <div className="transition-transform duration-500 ease-out group-hover:-translate-y-6">
-
-                <p className="text-[11px] tracking-[0.2em] text-[#b6925d] h-6">
-                  精品室內設計
-                </p>
-
-                <p className="text-[11px] uppercase tracking-[0.35em] text-neutral-500 h-6">
-                  Boutique Interior Design
-                </p>
-
-              </div>
-
-            </div>
-
-            {/* 中文為主，hover 才切換成英文 */}
-            <div className="group relative mt-10 max-w-md grid cursor-default">
-
-              <p className="col-start-1 row-start-1 leading-8 text-neutral-600 transition-opacity duration-700 opacity-100 group-hover:opacity-0">
-                我們專注於住宅與商業空間設計，透過細膩規劃、精選材質與精湛工藝，
-                打造歷久彌新的生活空間。
+        {/* 主要資訊 */}
+        <div
+          className="
+            grid
+            gap-8
+            py-10
+            sm:py-12
+            lg:grid-cols-12
+            lg:items-start
+            lg:gap-10
+            lg:py-11
+          "
+        >
+          {/* 品牌 */}
+          <div className="lg:col-span-4">
+            <Link
+              href="/"
+              aria-label="返回 MM Studio 首頁"
+              className="group/brand inline-block"
+            >
+              <p
+                className="
+                  font-serif
+                  text-[29px]
+                  font-light
+                  uppercase
+                  leading-none
+                  tracking-[0.17em]
+                  text-[#1d1d1b]
+                  transition-colors
+                  duration-500
+                  group-hover/brand:text-[#9a7b54]
+                  sm:text-[32px]
+                "
+              >
+                MM Studio
               </p>
 
-              <p className="col-start-1 row-start-1 leading-8 text-neutral-600 transition-opacity duration-700 opacity-0 group-hover:opacity-100">
-                Creating timeless residential and commercial interiors
-                through thoughtful planning, refined materials and
-                meticulous craftsmanship.
+              <p className="mt-2 text-[8px] uppercase tracking-[0.34em] text-[#a4865d]">
+                Boutique Interior Design
               </p>
+            </Link>
 
-            </div>
+            <p className="mt-5 text-[12px] font-light tracking-[0.08em] text-neutral-500">
+              工厘室內裝修設計有限公司
+            </p>
 
+            <p className="mt-2 text-[12px] font-light leading-6 text-neutral-500">
+              以細膩規劃與專業執行，打造舒適且長久的空間。
+            </p>
           </div>
 
-          {/* Navigation */}
-
-          <div className="lg:col-span-2">
-
-            <p className="text-[11px] uppercase tracking-[0.3em] text-neutral-500">
+          {/* 導覽 */}
+          <div className="lg:col-span-5">
+            <p className="text-[8px] font-medium uppercase tracking-[0.32em] text-neutral-400">
               Navigation
             </p>
 
-            <nav className="mt-8 flex flex-col gap-5">
+            <nav
+              aria-label="頁尾導覽"
+              className="
+                mt-4
+                grid
+                grid-cols-2
+                gap-x-6
+                gap-y-3
+                sm:flex
+                sm:flex-wrap
+                sm:gap-x-8
+                sm:gap-y-3
+                lg:mt-5
+              "
+            >
+              {footerNavigation.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="
+                    group/link
+                    inline-flex
+                    items-center
+                    gap-2
+                    text-[13px]
+                    font-light
+                    text-[#44413d]
+                    transition-colors
+                    duration-300
+                    hover:text-[#9a7b54]
+                  "
+                >
+                  <span>{item.zh}</span>
 
-              <Link href="#about" className="group h-6 overflow-hidden">
-
-                <div className="transition duration-300 group-hover:-translate-y-6">
-
-                  <div className="h-6">關於我們</div>
-
-                  <div className="h-6 text-[#b6925d]">ABOUT</div>
-
-                </div>
-
-              </Link>
-
-              <Link href="#services" className="group h-6 overflow-hidden">
-
-                <div className="transition duration-300 group-hover:-translate-y-6">
-
-                  <div className="h-6">設計服務</div>
-
-                  <div className="h-6 text-[#b6925d]">SERVICES</div>
-
-                </div>
-
-              </Link>
-
-              <Link href="#portfolio" className="group h-6 overflow-hidden">
-
-                <div className="transition duration-300 group-hover:-translate-y-6">
-
-                  <div className="h-6">作品案例</div>
-
-                  <div className="h-6 text-[#b6925d]">PROJECTS</div>
-
-                </div>
-
-              </Link>
-
-              <Link href="#contact" className="group h-6 overflow-hidden">
-
-                <div className="transition duration-300 group-hover:-translate-y-6">
-
-                  <div className="h-6">聯絡我們</div>
-
-                  <div className="h-6 text-[#b6925d]">CONTACT</div>
-
-                </div>
-
-              </Link>
-
+                  <span
+                    className="
+                      hidden
+                      text-[7px]
+                      uppercase
+                      tracking-[0.16em]
+                      text-neutral-400
+                      transition-colors
+                      duration-300
+                      group-hover/link:text-[#9a7b54]
+                      xl:inline
+                    "
+                  >
+                    {item.en}
+                  </span>
+                </Link>
+              ))}
             </nav>
-
           </div>
 
-          {/* Contact */}
-
-          <div className="lg:col-span-3">
-
-            <p className="text-[11px] uppercase tracking-[0.3em] text-neutral-500">
+          {/* 聯絡資訊 */}
+          <div className="lg:col-span-3 lg:text-right">
+            <p className="text-[8px] font-medium uppercase tracking-[0.32em] text-neutral-400">
               Contact
             </p>
 
-            <div className="mt-8 space-y-5">
-
-              <Link
+            <div
+              className="
+                mt-4
+                flex
+                flex-col
+                items-start
+                gap-2.5
+                lg:mt-5
+                lg:items-end
+              "
+            >
+              <a
                 href="mailto:mm.interdesign@gmail.com"
-                className="block transition hover:text-[#b6925d]"
+                className="
+                  text-[12px]
+                  font-light
+                  text-[#44413d]
+                  transition-colors
+                  duration-300
+                  hover:text-[#9a7b54]
+                  sm:text-[13px]
+                "
               >
                 mm.interdesign@gmail.com
-              </Link>
+              </a>
 
-              <Link
+              <a
                 href="tel:+886912379200"
-                className="block transition hover:text-[#b6925d]"
+                className="
+                  text-[12px]
+                  font-light
+                  tracking-[0.04em]
+                  text-[#44413d]
+                  transition-colors
+                  duration-300
+                  hover:text-[#9a7b54]
+                  sm:text-[13px]
+                "
               >
                 +886 912 379 200
-              </Link>
-
-              <p className="leading-8 text-neutral-600">
-                台中市
-                <br />
-                及鄰近地區
-              </p>
-
+              </a>
             </div>
-
           </div>
-
-          {/* Copyright */}
-
-          <div className="flex flex-col justify-between lg:col-span-2 lg:items-end">
-
-            <Link
-              href="/"
-              className="text-[11px] uppercase tracking-[0.3em] text-neutral-500 transition hover:text-[#b6925d]"
-            >
-              Back to Top ↑
-            </Link>
-
-            <p className="mt-16 text-[11px] uppercase tracking-[0.25em] text-neutral-400 lg:mt-0">
-              © {year}
-              <br />
-              MM Studio
-            </p>
-
-          </div>
-
         </div>
 
-      </Container>
+        {/* 最底部合法登記與版權 */}
+        <div
+          className="
+            flex
+            flex-col
+            gap-4
+            border-t
+            border-[#e2ded7]
+            py-5
+            sm:flex-row
+            sm:items-center
+            sm:justify-between
+            sm:gap-6
+          "
+        >
+          {/* 登記資訊 */}
+          <div
+            className="
+              flex
+              flex-col
+              gap-1.5
+              text-[9px]
+              font-light
+              tracking-[0.09em]
+              text-neutral-400
+              sm:flex-row
+              sm:flex-wrap
+              sm:items-center
+              sm:gap-3
+              sm:text-[10px]
+            "
+          >
+            <div className="flex items-center gap-2">
+              <span className="flex h-4 w-4 items-center justify-center rounded-full border border-[#c6b18e] text-[#9a7b54]">
+                <svg
+                  width="9"
+                  height="9"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M12 3 19 6v5c0 4.7-2.8 8-7 10-4.2-2-7-5.3-7-10V6z" />
+                  <path d="m8.5 12 2.2 2.2 4.8-5" />
+                </svg>
+              </span>
 
+              <span>依法登記之建築物室內裝修業</span>
+            </div>
+
+            <span className="hidden h-3 w-px bg-[#d7d0c6] sm:block" />
+
+            <span>設計及施工</span>
+
+            <span className="hidden h-3 w-px bg-[#d7d0c6] sm:block" />
+
+            <span>登記證字號 40E2009807</span>
+          </div>
+
+          {/* 版權與回到頂端 */}
+          <div
+            className="
+              flex
+              items-center
+              justify-between
+              gap-6
+              sm:shrink-0
+              sm:justify-end
+            "
+          >
+            <p className="text-[9px] uppercase tracking-[0.2em] text-neutral-400">
+              © {year} MM Studio
+            </p>
+
+            <a
+              href="#"
+              aria-label="回到頁面頂端"
+              className="
+                group/top
+                inline-flex
+                items-center
+                gap-2
+                text-[9px]
+                tracking-[0.16em]
+                text-neutral-500
+                transition-colors
+                duration-300
+                hover:text-[#9a7b54]
+              "
+            >
+              <span>回到頂端</span>
+
+              <span className="transition-transform duration-500 group-hover/top:-translate-y-1">
+                ↑
+              </span>
+            </a>
+          </div>
+        </div>
+      </Container>
     </footer>
   );
 }
