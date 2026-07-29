@@ -78,3 +78,120 @@ button {
 .caption {
   font-size: 0.75rem;
 }
+
+/* ---------- Project transition / 一厘切口 ---------- */
+
+@keyframes mm-project-overlay-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes mm-project-logo-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.965);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes mm-project-copy-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes mm-brand-cut-sweep {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes mm-brand-ticks-in {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes mm-project-progress {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.mm-project-transition-overlay {
+  animation: mm-project-overlay-in 240ms ease-out both;
+}
+
+.mm-project-transition-logo {
+  animation:
+    mm-project-logo-in 580ms
+    cubic-bezier(0.22, 1, 0.36, 1) 80ms both;
+}
+
+.mm-project-transition-kicker,
+.mm-project-transition-title {
+  animation:
+    mm-project-copy-in 420ms ease-out 180ms both;
+}
+
+.mm-brand-cut-animation {
+  transform: scaleX(0);
+  animation:
+    mm-brand-cut-sweep 720ms
+    cubic-bezier(0.22, 1, 0.36, 1) 180ms forwards;
+}
+
+.mm-brand-ticks-animation {
+  opacity: 0;
+  animation:
+    mm-brand-ticks-in 340ms ease-out 650ms forwards;
+}
+
+.mm-project-transition-progress {
+  transform: scaleX(0);
+  animation:
+    mm-project-progress 920ms
+    cubic-bezier(0.22, 1, 0.36, 1) 100ms forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mm-project-transition-overlay,
+  .mm-project-transition-logo,
+  .mm-project-transition-kicker,
+  .mm-project-transition-title,
+  .mm-brand-cut-animation,
+  .mm-brand-ticks-animation,
+  .mm-project-transition-progress {
+    animation-duration: 1ms;
+    animation-delay: 0ms;
+  }
+}

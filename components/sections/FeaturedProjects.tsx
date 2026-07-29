@@ -2,11 +2,11 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 
 import Container from "@/components/ui/Container";
 import Reveal from "@/components/ui/Reveal";
 import Section from "@/components/ui/Section";
+import ProjectTransitionLink from "@/components/transitions/ProjectTransitionLink";
 
 type ProjectCategory =
   | "residential"
@@ -366,8 +366,9 @@ export default function FeaturedProjects() {
                     key={project.id}
                     delay={index * 0.05}
                   >
-                    <Link
+                    <ProjectTransitionLink
                       href={project.href}
+                      title={project.titleZh}
                       className="group block outline-none"
                     >
                       <article>
@@ -546,7 +547,7 @@ export default function FeaturedProjects() {
                           )}
                         </div>
                       </article>
-                    </Link>
+                    </ProjectTransitionLink>
                   </Reveal>
                 );
               }

@@ -101,6 +101,7 @@ export default function RootLayout({
     <html
       lang="zh-Hant"
       className="scroll-smooth"
+      data-scroll-behavior="smooth"
       suppressHydrationWarning
     >
       <body

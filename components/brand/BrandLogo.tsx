@@ -1,11 +1,13 @@
 type BrandLogoProps = {
   variant?: "horizontal" | "footer";
   className?: string;
+  transitioning?: boolean;
 };
 
 export default function BrandLogo({
   variant = "horizontal",
   className = "",
+  transitioning = false,
 }: BrandLogoProps) {
   if (variant === "footer") {
     return (
@@ -49,29 +51,37 @@ export default function BrandLogo({
           fill="none"
           stroke="#B6925D"
           strokeWidth="2.4"
-          className="
-            origin-left
-            scale-x-0
-            transition-transform
-            duration-700
-            ease-[cubic-bezier(0.22,1,0.36,1)]
-            group-hover/brand:scale-x-100
-            motion-reduce:transition-none
-          "
+          className={
+            transitioning
+              ? "mm-brand-cut-animation origin-left"
+              : `
+                  origin-left
+                  scale-x-0
+                  transition-transform
+                  duration-700
+                  ease-[cubic-bezier(0.22,1,0.36,1)]
+                  group-hover/brand:scale-x-100
+                  motion-reduce:transition-none
+                `
+          }
         />
 
         <g
           fill="none"
           stroke="#B6925D"
           strokeWidth="1.8"
-          className="
-            opacity-40
-            transition-all
-            delay-200
-            duration-500
-            group-hover/brand:opacity-100
-            motion-reduce:transition-none
-          "
+          className={
+            transitioning
+              ? "mm-brand-ticks-animation"
+              : `
+                  opacity-40
+                  transition-all
+                  delay-200
+                  duration-500
+                  group-hover/brand:opacity-100
+                  motion-reduce:transition-none
+                `
+          }
         >
           <path d="M255 83V105" />
           <path d="M265 83V105" />
@@ -95,9 +105,9 @@ export default function BrandLogo({
           textAnchor="middle"
           fill="#8C877F"
           fontFamily="Inter, Arial, sans-serif"
-          fontSize="19"
+          fontSize="17"
           fontWeight="500"
-          letterSpacing="4.1"
+          letterSpacing="3"
         >
           BOUTIQUE INTERIOR DESIGN
         </text>
@@ -146,29 +156,37 @@ export default function BrandLogo({
         fill="none"
         stroke="#B6925D"
         strokeWidth="2.5"
-        className="
-          origin-left
-          scale-x-0
-          transition-transform
-          duration-700
-          ease-[cubic-bezier(0.22,1,0.36,1)]
-          group-hover/logo:scale-x-100
-          motion-reduce:transition-none
-        "
+        className={
+          transitioning
+            ? "mm-brand-cut-animation origin-left"
+            : `
+                origin-left
+                scale-x-0
+                transition-transform
+                duration-700
+                ease-[cubic-bezier(0.22,1,0.36,1)]
+                group-hover/logo:scale-x-100
+                motion-reduce:transition-none
+              `
+        }
       />
 
       <g
         fill="none"
         stroke="#B6925D"
         strokeWidth="1.8"
-        className="
-          opacity-40
-          transition-all
-          delay-200
-          duration-500
-          group-hover/logo:opacity-100
-          motion-reduce:transition-none
-        "
+        className={
+          transitioning
+            ? "mm-brand-ticks-animation"
+            : `
+                opacity-40
+                transition-all
+                delay-200
+                duration-500
+                group-hover/logo:opacity-100
+                motion-reduce:transition-none
+              `
+        }
       >
         <path d="M203 84V105" />
         <path d="M211 84V105" />
