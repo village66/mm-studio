@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import BrandLogo from "@/components/brand/BrandLogo";
 import Container from "@/components/ui/Container";
 
 const footerNavigation = [
@@ -49,32 +50,54 @@ export default function Footer() {
             <Link
               href="/"
               aria-label="返回 MM Studio 首頁"
-              className="group/brand inline-block"
+              className="
+                group/brand
+                relative
+                inline-flex
+                overflow-hidden
+                rounded-sm
+                pr-5
+                text-[#24231f]
+                focus-visible:outline-none
+                focus-visible:ring-1
+                focus-visible:ring-[#b6925d]
+                focus-visible:ring-offset-4
+              "
             >
-              <p
+              <span
+                aria-hidden="true"
                 className="
-                  font-serif
-                  text-[29px]
-                  font-light
-                  uppercase
-                  leading-none
-                  tracking-[0.17em]
-                  text-[#1d1d1b]
-                  transition-colors
-                  duration-500
-                  group-hover/brand:text-[#9a7b54]
-                  sm:text-[32px]
+                  pointer-events-none
+                  absolute
+                  bottom-3
+                  left-0
+                  h-px
+                  w-full
+                  origin-left
+                  scale-x-0
+                  bg-[#b6925d]/35
+                  transition-transform
+                  duration-700
+                  ease-[cubic-bezier(0.22,1,0.36,1)]
+                  group-hover/brand:scale-x-100
+                  motion-reduce:transition-none
                 "
-              >
-                MM Studio
-              </p>
+              />
 
-              <p className="mt-2 text-[8px] uppercase tracking-[0.34em] text-[#a4865d]">
-                Boutique Interior Design
-              </p>
+              <BrandLogo
+                variant="footer"
+                className="
+                  relative
+                  z-10
+                  h-auto
+                  w-[218px]
+                  sm:w-[246px]
+                  lg:w-[268px]
+                "
+              />
             </Link>
 
-            <p className="mt-5 text-[12px] font-light tracking-[0.08em] text-neutral-500">
+            <p className="mt-2 text-[12px] font-light tracking-[0.08em] text-neutral-500">
               工厘室內裝修設計有限公司
             </p>
 

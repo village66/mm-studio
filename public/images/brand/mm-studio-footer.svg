@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 250" role="img" aria-labelledby="title desc">
+  <title id="title">MM Studio Footer 標誌</title>
+  <desc id="desc">適合網站頁尾置中的精簡標誌。</desc>
+  <defs>
+    <mask id="footer-cut">
+      <rect width="520" height="250" fill="#fff"/>
+      <rect x="104" y="90" width="312" height="7" fill="#000"/>
+    </mask>
+  </defs>
+  <g mask="url(#footer-cut)" fill="#24231F">
+    <path d="M122 143V42H139L182 126L225 42H242V143H229V66L182 145L135 66V143Z"/>
+    <path d="M278 143V42H295L338 126L381 42H398V143H385V66L338 145L291 66V143Z"/>
+  </g>
+  <path d="M104 93.5H416" fill="none" stroke="#B6925D" stroke-width="2"/>
+  <path d="M255 83V105M265 83V105" fill="none" stroke="#B6925D" stroke-width="1.7"/>
+  <text x="260" y="194" text-anchor="middle" fill="#24231F" font-family="Cormorant Garamond, Georgia, serif" font-size="27" letter-spacing="13">MM STUDIO</text>
+  <text x="260" y="224" text-anchor="middle" fill="#8C877F" font-family="Inter, Arial, sans-serif" font-size="9.5" letter-spacing="4.7">BOUTIQUE INTERIOR DESIGN</text>
+</svg>

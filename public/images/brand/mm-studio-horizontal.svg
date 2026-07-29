@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 220" role="img" aria-labelledby="title desc">
+  <title id="title">MM Studio 一厘切口橫式標誌</title>
+  <desc id="desc">適合網站 Header 與橫式文件的 MM Studio 標誌。</desc>
+  <defs>
+    <mask id="horizontal-cut">
+      <rect width="920" height="220" fill="#fff"/>
+      <rect x="44" y="91" width="326" height="7" fill="#000"/>
+    </mask>
+  </defs>
+  <g mask="url(#horizontal-cut)" fill="#24231F">
+    <path d="M62 152V40H79L128 133L177 40H194V152H181V67L128 154L75 67V152Z"/>
+    <path d="M220 152V40H237L286 133L335 40H352V152H339V67L286 154L233 67V152Z"/>
+  </g>
+  <path d="M44 94.5H370" fill="none" stroke="#B6925D" stroke-width="2"/>
+  <path d="M203 84V105M211 84V105" fill="none" stroke="#B6925D" stroke-width="1.7"/>
+  <line x1="414" y1="42" x2="414" y2="154" stroke="#D8D2C8"/>
+  <text x="470" y="98" fill="#24231F" font-family="Cormorant Garamond, Georgia, serif" font-size="46" font-weight="400" letter-spacing="15">MM STUDIO</text>
+  <text x="473" y="137" fill="#8C877F" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="400" letter-spacing="5.6">BOUTIQUE INTERIOR DESIGN</text>
+</svg>
