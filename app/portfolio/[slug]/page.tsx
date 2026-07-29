@@ -391,7 +391,7 @@ export default async function ProjectPage({
           {/* 作品選集 */}
           <ProjectLightbox
             title={project.titleZh}
-            images={project.images}
+            cases={project.cases}
           />
 
           {/* 前後作品分類 */}

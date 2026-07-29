@@ -5,6 +5,34 @@ export type ProjectHighlight = {
   valueEn: string;
 };
 
+export type ProjectPhaseKey =
+  | "before"
+  | "progress"
+  | "completed";
+
+export type ProjectImage = {
+  src: string;
+  captionZh?: string;
+  captionEn?: string;
+};
+
+export type ProjectPhase = {
+  key: ProjectPhaseKey;
+  titleZh: string;
+  titleEn: string;
+  summaryZh: string;
+  images: ProjectImage[];
+};
+
+export type ProjectCase = {
+  id: string;
+  titleZh: string;
+  titleEn: string;
+  storyZh: string;
+  storyEn: string;
+  phases: ProjectPhase[];
+};
+
 export type Project = {
   slug: string;
 
@@ -31,6 +59,7 @@ export type Project = {
 
   cover: string;
   images: string[];
+  cases: ProjectCase[];
 };
 
 export const projects: Project[] = [
@@ -78,6 +107,49 @@ export const projects: Project[] = [
       "/images/hero/hero-home2.jpg",
       "/images/hero/hero-home3.jpg",
     ],
+
+    cases: [
+      {
+        id: "residence-01",
+        titleZh: "自然光宅",
+        titleEn: "Residence in Natural Light",
+        storyZh:
+          "由生活動線出發，整合採光、收納與材質比例，讓公共空間保持開闊，也讓日常使用更自然安定。",
+        storyEn:
+          "A home shaped by natural light, integrated storage and a calm rhythm for everyday living.",
+        phases: [
+          {
+            key: "completed",
+            titleZh: "完成空間",
+            titleEn: "Completed",
+            summaryZh:
+              "以光線、材質與生活尺度，呈現空間完成後的整體氛圍與細節。",
+            images: [
+              {
+                src: "/images/projects/project01.jpg",
+                captionZh: "公共空間與日常動線",
+              },
+              {
+                src: "/images/hero/hero-home.jpg",
+                captionZh: "自然採光與材質層次",
+              },
+              {
+                src: "/images/hero/hero-home1.jpg",
+                captionZh: "收納與立面整合",
+              },
+              {
+                src: "/images/hero/hero-home2.jpg",
+                captionZh: "空間比例與生活尺度",
+              },
+              {
+                src: "/images/hero/hero-home3.jpg",
+                captionZh: "完成空間細節",
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     slug: "modern-apartment",
@@ -122,6 +194,45 @@ export const projects: Project[] = [
       "/images/hero/hero-home3.jpg",
       "/images/hero/hero-home4.jpg",
     ],
+
+    cases: [
+      {
+        id: "apartment-01",
+        titleZh: "光序寓所",
+        titleEn: "Apartment of Light",
+        storyZh:
+          "重新梳理玄關、公共空間與收納關係，以簡潔線條引導光線，建立兼具機能、秩序與柔和感的居住環境。",
+        storyEn:
+          "A contemporary apartment where light, circulation and integrated storage create a quiet sense of order.",
+        phases: [
+          {
+            key: "completed",
+            titleZh: "完成空間",
+            titleEn: "Completed",
+            summaryZh:
+              "以簡潔線條、柔和材質與整合收納，呈現現代寓所的安定日常。",
+            images: [
+              {
+                src: "/images/projects/project02.jpg",
+                captionZh: "玄關機能與展示收納",
+              },
+              {
+                src: "/images/hero/hero-home2.jpg",
+                captionZh: "公共空間的光線關係",
+              },
+              {
+                src: "/images/hero/hero-home3.jpg",
+                captionZh: "材質銜接與空間層次",
+              },
+              {
+                src: "/images/hero/hero-home4.jpg",
+                captionZh: "完成空間細節",
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     slug: "commercial-space",
@@ -165,6 +276,45 @@ export const projects: Project[] = [
       "/images/hero/hero-home4.jpg",
       "/images/hero/hero-home3.jpg",
       "/images/hero/hero-home2.jpg",
+    ],
+
+    cases: [
+      {
+        id: "commercial-01",
+        titleZh: "品牌空間",
+        titleEn: "Brand Space",
+        storyZh:
+          "從品牌定位與顧客動線出發，整合空間識別、材質表現與使用機能，讓環境成為品牌體驗的一部分。",
+        storyEn:
+          "A commercial environment shaped by brand identity, customer flow and a clear material language.",
+        phases: [
+          {
+            key: "completed",
+            titleZh: "完成空間",
+            titleEn: "Completed",
+            summaryZh:
+              "透過品牌識別、動線與材質表現，呈現商業空間完成後的使用體驗。",
+            images: [
+              {
+                src: "/images/projects/project03.jpg",
+                captionZh: "品牌空間與主要動線",
+              },
+              {
+                src: "/images/hero/hero-home4.jpg",
+                captionZh: "材質表現與空間識別",
+              },
+              {
+                src: "/images/hero/hero-home3.jpg",
+                captionZh: "使用情境與細節",
+              },
+              {
+                src: "/images/hero/hero-home2.jpg",
+                captionZh: "完成空間整體氛圍",
+              },
+            ],
+          },
+        ],
+      },
     ],
   },
 ];
