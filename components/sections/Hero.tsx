@@ -19,7 +19,11 @@ export default function Hero() {
   const [showText, setShowText] = useState(false);
 
   useEffect(() => {
-    setShowText(true);
+    const frame = requestAnimationFrame(() => {
+      setShowText(true);
+    });
+
+    return () => cancelAnimationFrame(frame);
   }, []);
 
   useEffect(() => {

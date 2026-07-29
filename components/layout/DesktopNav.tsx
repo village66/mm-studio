@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 
 import { navigation } from "@/constants/navigation";
 
@@ -15,13 +14,9 @@ const zhMap: Record<string, string> = {
 };
 
 export default function DesktopNav() {
-  const pathname = usePathname();
-
   return (
     <nav className="hidden lg:flex items-center ml-20 gap-14 xl:ml-28 xl:gap-16">
       {navigation.map((item) => {
-        const active = false;
-
         return (
           <Link
   key={item.name}

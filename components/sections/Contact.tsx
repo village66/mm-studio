@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import Container from "@/components/ui/Container";
 import Reveal from "@/components/ui/Reveal";
@@ -550,8 +551,8 @@ export default function Contact() {
 
               {/* 行動按鈕 */}
               <div className="mt-6 lg:mt-7">
-                <a
-                  href="mailto:mm.interdesign@gmail.com"
+                <Link
+                  href="/project-inquiry"
                   className="
                     group/button
                     relative
@@ -616,7 +617,7 @@ export default function Contact() {
                   >
                     Start Your Project
                   </span>
-                </a>
+                </Link>
               </div>
             </div>
           </Reveal>

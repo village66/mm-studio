@@ -11,7 +11,11 @@ export default function MobileMenu() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+    const frame = requestAnimationFrame(() => {
+      setMounted(true);
+    });
+
+    return () => cancelAnimationFrame(frame);
   }, []);
 
   useEffect(() => {
