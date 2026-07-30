@@ -31,9 +31,9 @@ type Project = {
   新增作品時，只需要在 projects 內新增一組資料。
 
   category 分類：
-  residential = 居住空間
-  commercial  = 商業空間
-  renovation  = 老屋新生
+  residential = 住宅設計
+  commercial  = 商業設計
+  renovation  = 老屋翻新
 */
 const projects: Project[] = [
   {
@@ -61,7 +61,8 @@ const projects: Project[] = [
     titleZh: "品牌商業空間",
     titleEn: "Commercial Space",
     category: "commercial",
-    image: "/images/projects/project03.jpg",
+    image:
+      "/images/projects/commercial/commercial-01/cover/cover-01.jpg",
     href: "/portfolio/commercial-space",
     location: "Taiwan",
     year: "2026",
@@ -80,17 +81,17 @@ const filters: {
   },
   {
     value: "residential",
-    zh: "居住空間",
-    en: "Residential",
+    zh: "住宅設計",
+    en: "Residential Design",
   },
   {
     value: "commercial",
-    zh: "商業空間",
-    en: "Commercial",
+    zh: "商業設計",
+    en: "Commercial Design",
   },
   {
     value: "renovation",
-    zh: "老屋新生",
+    zh: "老屋翻新",
     en: "Renovation",
   },
 ];
@@ -103,15 +104,15 @@ const categoryLabels: Record<
   }
 > = {
   residential: {
-    zh: "居住空間",
-    en: "Residential",
+    zh: "住宅設計",
+    en: "Residential Design",
   },
   commercial: {
-    zh: "商業空間",
-    en: "Commercial",
+    zh: "商業設計",
+    en: "Commercial Design",
   },
   renovation: {
-    zh: "老屋新生",
+    zh: "老屋翻新",
     en: "Renovation",
   },
 };
@@ -201,7 +202,7 @@ export default function FeaturedProjects() {
 
             <div className="lg:col-span-5 lg:flex lg:justify-end">
               <p className="max-w-[470px] text-[14px] font-light leading-7 text-[#68645f] sm:text-[15px]">
-                彙集居住空間、商業空間與老屋新生案例，
+                彙集住宅設計、商業設計與老屋翻新案例，
                 從格局、材質與生活需求，看見每個空間不同的設計回應。
               </p>
             </div>

@@ -76,10 +76,10 @@ export const projects: Project[] = [
 
     titleZh: "私宅設計選集",
     titleEn: "Private Residence Collection",
-    categoryZh: "居住空間",
-    categoryEn: "Residential",
+    categoryZh: "住宅設計",
+    categoryEn: "Residential Design",
     descriptionZh:
-      "本選集彙整 MM Studio 對居住空間的設計觀察，從生活動線、自然採光到材質比例，呈現舒適、耐看並能長久使用的空間樣貌。",
+      "本選集彙整 MM Studio 對住宅設計的觀察，從生活動線、自然採光到材質比例，呈現舒適、耐看並能長久使用的空間樣貌。",
     descriptionEn:
       "A curated collection of residential spaces shaped by everyday movement, natural light, material balance and enduring comfort.",
 
@@ -164,8 +164,8 @@ export const projects: Project[] = [
 
     titleZh: "現代寓所選集",
     titleEn: "Modern Apartment Collection",
-    categoryZh: "居住空間",
-    categoryEn: "Residential",
+    categoryZh: "住宅設計",
+    categoryEn: "Residential Design",
     descriptionZh:
       "以現代生活需求為基礎，重新梳理格局、收納與光線關係，透過簡潔線條與柔和材質，創造安定而自在的居住感受。",
     descriptionEn:
@@ -247,8 +247,8 @@ export const projects: Project[] = [
 
     titleZh: "商業空間選集",
     titleEn: "Commercial Space Collection",
-    categoryZh: "商業空間",
-    categoryEn: "Commercial",
+    categoryZh: "商業設計",
+    categoryEn: "Commercial Design",
     descriptionZh:
       "本選集聚焦品牌定位、空間識別與使用動線，透過材質、光線與比例建立清楚的空間語言，提升品牌形象與顧客體驗。",
     descriptionEn:
@@ -269,13 +269,28 @@ export const projects: Project[] = [
       },
     ],
 
-    cover: "/images/projects/project03.jpg",
+    cover:
+      "/images/projects/commercial/commercial-01/cover/cover-01.jpg",
 
     images: [
-      "/images/projects/project03.jpg",
-      "/images/hero/hero-home4.jpg",
-      "/images/hero/hero-home3.jpg",
-      "/images/hero/hero-home2.jpg",
+      "/images/projects/commercial/commercial-01/completed/completed-01.jpg",
+      "/images/projects/commercial/commercial-01/completed/completed-02.jpg",
+      "/images/projects/commercial/commercial-01/completed/completed-03.jpg",
+      "/images/projects/commercial/commercial-01/completed/completed-04.jpg",
+      "/images/projects/commercial/commercial-01/completed/completed-05.jpg",
+      "/images/projects/commercial/commercial-01/completed/completed-06.jpg",
+      "/images/projects/commercial/commercial-01/completed/completed-07.jpg",
+      "/images/projects/commercial/commercial-01/completed/completed-08.jpg",
+      "/images/projects/commercial/commercial-01/completed/completed-09.jpg",
+      "/images/projects/commercial/commercial-01/completed/completed-10.jpg",
+      "/images/projects/commercial/commercial-01/completed/completed-11.jpg",
+      "/images/projects/commercial/commercial-01/completed/completed-12.jpg",
+      "/images/projects/commercial/commercial-01/completed/completed-13.jpg",
+      "/images/projects/commercial/commercial-01/completed/completed-14.jpg",
+      "/images/projects/commercial/commercial-01/completed/completed-15.jpg",
+      "/images/projects/commercial/commercial-01/completed/completed-16.jpg",
+      "/images/projects/commercial/commercial-01/completed/completed-17.jpg",
+      "/images/projects/commercial/commercial-01/completed/completed-18.jpg",
     ],
 
     cases: [
@@ -289,27 +304,145 @@ export const projects: Project[] = [
           "A commercial environment shaped by brand identity, customer flow and a clear material language.",
         phases: [
           {
+            key: "before",
+            titleZh: "原始空間",
+            titleEn: "Before",
+            summaryZh:
+              "從既有格局、現場條件與使用需求出發，釐清空間限制與改造方向。",
+            images: [
+              {
+                src: "/images/projects/commercial/commercial-01/before/before-01.jpg",
+                captionZh: "原始空間與現場條件",
+              },
+              {
+                src: "/images/projects/commercial/commercial-01/before/before-02.jpg",
+                captionZh: "既有格局與使用動線",
+              },
+              {
+                src: "/images/projects/commercial/commercial-01/before/before-03.jpg",
+                captionZh: "改造前空間細節",
+              },
+            ],
+          },
+          {
+            key: "progress",
+            titleZh: "設計實現",
+            titleEn: "In Progress",
+            summaryZh:
+              "透過工程整合、現場協調與細節確認，逐步將設計規劃落實於空間。",
+            images: [
+              {
+                src: "/images/projects/commercial/commercial-01/progress/progress-01.jpg",
+                captionZh: "工程施作與現場整合",
+              },
+              {
+                src: "/images/projects/commercial/commercial-01/progress/progress-02.jpg",
+                captionZh: "格局與介面施工",
+              },
+              {
+                src: "/images/projects/commercial/commercial-01/progress/progress-03.jpg",
+                captionZh: "設備與管線協調",
+              },
+              {
+                src: "/images/projects/commercial/commercial-01/progress/progress-04.jpg",
+                captionZh: "空間結構逐步成形",
+              },
+              {
+                src: "/images/projects/commercial/commercial-01/progress/progress-05.jpg",
+                captionZh: "材質與施工細節確認",
+              },
+              {
+                src: "/images/projects/commercial/commercial-01/progress/progress-06.jpg",
+                captionZh: "現場工程品質管理",
+              },
+              {
+                src: "/images/projects/commercial/commercial-01/progress/progress-07.jpg",
+                captionZh: "設計細節落實",
+              },
+              {
+                src: "/images/projects/commercial/commercial-01/progress/progress-08.jpg",
+                captionZh: "完工前整體檢視",
+              },
+            ],
+          },
+          {
             key: "completed",
             titleZh: "完成空間",
             titleEn: "Completed",
             summaryZh:
-              "透過品牌識別、動線與材質表現，呈現商業空間完成後的使用體驗。",
+              "透過品牌識別、使用動線與材質表現，呈現空間完成後的整體體驗與細節。",
             images: [
               {
-                src: "/images/projects/project03.jpg",
-                captionZh: "品牌空間與主要動線",
+                src: "/images/projects/commercial/commercial-01/completed/completed-01.jpg",
+                captionZh: "完成空間與主要動線",
               },
               {
-                src: "/images/hero/hero-home4.jpg",
-                captionZh: "材質表現與空間識別",
+                src: "/images/projects/commercial/commercial-01/completed/completed-02.jpg",
+                captionZh: "空間識別與整體氛圍",
               },
               {
-                src: "/images/hero/hero-home3.jpg",
-                captionZh: "使用情境與細節",
+                src: "/images/projects/commercial/commercial-01/completed/completed-03.jpg",
+                captionZh: "材質表現與比例關係",
               },
               {
-                src: "/images/hero/hero-home2.jpg",
-                captionZh: "完成空間整體氛圍",
+                src: "/images/projects/commercial/commercial-01/completed/completed-04.jpg",
+                captionZh: "使用情境與空間細節",
+              },
+              {
+                src: "/images/projects/commercial/commercial-01/completed/completed-05.jpg",
+                captionZh: "立面設計與機能整合",
+              },
+              {
+                src: "/images/projects/commercial/commercial-01/completed/completed-06.jpg",
+                captionZh: "光線與材質層次",
+              },
+              {
+                src: "/images/projects/commercial/commercial-01/completed/completed-07.jpg",
+                captionZh: "空間轉折與視覺延伸",
+              },
+              {
+                src: "/images/projects/commercial/commercial-01/completed/completed-08.jpg",
+                captionZh: "細部工藝與收邊",
+              },
+              {
+                src: "/images/projects/commercial/commercial-01/completed/completed-09.jpg",
+                captionZh: "空間機能與使用體驗",
+              },
+              {
+                src: "/images/projects/commercial/commercial-01/completed/completed-10.jpg",
+                captionZh: "品牌氛圍與視覺焦點",
+              },
+              {
+                src: "/images/projects/commercial/commercial-01/completed/completed-11.jpg",
+                captionZh: "材質銜接與設計細節",
+              },
+              {
+                src: "/images/projects/commercial/commercial-01/completed/completed-12.jpg",
+                captionZh: "整體配置與空間關係",
+              },
+              {
+                src: "/images/projects/commercial/commercial-01/completed/completed-13.jpg",
+                captionZh: "空間尺度與動線安排",
+              },
+              {
+                src: "/images/projects/commercial/commercial-01/completed/completed-14.jpg",
+                captionZh: "燈光配置與情境營造",
+              },
+              {
+                src: "/images/projects/commercial/commercial-01/completed/completed-15.jpg",
+                captionZh: "展示機能與立面細節",
+              },
+              {
+                src: "/images/projects/commercial/commercial-01/completed/completed-16.jpg",
+                captionZh: "完成空間局部視角",
+              },
+              {
+                src: "/images/projects/commercial/commercial-01/completed/completed-17.jpg",
+                captionZh: "整體氛圍與空間層次",
+              },
+              {
+                src: "/images/projects/commercial/commercial-01/completed/completed-18.jpg",
+                captionZh: "完成空間設計細節",
               },
             ],
           },
