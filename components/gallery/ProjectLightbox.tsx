@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 
 import Lightbox from "yet-another-react-lightbox";
@@ -109,8 +109,9 @@ function ProjectStory({
 
   return (
     <article
+      id={projectCase.id}
       aria-labelledby={`${projectCase.id}-title`}
-      className="border-b border-[#d8d3ca] pb-16 sm:pb-20 lg:pb-24"
+      className="scroll-mt-[112px] border-b border-[#d8d3ca] pb-16 sm:scroll-mt-[124px] sm:pb-20 lg:scroll-mt-[136px] lg:pb-24"
     >
       <header className="grid gap-8 lg:grid-cols-12 lg:gap-12">
         <div className="lg:col-span-5">
@@ -375,9 +376,46 @@ export default function ProjectLightbox({
   title,
   cases,
 }: Props) {
+  const [activeCaseIndex, setActiveCaseIndex] =
+    useState(0);
   const [selection, setSelection] =
     useState<LightboxSelection | null>(null);
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const syncCaseFromHash = () => {
+      const caseId = window.location.hash.slice(1);
+      const nextIndex = cases.findIndex(
+        (projectCase) => projectCase.id === caseId
+      );
+
+      if (nextIndex < 0) return;
+
+      setActiveCaseIndex(nextIndex);
+
+      window.requestAnimationFrame(() => {
+        document
+          .getElementById(caseId)
+          ?.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+      });
+    };
+
+    syncCaseFromHash();
+    window.addEventListener(
+      "hashchange",
+      syncCaseFromHash
+    );
+
+    return () => {
+      window.removeEventListener(
+        "hashchange",
+        syncCaseFromHash
+      );
+    };
+  }, [cases]);
 
   const selectedCase = selection
     ? cases[selection.caseIndex]
@@ -433,16 +471,136 @@ export default function ProjectLightbox({
           </div>
         </div>
 
-        <div className="mt-10 space-y-16 sm:mt-12 sm:space-y-20 lg:mt-14 lg:space-y-24">
-          {cases.map((projectCase, caseIndex) => (
+        <nav
+          aria-label="選擇作品"
+          className="mt-8 grid grid-cols-2 gap-4 sm:mt-10 sm:grid-cols-3 lg:grid-cols-4 lg:gap-5"
+        >
+          {cases.map((projectCase, caseIndex) => {
+            const preview =
+              projectCase.phases
+                .find(
+                  (projectPhase) =>
+                    projectPhase.key === "completed"
+                )
+                ?.images.at(0) ??
+              projectCase.phases
+                .flatMap(
+                  (projectPhase) => projectPhase.images
+                )
+                .at(0);
+            const active =
+              caseIndex === activeCaseIndex;
+
+            return (
+              <button
+                key={projectCase.id}
+                type="button"
+                aria-pressed={active}
+                onClick={() => {
+                  setActiveCaseIndex(caseIndex);
+                  window.history.replaceState(
+                    null,
+                    "",
+                    `#${projectCase.id}`
+                  );
+
+                  window.requestAnimationFrame(() => {
+                    document
+                      .getElementById(projectCase.id)
+                      ?.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start",
+                      });
+                  });
+                }}
+                className="group/case text-left outline-none"
+              >
+                <div
+                  className={`
+                    relative
+                    aspect-[4/3]
+                    overflow-hidden
+                    border
+                    bg-[#e8e5de]
+                    transition-colors
+                    duration-500
+                    ${
+                      active
+                        ? "border-[#9a7d56]"
+                        : "border-transparent group-hover/case:border-[#c7b79f]"
+                    }
+                  `}
+                >
+                  {preview && (
+                    <Image
+                      src={preview.src}
+                      alt={`${projectCase.titleZh} 作品封面`}
+                      fill
+                      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                      className="object-cover transition-transform duration-[800ms] ease-out group-hover/case:scale-[1.035]"
+                    />
+                  )}
+
+                  <div
+                    className={`
+                      pointer-events-none
+                      absolute
+                      inset-0
+                      bg-black
+                      transition-opacity
+                      duration-500
+                      ${
+                        active
+                          ? "opacity-0"
+                          : "opacity-[0.08] group-hover/case:opacity-0"
+                      }
+                    `}
+                  />
+
+                  <span className="absolute left-3 top-3 bg-[#f8f8f5]/92 px-3 py-2 text-[8px] font-medium tracking-[0.2em] text-[#806746] backdrop-blur-md sm:left-4 sm:top-4">
+                    PROJECT{" "}
+                    {String(caseIndex + 1).padStart(
+                      2,
+                      "0"
+                    )}
+                  </span>
+                </div>
+
+                <div
+                  className={`
+                    border-b
+                    py-3
+                    transition-colors
+                    duration-500
+                    ${
+                      active
+                        ? "border-[#9a7d56]"
+                        : "border-[#ddd8d0]"
+                    }
+                  `}
+                >
+                  <p className="text-[13px] font-light tracking-[0.04em] text-[#34322f] sm:text-[14px]">
+                    {projectCase.titleZh}
+                  </p>
+                  <p className="mt-1 text-[8px] uppercase tracking-[0.18em] text-neutral-400">
+                    {projectCase.titleEn}
+                  </p>
+                </div>
+              </button>
+            );
+          })}
+        </nav>
+
+        <div className="mt-12 sm:mt-16 lg:mt-20">
+          {cases[activeCaseIndex] && (
             <ProjectStory
-              key={projectCase.id}
-              projectCase={projectCase}
-              caseIndex={caseIndex}
+              key={cases[activeCaseIndex].id}
+              projectCase={cases[activeCaseIndex]}
+              caseIndex={activeCaseIndex}
               collectionTitle={title}
               onOpenImage={handleOpenImage}
             />
-          ))}
+          )}
         </div>
       </section>
 

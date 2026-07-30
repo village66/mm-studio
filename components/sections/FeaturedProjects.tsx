@@ -32,38 +32,95 @@ type Project = {
 
   category 分類：
   residential = 住宅設計
-  commercial  = 商業設計
-  renovation  = 老屋翻新
+  commercial  = 商業空間
+  renovation  = 舊屋改造
 */
 const projects: Project[] = [
   {
-    id: "private-residence",
-    titleZh: "靜謐私宅",
-    titleEn: "Private Residence",
+    id: "residence-01",
+    titleZh: "柔光序居",
+    titleEn: "Soft-Lit Residence",
     category: "residential",
-    image: "/images/projects/project01.jpg",
-    href: "/portfolio/private-residence",
+    image:
+      "/images/projects/residential/residence-01/cover/cover-01.jpg",
+    href: "/portfolio/private-residence#residence-01",
     location: "Taiwan",
     year: "2026",
   },
   {
-    id: "modern-apartment",
-    titleZh: "現代寓所",
-    titleEn: "Modern Apartment",
+    id: "residence-02",
+    titleZh: "藝境之家",
+    titleEn: "Artful Residence",
     category: "residential",
-    image: "/images/projects/project02.jpg",
-    href: "/portfolio/modern-apartment",
+    image:
+      "/images/projects/residential/residence-02/completed/completed-00.jpg",
+    href: "/portfolio/private-residence#residence-02",
     location: "Taiwan",
     year: "2026",
   },
   {
-    id: "commercial-space",
-    titleZh: "品牌商業空間",
-    titleEn: "Commercial Space",
+    id: "residence-03",
+    titleZh: "黑白映居",
+    titleEn: "Monochrome Residence",
+    category: "residential",
+    image:
+      "/images/projects/residential/residence-03/cover/cover-01.jpg",
+    href: "/portfolio/private-residence#residence-03",
+    location: "Taiwan",
+    year: "2026",
+  },
+  {
+    id: "renovation-01",
+    titleZh: "庭院老宅新生",
+    titleEn: "Courtyard House Renewal",
+    category: "renovation",
+    image:
+      "/images/projects/renovation/renovation-01/cover/cover-01.jpg",
+    href: "/portfolio/modern-apartment#renovation-01",
+    location: "Taiwan",
+    year: "2026",
+  },
+  {
+    id: "commercial-01",
+    titleZh: "旅讀選物空間",
+    titleEn: "Travel & Lifestyle Store",
     category: "commercial",
     image:
-      "/images/projects/commercial/commercial-01/cover/cover-01.jpg",
-    href: "/portfolio/commercial-space",
+      "/images/projects/commercial/commercial-01/cover/cover01.jpg",
+    href: "/portfolio/commercial-space#commercial-01",
+    location: "Taiwan",
+    year: "2026",
+  },
+  {
+    id: "commercial-02",
+    titleZh: "甜點品牌概念店",
+    titleEn: "Patisserie Concept Store",
+    category: "commercial",
+    image:
+      "/images/projects/commercial/commercial-02/completed/A1.jpg",
+    href: "/portfolio/commercial-space#commercial-02",
+    location: "Taiwan",
+    year: "2026",
+  },
+  {
+    id: "commercial-03",
+    titleZh: "簡約服飾專櫃",
+    titleEn: "Minimal Fashion Boutique",
+    category: "commercial",
+    image:
+      "/images/projects/commercial/commercial-03/cover/cover-01.jpg",
+    href: "/portfolio/commercial-space#commercial-03",
+    location: "Taiwan",
+    year: "2026",
+  },
+  {
+    id: "commercial-04",
+    titleZh: "開放式餐飲空間",
+    titleEn: "Open Kitchen Dining",
+    category: "commercial",
+    image:
+      "/images/projects/commercial/commercial-04/cover/cover-01.jpg",
+    href: "/portfolio/commercial-space#commercial-04",
     location: "Taiwan",
     year: "2026",
   },
@@ -86,13 +143,13 @@ const filters: {
   },
   {
     value: "commercial",
-    zh: "商業設計",
-    en: "Commercial Design",
+    zh: "商業空間",
+    en: "Commercial Space",
   },
   {
     value: "renovation",
-    zh: "老屋翻新",
-    en: "Renovation",
+    zh: "舊屋改造",
+    en: "Home Renovation",
   },
 ];
 
@@ -108,12 +165,12 @@ const categoryLabels: Record<
     en: "Residential Design",
   },
   commercial: {
-    zh: "商業設計",
-    en: "Commercial Design",
+    zh: "商業空間",
+    en: "Commercial Space",
   },
   renovation: {
-    zh: "老屋翻新",
-    en: "Renovation",
+    zh: "舊屋改造",
+    en: "Home Renovation",
   },
 };
 
@@ -202,7 +259,7 @@ export default function FeaturedProjects() {
 
             <div className="lg:col-span-5 lg:flex lg:justify-end">
               <p className="max-w-[470px] text-[14px] font-light leading-7 text-[#68645f] sm:text-[15px]">
-                彙集住宅設計、商業設計與老屋翻新案例，
+                彙集住宅設計、舊屋改造與商業空間案例，
                 從格局、材質與生活需求，看見每個空間不同的設計回應。
               </p>
             </div>
@@ -417,29 +474,6 @@ export default function FeaturedProjects() {
                               group-hover:opacity-100
                             "
                           />
-
-                          {/* 圖片分類標示 */}
-                          <div
-                            className="
-                              absolute
-                              left-4
-                              top-4
-                              bg-[#f8f8f5]/90
-                              px-3
-                              py-2
-                              backdrop-blur-md
-                              sm:left-5
-                              sm:top-5
-                            "
-                          >
-                            <p className="text-[9px] font-medium uppercase tracking-[0.22em] text-[#796446]">
-                              {
-                                categoryLabels[
-                                  project.category
-                                ].en
-                              }
-                            </p>
-                          </div>
 
                           {/* 查看作品提示 */}
                           <div
