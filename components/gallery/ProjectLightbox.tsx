@@ -1,6 +1,11 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import Image from "next/image";
 
 import Lightbox from "yet-another-react-lightbox";
@@ -103,6 +108,24 @@ function ProjectStory({
     ) ??
     availablePhases[0];
 
+  const galleryStartRef = useRef<HTMLDivElement>(null);
+
+  const selectPhase = (phaseKey: ProjectPhaseKey) => {
+    setActiveKey(phaseKey);
+
+    if (
+      typeof window !== "undefined" &&
+      window.matchMedia("(max-width: 639px)").matches
+    ) {
+      window.requestAnimationFrame(() => {
+        galleryStartRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      });
+    }
+  };
+
   if (!activePhase) {
     return null;
   }
@@ -145,12 +168,36 @@ function ProjectStory({
         </div>
       </header>
 
-      <div className="relative mt-9 sm:mt-11">
+      <div
+        className="
+          sticky
+          top-[76px]
+          z-40
+          -mx-2
+          mt-9
+          rounded-[18px]
+          border
+          border-[#d8d1c5]/90
+          bg-[#f8f8f5]/90
+          p-1.5
+          shadow-[0_12px_32px_rgba(58,48,35,0.10)]
+          backdrop-blur-xl
+          sm:static
+          sm:mx-0
+          sm:mt-11
+          sm:rounded-none
+          sm:border-0
+          sm:bg-transparent
+          sm:p-0
+          sm:shadow-none
+          sm:backdrop-blur-none
+        "
+      >
         <div className="pointer-events-none absolute left-[8%] right-[8%] top-[31px] hidden h-px bg-[#d9d3c9] sm:block" />
 
         <nav
           aria-label={`${projectCase.titleZh} 空間轉變階段`}
-          className="relative grid gap-px bg-[#ddd8d0] border-y border-[#ddd8d0] sm:grid-cols-3"
+          className="relative grid grid-cols-3 gap-1 sm:gap-px sm:border-y sm:border-[#ddd8d0] sm:bg-[#ddd8d0]"
         >
           {phaseOrder.map((phaseKey) => {
             const meta = phaseMeta[phaseKey];
@@ -173,26 +220,33 @@ function ProjectStory({
                 }
                 onClick={() => {
                   if (phase) {
-                    setActiveKey(phaseKey);
+                    selectPhase(phaseKey);
                   }
                 }}
                 className={`
                   group/phase
                   relative
                   flex
-                  min-h-[92px]
+                  min-h-[58px]
+                  flex-col
                   items-center
-                  gap-4
+                  justify-center
+                  gap-1.5
+                  rounded-[13px]
                   bg-[#f8f8f5]
-                  px-5
-                  py-5
-                  text-left
+                  px-2
+                  py-2
+                  text-center
                   transition-colors
                   duration-500
+                  sm:min-h-[92px]
+                  sm:rounded-none
                   sm:flex-col
                   sm:items-start
                   sm:justify-between
                   sm:px-6
+                  sm:py-5
+                  sm:text-left
                   ${
                     isAvailable
                       ? "cursor-pointer hover:bg-[#f0ece3]"
@@ -210,8 +264,8 @@ function ProjectStory({
                     relative
                     z-10
                     flex
-                    h-7
-                    w-7
+                    h-6
+                    w-6
                     shrink-0
                     items-center
                     justify-center
@@ -222,6 +276,8 @@ function ProjectStory({
                     tracking-[0.12em]
                     transition-all
                     duration-500
+                    sm:h-7
+                    sm:w-7
                     ${
                       isActive
                         ? "border-[#9a7d56] bg-[#9a7d56] text-white"
@@ -232,16 +288,16 @@ function ProjectStory({
                   {meta.number}
                 </span>
 
-                <span className="flex-1 sm:flex-none">
-                  <span className="block text-[14px] font-light tracking-[0.08em] text-[#34322f]">
+                <span className="sm:flex-none">
+                  <span className="block whitespace-nowrap text-[11px] font-light tracking-[0.05em] text-[#34322f] sm:text-[14px] sm:tracking-[0.08em]">
                     {meta.titleZh}
                   </span>
-                  <span className="mt-1 block text-[8px] uppercase tracking-[0.23em] text-neutral-400">
+                  <span className="mt-1 hidden text-[8px] uppercase tracking-[0.23em] text-neutral-400 sm:block">
                     {meta.titleEn}
                   </span>
                 </span>
 
-                <span className="ml-auto text-right text-[8px] tracking-[0.14em] text-neutral-400 sm:absolute sm:bottom-5 sm:right-6">
+                <span className="hidden text-right text-[8px] tracking-[0.14em] text-neutral-400 sm:absolute sm:bottom-5 sm:right-6 sm:block">
                   {phase
                     ? `${String(
                         phase.images.length
@@ -289,26 +345,18 @@ function ProjectStory({
       </div>
 
       <div
+        ref={galleryStartRef}
         key={activePhase.key}
         className="
+          scroll-mt-[156px]
           mt-7
-          flex
-          snap-x
-          snap-mandatory
+          grid
+          grid-cols-1
           animate-[phase-gallery-in_650ms_ease-out_both]
-          gap-4
-          overflow-x-auto
-          overscroll-x-contain
-          pb-4
-          [scrollbar-width:none]
-          [&::-webkit-scrollbar]:hidden
+          gap-x-5
+          gap-y-8
           sm:mt-9
-          md:grid
           md:grid-cols-2
-          md:gap-x-5
-          md:gap-y-8
-          md:overflow-visible
-          md:pb-0
           lg:grid-cols-3
           lg:gap-x-6
           lg:gap-y-10
@@ -333,15 +381,9 @@ function ProjectStory({
               className="
                 group/image
                 block
-                w-[82vw]
-                max-w-[340px]
-                shrink-0
-                snap-start
-                scroll-ml-0
+                w-full
                 text-left
                 outline-none
-                md:w-auto
-                md:max-w-none
               "
             >
               <div className="relative aspect-[4/3] overflow-hidden bg-[#e8e5de]">
@@ -404,13 +446,6 @@ function ProjectStory({
         )}
       </div>
 
-      {activePhase.images.length > 1 && (
-        <div className="mt-1 flex items-center gap-3 text-[9px] font-light tracking-[0.16em] text-neutral-400 md:hidden">
-          <span className="h-px w-8 bg-[#c7b79f]" />
-          左右滑動瀏覽更多圖片
-          <span aria-hidden="true">↔</span>
-        </div>
-      )}
     </article>
   );
 }
@@ -790,8 +825,8 @@ export default function ProjectLightbox({
 
         .mm-project-lightbox
           .yarl__slide_title_container {
-          top: auto;
-          bottom: clamp(76px, 7vw, 98px);
+          top: clamp(58px, 6vw, 82px);
+          bottom: auto;
         }
 
         .mm-project-lightbox
@@ -801,7 +836,7 @@ export default function ProjectLightbox({
 
         .mm-project-lightbox
           .yarl__slide_title {
-          font-size: clamp(15px, 1.3vw, 20px);
+          font-size: clamp(13px, 1vw, 16px);
           font-weight: 300;
           letter-spacing: 0.08em;
           color: rgba(255, 255, 255, 0.92);
@@ -865,13 +900,13 @@ export default function ProjectLightbox({
 
         @media (max-width: 640px) {
           .mm-project-lightbox .yarl__slide {
-            padding-top: 104px;
-            padding-bottom: 142px;
+            padding-top: 116px;
+            padding-bottom: 118px;
           }
 
           .mm-project-lightbox
             .yarl__slide_image {
-            max-height: calc(100svh - 246px) !important;
+            max-height: calc(100svh - 234px) !important;
             max-width: calc(100vw - 40px) !important;
           }
 
@@ -882,23 +917,24 @@ export default function ProjectLightbox({
             left: 20px;
             width: calc(100vw - 84px);
             padding-right: 8px;
+          }
+
+          .mm-project-lightbox
+            .yarl__slide_title_container {
+            top: 58px;
+            bottom: auto;
+            background: transparent;
+          }
+
+          .mm-project-lightbox
+            .yarl__slide_description_container {
+            bottom: 18px;
             background: linear-gradient(
               90deg,
               rgba(18, 17, 15, 0.94) 0%,
               rgba(18, 17, 15, 0.72) 72%,
               transparent 100%
             );
-          }
-
-          .mm-project-lightbox
-            .yarl__slide_title_container {
-            top: auto;
-            bottom: 76px;
-          }
-
-          .mm-project-lightbox
-            .yarl__slide_description_container {
-            bottom: 18px;
           }
 
           .mm-project-lightbox .yarl__counter {
@@ -912,7 +948,20 @@ export default function ProjectLightbox({
           }
 
           .mm-lightbox-story-mark {
-            display: none;
+            left: 20px;
+            top: 20px;
+            display: flex;
+            gap: 9px;
+          }
+
+          .mm-lightbox-story-number,
+          .mm-lightbox-story-stage {
+            font-size: 7px;
+            letter-spacing: 0.18em;
+          }
+
+          .mm-lightbox-story-line {
+            width: 22px;
           }
         }
 
