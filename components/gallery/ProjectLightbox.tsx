@@ -290,7 +290,30 @@ function ProjectStory({
 
       <div
         key={activePhase.key}
-        className="mt-7 grid animate-[phase-gallery-in_650ms_ease-out_both] grid-cols-1 gap-x-5 gap-y-8 sm:mt-9 md:grid-cols-2 lg:grid-cols-3 lg:gap-x-6 lg:gap-y-10 2xl:grid-cols-4"
+        className="
+          mt-7
+          flex
+          snap-x
+          snap-mandatory
+          animate-[phase-gallery-in_650ms_ease-out_both]
+          gap-4
+          overflow-x-auto
+          overscroll-x-contain
+          pb-4
+          [scrollbar-width:none]
+          [&::-webkit-scrollbar]:hidden
+          sm:mt-9
+          md:grid
+          md:grid-cols-2
+          md:gap-x-5
+          md:gap-y-8
+          md:overflow-visible
+          md:pb-0
+          lg:grid-cols-3
+          lg:gap-x-6
+          lg:gap-y-10
+          2xl:grid-cols-4
+        "
       >
         {activePhase.images.map(
           (image, imageIndex) => (
@@ -307,7 +330,19 @@ function ProjectStory({
                   imageIndex,
                 })
               }
-              className="group/image block w-full text-left outline-none"
+              className="
+                group/image
+                block
+                w-[82vw]
+                max-w-[340px]
+                shrink-0
+                snap-start
+                scroll-ml-0
+                text-left
+                outline-none
+                md:w-auto
+                md:max-w-none
+              "
             >
               <div className="relative aspect-[4/3] overflow-hidden bg-[#e8e5de]">
                 <Image
@@ -368,6 +403,14 @@ function ProjectStory({
           )
         )}
       </div>
+
+      {activePhase.images.length > 1 && (
+        <div className="mt-1 flex items-center gap-3 text-[9px] font-light tracking-[0.16em] text-neutral-400 md:hidden">
+          <span className="h-px w-8 bg-[#c7b79f]" />
+          左右滑動瀏覽更多圖片
+          <span aria-hidden="true">↔</span>
+        </div>
+      )}
     </article>
   );
 }
@@ -733,10 +776,11 @@ export default function ProjectLightbox({
         }
 
         .mm-project-lightbox
-          .yarl__captions_container {
+          .yarl__slide_title_container,
+        .mm-project-lightbox
+          .yarl__slide_description_container {
           left: clamp(20px, 5vw, 72px);
           right: auto;
-          bottom: clamp(18px, 4vw, 52px);
           width: min(520px, calc(100vw - 40px));
           padding: 0;
           background: transparent;
@@ -745,7 +789,18 @@ export default function ProjectLightbox({
         }
 
         .mm-project-lightbox
-          .yarl__captions_title {
+          .yarl__slide_title_container {
+          top: auto;
+          bottom: clamp(76px, 7vw, 98px);
+        }
+
+        .mm-project-lightbox
+          .yarl__slide_description_container {
+          bottom: clamp(28px, 3vw, 44px);
+        }
+
+        .mm-project-lightbox
+          .yarl__slide_title {
           font-size: clamp(15px, 1.3vw, 20px);
           font-weight: 300;
           letter-spacing: 0.08em;
@@ -753,7 +808,7 @@ export default function ProjectLightbox({
         }
 
         .mm-project-lightbox
-          .yarl__captions_description {
+          .yarl__slide_description {
           margin-top: 8px;
           font-size: clamp(11px, 0.9vw, 14px);
           font-weight: 300;
@@ -821,18 +876,43 @@ export default function ProjectLightbox({
           }
 
           .mm-project-lightbox
-            .yarl__captions_container {
-            bottom: 22px;
-            width: calc(100vw - 92px);
+            .yarl__slide_title_container,
+          .mm-project-lightbox
+            .yarl__slide_description_container {
+            left: 20px;
+            width: calc(100vw - 84px);
+            padding-right: 8px;
+            background: linear-gradient(
+              90deg,
+              rgba(18, 17, 15, 0.94) 0%,
+              rgba(18, 17, 15, 0.72) 72%,
+              transparent 100%
+            );
+          }
+
+          .mm-project-lightbox
+            .yarl__slide_title_container {
+            top: auto;
+            bottom: 76px;
+          }
+
+          .mm-project-lightbox
+            .yarl__slide_description_container {
+            bottom: 18px;
           }
 
           .mm-project-lightbox .yarl__counter {
             right: 20px;
-            bottom: 26px;
+            bottom: 22px;
           }
 
-          .mm-lightbox-story-line {
-            width: 24px;
+          .mm-project-lightbox .yarl__toolbar {
+            top: max(8px, env(safe-area-inset-top));
+            right: 8px;
+          }
+
+          .mm-lightbox-story-mark {
+            display: none;
           }
         }
 
