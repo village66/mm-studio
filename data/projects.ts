@@ -250,6 +250,20 @@ const projectCollections: Project[] = [
           "An expressive home where marble textures, warm timber, art and tailored storage form a layered yet cohesive living experience.",
         phases: [
           phase(
+            "before",
+            "記錄空屋原始格局、採光、動線與既有材質，作為藝術展示與完整收納規劃的設計起點。",
+            makeNumberedImages(
+              residential02,
+              "before",
+              [
+                "客餐廳原始尺度與玄關動線",
+                "主牆原始條件與房間入口關係",
+                "公共空間、陽台與房門動線現況",
+                "臥室原始格局與既有深色地坪",
+              ]
+            )
+          ),
+          phase(
             "completed",
             "透過藝術陳設、鮮明材質與精準收納，呈現成熟而富層次的居住氛圍。",
             makeNumberedImages(

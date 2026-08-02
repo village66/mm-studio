@@ -1,17 +1,47 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+
 type BrandLogoProps = {
   variant?: "horizontal" | "footer";
   className?: string;
   transitioning?: boolean;
+  animateOnView?: boolean;
 };
 
 export default function BrandLogo({
   variant = "horizontal",
   className = "",
   transitioning = false,
+  animateOnView = false,
 }: BrandLogoProps) {
+  const logoRef = useRef<SVGSVGElement>(null);
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    if (!animateOnView || !logoRef.current) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+
+        setInView(true);
+        observer.disconnect();
+      },
+      { threshold: 0.35 }
+    );
+
+    observer.observe(logoRef.current);
+
+    return () => observer.disconnect();
+  }, [animateOnView]);
+
+  const playAnimation = transitioning || inView;
+
   if (variant === "footer") {
     return (
       <svg
+        ref={logoRef}
         viewBox="0 0 520 250"
         role="img"
         aria-label="MM Studio Boutique Interior Design"
@@ -52,7 +82,7 @@ export default function BrandLogo({
           stroke="#B6925D"
           strokeWidth="2.4"
           className={
-            transitioning
+            playAnimation
               ? "mm-brand-cut-animation origin-left"
               : `
                   origin-left
@@ -71,7 +101,7 @@ export default function BrandLogo({
           stroke="#B6925D"
           strokeWidth="1.8"
           className={
-            transitioning
+            playAnimation
               ? "mm-brand-ticks-animation"
               : `
                   opacity-40
@@ -117,6 +147,7 @@ export default function BrandLogo({
 
   return (
     <svg
+      ref={logoRef}
       viewBox="0 0 920 220"
       role="img"
       aria-label="MM Studio Boutique Interior Design"
@@ -157,7 +188,7 @@ export default function BrandLogo({
         stroke="#B6925D"
         strokeWidth="2.5"
         className={
-          transitioning
+          playAnimation
             ? "mm-brand-cut-animation origin-left"
             : `
                 origin-left
@@ -176,7 +207,7 @@ export default function BrandLogo({
         stroke="#B6925D"
         strokeWidth="1.8"
         className={
-          transitioning
+          playAnimation
             ? "mm-brand-ticks-animation"
             : `
                 opacity-40

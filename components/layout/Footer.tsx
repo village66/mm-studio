@@ -86,6 +86,7 @@ export default function Footer() {
 
               <BrandLogo
                 variant="footer"
+                animateOnView
                 className="
                   relative
                   z-10

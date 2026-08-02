@@ -19,6 +19,7 @@ export default function Logo() {
       "
     >
       <BrandLogo
+        animateOnView
         className="
           block
           h-auto
