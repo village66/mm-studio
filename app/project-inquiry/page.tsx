@@ -11,6 +11,13 @@ export const metadata: Metadata = {
   title: "專案初步評估",
   description:
     "填寫 MM Studio 專案初步評估表，讓我們了解您的空間、預算與時程需求。",
+  alternates: {
+    canonical: "/project-inquiry",
+  },
+  robots: {
+    index: false,
+    follow: true,
+  },
 };
 
 export default function ProjectInquiryPage() {

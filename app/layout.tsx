@@ -6,6 +6,7 @@ import "./globals.css";
 
 import JsonLd from "@/components/seo/JsonLd";
 import BackgroundMusic from "@/components/audio/BackgroundMusic";
+import { SITE_URL, siteConfig } from "@/lib/site";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,45 +19,48 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.mmstudio.tw"),
+  metadataBase: new URL(SITE_URL),
 
   title: {
-    default: "MM Studio | Interior Design",
-    template: "%s | MM Studio",
+    default: "工厘設計 MM Studio｜台中室內設計・住宅設計・舊屋改造",
+    template: "%s｜工厘設計 MM Studio",
   },
 
-  description:
-    "MM Studio is a boutique interior design studio creating timeless residential and commercial spaces through refined design, natural materials and thoughtful craftsmanship.",
+  description: siteConfig.description,
 
   keywords: [
+    "工厘設計",
+    "工厘室內設計",
+    "工厘室內裝修設計",
     "MM Studio",
-    "Interior Design",
-    "Interior Architecture",
-    "Residential Design",
-    "Commercial Design",
-    "Taiwan Interior Design",
-    "桃園室內設計",
-    "台北室內設計",
+    "MM Design",
+    "MM Interior Design",
+    "台中室內設計",
+    "台中室內裝修",
     "住宅設計",
+    "舊屋改造",
+    "老屋翻新",
     "商業空間設計",
-    "精品室內設計",
   ],
 
   authors: [
     {
-      name: "MM Studio",
+      name: siteConfig.legalName,
     },
   ],
 
-  creator: "MM Studio",
-  publisher: "MM Studio",
+  creator: siteConfig.brandName,
+  publisher: siteConfig.legalName,
+
+  alternates: {
+    canonical: "/",
+  },
 
   openGraph: {
-    title: "MM Studio | Interior Design",
-    description:
-      "Creating timeless residential and commercial interiors.",
-    url: "https://www.mmstudio.tw",
-    siteName: "MM Studio",
+    title: "工厘設計 MM Studio｜台中室內設計",
+    description: siteConfig.description,
+    url: "/",
+    siteName: siteConfig.brandName,
     locale: "zh_TW",
     type: "website",
 
@@ -65,16 +69,15 @@ export const metadata: Metadata = {
         url: "/images/og-cover.jpg",
         width: 1200,
         height: 630,
-        alt: "MM Studio",
+        alt: "工厘設計 MM Studio 室內設計作品",
       },
     ],
   },
 
   twitter: {
     card: "summary_large_image",
-    title: "MM Studio | Interior Design",
-    description:
-      "Creating timeless residential and commercial interiors.",
+    title: "工厘設計 MM Studio｜台中室內設計",
+    description: siteConfig.description,
     images: ["/images/og-cover.jpg"],
   },
 

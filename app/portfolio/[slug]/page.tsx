@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -12,6 +13,53 @@ type Props = {
     slug: string;
   }>;
 };
+
+export async function generateMetadata({
+  params,
+}: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const project = projects.find((item) => item.slug === slug);
+
+  if (!project) {
+    return {
+      title: "找不到作品",
+      robots: {
+        index: false,
+        follow: false,
+      },
+    };
+  }
+
+  const canonical = `/portfolio/${project.slug}`;
+  const title = `${project.titleZh}｜${project.categoryZh}`;
+
+  return {
+    title,
+    description: project.descriptionZh,
+    alternates: {
+      canonical,
+    },
+    openGraph: {
+      title: `${title}｜工厘設計 MM Studio`,
+      description: project.descriptionZh,
+      url: canonical,
+      type: "article",
+      locale: "zh_TW",
+      images: [
+        {
+          url: project.cover,
+          alt: `${project.titleZh}－${project.categoryZh}作品`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${title}｜工厘設計 MM Studio`,
+      description: project.descriptionZh,
+      images: [project.cover],
+    },
+  };
+}
 
 export default async function ProjectPage({
   params,

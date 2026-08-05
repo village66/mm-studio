@@ -1,20 +1,56 @@
+import { SITE_URL, siteConfig } from "@/lib/site";
+
 export default function JsonLd() {
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "InteriorDesignBusiness",
-    name: "MM Studio",
-    image: "https://www.mmstudio.tw/images/og-cover.jpg",
-    url: "https://www.mmstudio.tw",
-    logo: "https://www.mmstudio.tw/favicon-512.png",
-    description:
-      "MM Studio is a boutique interior design studio specializing in residential and commercial interior design.",
-    telephone: "",
-    address: {
-      "@type": "PostalAddress",
-      addressCountry: "TW",
-    },
-    areaServed: "Taiwan",
-    sameAs: [],
+    "@graph": [
+      {
+        "@type": "ProfessionalService",
+        "@id": `${SITE_URL}/#business`,
+        name: siteConfig.brandName,
+        legalName: siteConfig.legalName,
+        alternateName: siteConfig.aliases,
+        url: SITE_URL,
+        image: `${SITE_URL}/images/og-cover.jpg`,
+        logo: `${SITE_URL}/favicon-512.png`,
+        description: siteConfig.description,
+        email: siteConfig.email,
+        telephone: siteConfig.telephone,
+        taxID: siteConfig.taxId,
+        identifier: {
+          "@type": "PropertyValue",
+          name: "室內裝修業登記證字號",
+          value: siteConfig.registrationNumber,
+        },
+        address: {
+          "@type": "PostalAddress",
+          addressRegion: "台中市",
+          addressCountry: "TW",
+        },
+        areaServed: {
+          "@type": "AdministrativeArea",
+          name: siteConfig.serviceArea,
+        },
+        knowsAbout: [
+          "住宅設計",
+          "舊屋改造",
+          "老屋翻新",
+          "商業空間設計",
+          "室內裝修施工",
+        ],
+      },
+      {
+        "@type": "WebSite",
+        "@id": `${SITE_URL}/#website`,
+        url: SITE_URL,
+        name: siteConfig.brandName,
+        alternateName: siteConfig.aliases,
+        inLanguage: "zh-Hant-TW",
+        publisher: {
+          "@id": `${SITE_URL}/#business`,
+        },
+      },
+    ],
   };
 
   return (

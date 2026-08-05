@@ -1,12 +1,11 @@
 import type { MetadataRoute } from "next";
 
 import { projects } from "@/data/projects";
+import { SITE_URL } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://www.mmstudio.tw";
-
   const projectPages = projects.map((project) => ({
-    url: `${baseUrl}/portfolio/${project.slug}`,
+    url: `${SITE_URL}/portfolio/${project.slug}`,
     lastModified: new Date(),
     changeFrequency: "monthly" as const,
     priority: 0.8,
@@ -14,17 +13,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     {
-      url: baseUrl,
+      url: SITE_URL,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 1,
-    },
-
-    {
-      url: `${baseUrl}/portfolio`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.9,
     },
 
     ...projectPages,
