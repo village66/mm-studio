@@ -81,6 +81,17 @@ const projects: Project[] = [
     year: "2026",
   },
   {
+    id: "renovation-02",
+    titleZh: "環景日光宅",
+    titleEn: "Sunlit Panorama Home",
+    category: "renovation",
+    image:
+      "/images/projects/renovation/renovation-02/cover/cover-01.jpg",
+    href: "/portfolio/modern-apartment#renovation-02",
+    location: "Taiwan",
+    year: "Selected Work",
+  },
+  {
     id: "commercial-01",
     titleZh: "旅讀選物空間",
     titleEn: "Travel & Lifestyle Store",
