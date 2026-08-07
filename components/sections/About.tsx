@@ -1,6 +1,8 @@
 "use client";
 
+import { useRef, useSyncExternalStore } from "react";
 import Image from "next/image";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 
 import Container from "@/components/ui/Container";
 import Reveal from "@/components/ui/Reveal";
@@ -29,7 +31,33 @@ const process = [
   },
 ];
 
+const finePointerQuery =
+  "(min-width: 1024px) and (hover: hover) and (pointer: fine)";
+
+const subscribeToFinePointer = (callback: () => void) => {
+  const query = window.matchMedia(finePointerQuery);
+  query.addEventListener("change", callback);
+  return () => query.removeEventListener("change", callback);
+};
+
+const getFinePointerSnapshot = () => window.matchMedia(finePointerQuery).matches;
+const getFinePointerServerSnapshot = () => false;
+
 export default function About() {
+  const imageRef = useRef<HTMLDivElement>(null);
+  const prefersReducedMotion = useReducedMotion();
+  const hasFinePointer = useSyncExternalStore(
+    subscribeToFinePointer,
+    getFinePointerSnapshot,
+    getFinePointerServerSnapshot
+  );
+  const { scrollYProgress } = useScroll({
+    target: imageRef,
+    offset: ["start end", "end start"],
+  });
+  const parallaxY = useTransform(scrollYProgress, [0, 1], [-8, 8]);
+  const enableParallax = hasFinePointer && !prefersReducedMotion;
+
   return (
     <Section
       id="about"
@@ -44,31 +72,36 @@ export default function About() {
       "
     >
       <Container>
-        <Reveal>
           <div className="overflow-hidden border border-[#e2ded6] bg-[#fdfcf9]">
             <div className="grid lg:grid-cols-[57%_43%]">
               {/* Left */}
               <div className="border-[#e2ded6] lg:border-r">
                 {/* Image */}
-                <div className="relative overflow-hidden bg-[#e9e6df]">
-                  <div className="relative aspect-[4/3] sm:aspect-[16/10] lg:h-[390px] lg:aspect-auto xl:h-[430px]">
-                    <Image
-                      src="/images/about/about-v1.jpg"
-                      alt="MM Studio 室內設計作品與空間細節"
-                      fill
-                      sizes="(max-width: 1024px) 100vw, 57vw"
-                      className="
-                        object-cover
-                        transition-transform
-                        duration-[1200ms]
-                        ease-out
-                        hover:scale-[1.02]
-                      "
-                    />
+                <div ref={imageRef} className="relative overflow-hidden bg-[#e9e6df]">
+                  <Reveal variant="image" duration={1.24} amount={0.12}>
+                    <div className="relative aspect-[4/3] sm:aspect-[16/10] lg:h-[390px] lg:aspect-auto xl:h-[430px]">
+                      <motion.div
+                        className="absolute inset-x-0 -inset-y-3"
+                        style={{ y: enableParallax ? parallaxY : 0 }}
+                      >
+                        <Image
+                          src="/images/about/about-v1.jpg"
+                          alt="MM Studio 室內設計作品與空間細節"
+                          fill
+                          sizes="(max-width: 1024px) 100vw, 57vw"
+                          className="
+                            object-cover
+                            transition-transform
+                            duration-[1200ms]
+                            ease-out
+                            hover:scale-[1.02]
+                          "
+                        />
+                      </motion.div>
 
-                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-black/[0.03] to-transparent" />
+                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-black/[0.03] to-transparent" />
 
-                    <div className="absolute bottom-5 left-5 sm:bottom-7 sm:left-7 lg:bottom-7 lg:left-8">
+                      <div className="absolute bottom-5 left-5 sm:bottom-7 sm:left-7 lg:bottom-7 lg:left-8">
                       <div className="flex items-center gap-4">
                         <p className="text-[9px] font-medium uppercase tracking-[0.3em] text-white sm:text-[10px]">
                           Thoughtful Space
@@ -80,8 +113,9 @@ export default function About() {
                       <p className="mt-2 text-[12px] font-light tracking-[0.06em] text-white/90 sm:text-[13px]">
                         每一個細節，都是為了讓生活更好。
                       </p>
+                      </div>
                     </div>
-                  </div>
+                  </Reveal>
                 </div>
 
                 {/* About Text */}
@@ -122,18 +156,25 @@ export default function About() {
                   </div>
 
                   <div className="relative z-10 max-w-[700px]">
+                    <Reveal variant="fade" delay={0.1} duration={0.58}>
                     <p className="text-[10px] font-medium uppercase tracking-[0.36em] text-[#9a7d56] sm:text-[11px]">
                       About MM Studio
                     </p>
+                    </Reveal>
 
+                    <Reveal variant="text" delay={0.18} duration={0.88}>
                     <h2 className="mt-4 text-[30px] font-extralight leading-[1.35] tracking-[-0.03em] text-[#292929] sm:text-[37px] md:text-[42px] lg:text-[35px] xl:text-[41px]">
                       我們相信，
                       <br />
                       好的設計來自理解生活。
                     </h2>
+                    </Reveal>
 
+                    <Reveal variant="fade" delay={0.28} duration={0.64}>
                     <div className="mt-5 h-px w-full max-w-[500px] bg-[#ddd8cf]" />
+                    </Reveal>
 
+                    <Reveal variant="text" delay={0.36} duration={0.76}>
                     <div className="mt-5 max-w-[610px] space-y-1.5 text-[14px] font-light leading-[1.85] text-[#625f59] sm:text-[15px] lg:text-[14px] xl:text-[15px]">
                       <p>我們不以風格定義設計，而是從真實需求出發。</p>
 
@@ -141,6 +182,7 @@ export default function About() {
 
                       <p>讓每一個家，都能舒適、耐看並長久使用。</p>
                     </div>
+                    </Reveal>
                   </div>
                 </div>
               </div>
@@ -149,20 +191,24 @@ export default function About() {
               <div className="flex flex-col px-6 py-8 sm:px-9 sm:py-10 lg:px-8 lg:py-7 xl:px-10 xl:py-8">
                 {/* Heading */}
                 <div className="shrink-0">
+                  <Reveal variant="fade" delay={0.16} duration={0.58}>
                   <p className="text-[10px] font-medium uppercase tracking-[0.34em] text-[#9a7d56] sm:text-[11px]">
                     Our Approach
                   </p>
+                  </Reveal>
 
+                  <Reveal variant="text" delay={0.25} duration={0.82}>
                   <h3 className="mt-3 text-[25px] font-extralight leading-[1.4] tracking-[-0.025em] text-[#292929] sm:text-[30px] lg:text-[27px] xl:text-[31px]">
                     清楚的流程，安心的設計體驗。
                   </h3>
+                  </Reveal>
                 </div>
 
                 {/* Process */}
                 <div className="mt-5 border-t border-[#ddd8cf] lg:mt-4 xl:mt-5">
-                  {process.map((item) => (
+                  {process.map((item, index) => (
+                    <Reveal key={item.number} variant="text" delay={0.32 + index * 0.09} duration={0.68}>
                     <article
-                      key={item.number}
                       className="
                         group
                         grid
@@ -194,10 +240,12 @@ export default function About() {
                         </p>
                       </div>
                     </article>
+                    </Reveal>
                   ))}
                 </div>
 
                 {/* Trust Statement */}
+                <Reveal variant="fade" delay={0.32}>
                 <div className="mt-5 bg-[#f2efe8] px-5 py-4 sm:px-6 sm:py-5 lg:mt-4 lg:px-5 lg:py-4 xl:mt-5 xl:px-6 xl:py-5">
                   <div className="flex items-start gap-3">
                     <span
@@ -213,10 +261,10 @@ export default function About() {
                     </p>
                   </div>
                 </div>
+                </Reveal>
               </div>
             </div>
           </div>
-        </Reveal>
       </Container>
     </Section>
   );

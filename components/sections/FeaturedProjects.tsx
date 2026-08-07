@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import Image from "next/image";
 
 import Container from "@/components/ui/Container";
@@ -164,9 +164,27 @@ const categoryLabels: Record<
   },
 };
 
+const desktopPortfolioQuery = "(min-width: 768px)";
+
+const subscribeToDesktopPortfolio = (callback: () => void) => {
+  const query = window.matchMedia(desktopPortfolioQuery);
+  query.addEventListener("change", callback);
+  return () => query.removeEventListener("change", callback);
+};
+
+const getDesktopPortfolioSnapshot = () =>
+  window.matchMedia(desktopPortfolioQuery).matches;
+
+const getDesktopPortfolioServerSnapshot = () => false;
+
 export default function FeaturedProjects() {
   const [activeFilter, setActiveFilter] =
     useState<FilterValue>("all");
+  const isDesktopPortfolio = useSyncExternalStore(
+    subscribeToDesktopPortfolio,
+    getDesktopPortfolioSnapshot,
+    getDesktopPortfolioServerSnapshot
+  );
 
   const visibleProjects =
     activeFilter === "all"
@@ -204,8 +222,7 @@ export default function FeaturedProjects() {
     >
       <Container>
         {/* 標題區 */}
-        <Reveal>
-          <div
+        <div
             className="
               grid
               gap-7
@@ -218,10 +235,13 @@ export default function FeaturedProjects() {
             "
           >
             <div className="lg:col-span-7">
+              <Reveal variant="fade" delay={0.1} duration={0.58}>
               <p className="text-[10px] font-medium uppercase tracking-[0.4em] text-[#9a7d56] sm:text-[11px]">
                 Selected Works
               </p>
+              </Reveal>
 
+              <Reveal variant="text" duration={0.88}>
               <h2
                 className="
                   mt-3
@@ -237,19 +257,21 @@ export default function FeaturedProjects() {
               >
                 精選作品
               </h2>
+              </Reveal>
             </div>
 
             <div className="lg:col-span-5 lg:flex lg:justify-end">
+              <Reveal variant="fade" delay={0.22} duration={0.64}>
               <p className="max-w-[470px] text-[14px] font-light leading-7 text-[#68645f] sm:text-[15px]">
                 彙集住宅設計、舊屋改造與商業空間案例，
                 從格局、材質與生活需求，看見每個空間不同的設計回應。
               </p>
+              </Reveal>
             </div>
           </div>
-        </Reveal>
 
         {/* 作品分類 */}
-        <Reveal delay={0.05}>
+        <Reveal variant="fade" delay={0.18} duration={0.58}>
           <div className="border-b border-[#e2ded6]">
             <nav
               aria-label="作品分類"
@@ -398,20 +420,29 @@ export default function FeaturedProjects() {
           >
             {visibleProjects.map(
               (project, index) => {
+                const editorialRhythm = [0, 0.09, 0.21, 0.28];
+                const cardDelay = editorialRhythm[index % editorialRhythm.length];
+
                 return (
-                  <Reveal
-                    key={project.id}
-                    delay={index * 0.05}
-                  >
                     <ProjectTransitionLink
+                      key={project.id}
                       href={project.href}
                       title={project.titleZh}
-                      className="group block outline-none"
+                      className="mm-project-card group block rounded-sm outline-none transition-opacity focus-visible:ring-1 focus-visible:ring-[#a4865d] focus-visible:ring-offset-4 focus-visible:ring-offset-[#f8f8f5]"
                     >
                       <article>
                         {/* 作品圖片 */}
+                        <Reveal
+                          variant="image"
+                          delay={cardDelay}
+                          duration={
+                            isDesktopPortfolio ? 1.18 : 0.94
+                          }
+                          amount={0.08}
+                        >
                         <div
                           className="
+                            mm-project-image-frame
                             relative
                             aspect-[4/3]
                             overflow-hidden
@@ -429,12 +460,8 @@ export default function FeaturedProjects() {
                               25vw
                             "
                             className="
+                              mm-project-image
                               object-cover
-                              transition-transform
-                              duration-[900ms]
-                              ease-out
-                              group-hover:scale-[1.035]
-                              group-focus-visible:scale-[1.035]
                             "
                           />
 
@@ -447,30 +474,21 @@ export default function FeaturedProjects() {
                               from-black/25
                               via-transparent
                               to-transparent
-                              opacity-30
-                              transition-opacity
-                              duration-500
-                              group-hover:opacity-100
+                              opacity-25
                             "
                           />
 
                           {/* 查看作品提示 */}
                           <div
                             className="
+                              mm-project-visual-hint
+                              pointer-events-none
                               absolute
                               bottom-4
                               right-4
                               flex
-                              translate-y-2
                               items-center
                               gap-3
-                              opacity-0
-                              transition-all
-                              duration-500
-                              group-hover:translate-y-0
-                              group-hover:opacity-100
-                              group-focus-visible:translate-y-0
-                              group-focus-visible:opacity-100
                               sm:bottom-5
                               sm:right-5
                             "
@@ -482,28 +500,31 @@ export default function FeaturedProjects() {
                             <span
                               className="
                                 flex
-                                h-9
-                                w-9
+                                h-8
+                                w-8
                                 items-center
                                 justify-center
                                 rounded-full
                                 border
                                 border-white/60
-                                bg-black/10
+                                bg-black/5
                                 text-[15px]
                                 text-white
-                                backdrop-blur-md
-                                transition-transform
-                                duration-500
-                                group-hover:translate-x-1
                               "
                             >
-                              →
+                              ↗
                             </span>
                           </div>
                         </div>
+                        </Reveal>
 
                         {/* 作品資訊 */}
+                        <Reveal
+                          variant="fade"
+                          delay={cardDelay + 0.12}
+                          duration={0.62}
+                          amount={0.08}
+                        >
                         <div
                           className="
                             border-b
@@ -517,47 +538,74 @@ export default function FeaturedProjects() {
                         >
                           <div className="flex items-start justify-between gap-5">
                             <div>
-                              <p className="text-[10px] font-light tracking-[0.16em] text-[#9a7d56]">
+                              <Reveal
+                                variant="fade"
+                                delay={cardDelay + 0.18}
+                                duration={0.52}
+                                amount={0.08}
+                              >
+                              <p className="mm-project-meta text-[10px] font-light tracking-[0.16em] text-[#9a7d56]">
                                 {
                                   categoryLabels[
                                     project.category
                                   ].zh
                                 }
                               </p>
+                              </Reveal>
 
+                              <Reveal
+                                variant="text"
+                                delay={cardDelay + 0.25}
+                                duration={0.72}
+                                amount={0.08}
+                              >
                               <h3
                                 className="
+                                  mm-project-title
                                   mt-2
                                   text-[21px]
                                   font-light
                                   leading-[1.3]
                                   tracking-[-0.025em]
                                   text-[#292929]
-                                  transition-colors
-                                  duration-300
-                                  group-hover:text-[#9a7b54]
                                   xl:text-[23px]
                                 "
                               >
                                 {project.titleZh}
                               </h3>
+                              </Reveal>
 
-                              <p className="mt-1.5 text-[10px] font-light uppercase tracking-[0.18em] text-neutral-400">
+                              <Reveal
+                                variant="fade"
+                                delay={cardDelay + 0.34}
+                                duration={0.54}
+                                amount={0.08}
+                              >
+                              <p className="mm-project-meta mt-1.5 text-[10px] font-light uppercase tracking-[0.18em] text-neutral-400">
                                 {project.titleEn}
                               </p>
+                              </Reveal>
                             </div>
 
+                            <Reveal
+                              variant="fade"
+                              delay={cardDelay + 0.34}
+                              duration={0.54}
+                              amount={0.08}
+                              className="shrink-0"
+                            >
                             <p className="pt-1 text-[10px] font-light tracking-[0.08em] text-neutral-400">
                               {String(
                                 index + 1
                               ).padStart(2, "0")}
                             </p>
+                            </Reveal>
                           </div>
 
                         </div>
+                        </Reveal>
                       </article>
                     </ProjectTransitionLink>
-                  </Reveal>
                 );
               }
             )}

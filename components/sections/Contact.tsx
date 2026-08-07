@@ -21,7 +21,7 @@ export default function Contact() {
       <Container>
         <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-14 xl:gap-16">
           {/* 左側圖片 */}
-          <Reveal>
+          <Reveal variant="fade" duration={0.68}>
             <div
               className="
                 relative
@@ -39,12 +39,12 @@ export default function Contact() {
                 alt="MM Studio 室內設計與空間細節"
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
-                className="
+                    className="
+                  mm-contact-image
                   object-cover
                   transition-transform
-                  duration-700
-                  ease-out
-                  hover:scale-[1.025]
+                  [transition-duration:var(--motion-duration-base)]
+                  [transition-timing-function:var(--motion-ease-standard)]
                 "
               />
 
@@ -53,9 +53,9 @@ export default function Contact() {
           </Reveal>
 
           {/* 右側內容 */}
-          <Reveal delay={0.1}>
             <div className="flex flex-col justify-center">
               {/* 標題與說明的中英文切換區 */}
+              <Reveal variant="text" delay={0.08} duration={0.76}>
               <div className="group/contact">
                 {/* 標題 */}
                 <div className="relative h-[96px] sm:h-[104px] lg:h-[106px]">
@@ -177,8 +177,10 @@ export default function Contact() {
                   </p>
                 </div>
               </div>
+              </Reveal>
 
               {/* 聯絡資料 */}
+              <Reveal variant="fade" delay={0.16} duration={0.58}>
               <div className="mt-6 space-y-3 border-t border-neutral-200/70 pt-5">
                 {/* 電子信箱 */}
                 <div className="group/item relative h-7">
@@ -356,8 +358,10 @@ export default function Contact() {
                   </div>
                 </div>
               </div>
+              </Reveal>
 
               {/* 專業資格與合法登記 */}
+              <Reveal variant="fade" delay={0.24} duration={0.58}>
               <div
                 className="
                   group/credential
@@ -542,14 +546,18 @@ export default function Contact() {
                   </div>
                 </div>
               </div>
+              </Reveal>
 
               {/* 信任說明 */}
+              <Reveal variant="fade" delay={0.3} duration={0.54}>
               <p className="mt-4 max-w-[610px] text-[11px] font-light leading-6 text-neutral-500 sm:text-[12px]">
                 從設計規劃到工程執行，由具專業資格人員負責，
                 以清楚流程與專業標準，確保每個階段安心落實。
               </p>
+              </Reveal>
 
               {/* 行動按鈕 */}
+              <Reveal variant="fade" delay={0.36} duration={0.5}>
               <div className="mt-6 lg:mt-7">
                 <Link
                   href="/project-inquiry"
@@ -619,8 +627,8 @@ export default function Contact() {
                   </span>
                 </Link>
               </div>
+              </Reveal>
             </div>
-          </Reveal>
         </div>
       </Container>
     </Section>

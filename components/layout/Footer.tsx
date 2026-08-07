@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import BrandLogo from "@/components/brand/BrandLogo";
 import Container from "@/components/ui/Container";
+import Reveal from "@/components/ui/Reveal";
 
 const footerNavigation = [
   {
@@ -46,7 +47,8 @@ export default function Footer() {
           "
         >
           {/* 品牌 */}
-          <div className="lg:col-span-4">
+          <Reveal variant="fade" duration={0.56} className="lg:col-span-4">
+          <div>
             <Link
               href="/"
               aria-label="返回 MM Studio 首頁"
@@ -106,9 +108,11 @@ export default function Footer() {
               以細膩規劃與專業執行，打造舒適且長久的空間。
             </p>
           </div>
+          </Reveal>
 
           {/* 導覽 */}
-          <div className="lg:col-span-5">
+          <Reveal variant="fade" delay={0.06} duration={0.52} className="lg:col-span-5">
+          <div>
             <p className="text-[8px] font-medium uppercase tracking-[0.32em] text-neutral-400">
               Navigation
             </p>
@@ -166,9 +170,11 @@ export default function Footer() {
               ))}
             </nav>
           </div>
+          </Reveal>
 
           {/* 聯絡資訊 */}
-          <div className="lg:col-span-3 lg:text-right">
+          <Reveal variant="fade" delay={0.1} duration={0.52} className="lg:col-span-3 lg:text-right">
+          <div>
             <p className="text-[8px] font-medium uppercase tracking-[0.32em] text-neutral-400">
               Contact
             </p>
@@ -216,9 +222,11 @@ export default function Footer() {
               </a>
             </div>
           </div>
+          </Reveal>
         </div>
 
         {/* 最底部合法登記與版權 */}
+        <Reveal variant="fade" delay={0.08} duration={0.48}>
         <div
           className="
             flex
@@ -319,6 +327,7 @@ export default function Footer() {
             </a>
           </div>
         </div>
+        </Reveal>
       </Container>
     </footer>
   );

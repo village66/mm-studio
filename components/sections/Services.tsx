@@ -52,12 +52,14 @@ export default function Services() {
     >
       <Container>
         {/* Compact section heading */}
-        <Reveal>
-          <div>
+        <div>
+          <Reveal variant="fade" delay={0.08} duration={0.56}>
             <p className="text-[10px] font-medium uppercase tracking-[0.4em] text-[#9a7d56] sm:text-[11px]">
               Our Services
             </p>
+          </Reveal>
 
+          <Reveal variant="text" duration={0.82}>
             <h2
               className="
                 mt-3
@@ -73,18 +75,20 @@ export default function Services() {
             >
               專業設計服務
             </h2>
-          </div>
-        </Reveal>
+          </Reveal>
+        </div>
 
         {/* Service cards */}
         <div className="mt-8 grid gap-10 md:grid-cols-2 lg:mt-9 lg:grid-cols-3 lg:gap-8 xl:mt-10">
           {services.map((service, index) => (
             <Reveal
               key={service.number}
-              delay={index * 0.08}
+              variant="fade"
+              delay={index * 0.09}
+              duration={0.64}
             >
               <article
-                className="group outline-none"
+                className="mm-service-card group outline-none"
                 tabIndex={0}
               >
                 {/* Responsive image height */}
@@ -111,12 +115,11 @@ export default function Services() {
                       33vw
                     "
                     className="
+                      mm-service-image
                       object-cover
                       transition-transform
-                      duration-700
-                      ease-out
-                      lg:group-hover:scale-[1.035]
-                      lg:group-focus:scale-[1.035]
+                      [transition-duration:var(--motion-duration-base)]
+                      [transition-timing-function:var(--motion-ease-standard)]
                     "
                   />
 
@@ -136,6 +139,7 @@ export default function Services() {
                     lg:group-focus:border-[#b6925d]
                   "
                 >
+                  <Reveal variant="fade" delay={index * 0.09 + 0.06} duration={0.52}>
                   <p
                     className="
                       text-[34px]
@@ -148,8 +152,10 @@ export default function Services() {
                   >
                     {service.number}
                   </p>
+                  </Reveal>
 
                   {/* Chinese title → English title */}
+                  <Reveal variant="text" delay={index * 0.09 + 0.13} duration={0.68}>
                   <div className="mt-2 h-9 overflow-hidden">
                     <div
                       className="
@@ -169,8 +175,10 @@ export default function Services() {
                       </h3>
                     </div>
                   </div>
+                  </Reveal>
 
                   {/* Chinese description → English description */}
+                  <Reveal variant="fade" delay={index * 0.09 + 0.22} duration={0.58}>
                   <div className="mt-2 h-[80px] overflow-hidden">
                     <div
                       className="
@@ -190,6 +198,7 @@ export default function Services() {
                       </p>
                     </div>
                   </div>
+                  </Reveal>
                 </div>
               </article>
             </Reveal>

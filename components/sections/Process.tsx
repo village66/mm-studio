@@ -211,8 +211,7 @@ export default function Process() {
     >
       <Container>
         {/* 精簡標題區 */}
-        <Reveal>
-          <div
+        <div
             className="
               grid
               gap-6
@@ -225,10 +224,13 @@ export default function Process() {
             "
           >
             <div className="lg:col-span-7">
+              <Reveal variant="fade" delay={0.08} duration={0.54}>
               <p className="text-[9px] font-medium uppercase tracking-[0.38em] text-[#9a7d56] sm:text-[10px]">
                 Our Process
               </p>
+              </Reveal>
 
+              <Reveal variant="text" duration={0.76}>
               <h2
                 className="
                   mt-3
@@ -246,16 +248,18 @@ export default function Process() {
                 <br className="sm:hidden" />
                 清楚每一步。
               </h2>
+              </Reveal>
             </div>
 
             <div className="lg:col-span-5 lg:flex lg:justify-end">
+              <Reveal variant="fade" delay={0.16} duration={0.58}>
               <p className="max-w-[460px] text-[13px] font-light leading-7 text-[#68645f] sm:text-[14px]">
                 以清楚的階段與持續溝通，
                 讓設計、預算及施工進度都能安心掌握。
               </p>
+              </Reveal>
             </div>
           </div>
-        </Reveal>
 
         {/* 精簡流程 */}
         <div
@@ -276,7 +280,9 @@ export default function Process() {
           {steps.map((step, index) => (
             <Reveal
               key={step.no}
-              delay={index * 0.055}
+              variant="fade"
+              delay={index * 0.085}
+              duration={0.58}
             >
               <article
                 className="
@@ -304,23 +310,34 @@ export default function Process() {
                     absolute
                     left-[-1px]
                     top-0
-                    h-0
+                    h-full
                     w-px
+                    origin-top
+                    scale-y-0
                     bg-[#a4865d]
-                    transition-all
-                    duration-700
-                    group-hover:h-full
+                    transition-transform
+                    [transition-duration:var(--motion-duration-base)]
+                    [transition-timing-function:var(--motion-ease-standard)]
+                    group-hover:scale-y-100
                     md:left-0
                     md:top-[-1px]
                     md:h-px
-                    md:w-0
-                    md:group-hover:h-px
-                    md:group-hover:w-full
+                    md:w-full
+                    md:origin-left
+                    md:scale-x-0
+                    md:scale-y-100
+                    md:group-hover:scale-x-100
                   "
                 />
 
                 {/* 編號與步驟 */}
                 <div className="relative z-10 md:flex md:items-center md:justify-between">
+                  <Reveal
+                    variant="fade"
+                    delay={index * 0.085 + 0.03}
+                    duration={0.5}
+                    className="md:flex md:w-full md:items-center md:justify-between"
+                  >
                   <p className="text-[18px] font-extralight leading-none tracking-[0.04em] text-[#b6925d] md:text-[20px]">
                     {step.no}
                   </p>
@@ -328,10 +345,12 @@ export default function Process() {
                   <p className="hidden text-[7px] uppercase tracking-[0.22em] text-neutral-400 lg:block">
                     Step {step.no}
                   </p>
+                  </Reveal>
                 </div>
 
                 <div className="min-w-0">
                   {/* 圖示與標題 */}
+                  <Reveal variant="text" delay={index * 0.085 + 0.1} duration={0.62}>
                   <div className="flex items-center gap-4 md:mt-5">
                     <div
                       className="
@@ -393,8 +412,10 @@ export default function Process() {
                       </h3>
                     </div>
                   </div>
+                  </Reveal>
 
                   {/* 中文說明／英文切換 */}
+                  <Reveal variant="text" delay={index * 0.085 + 0.18} duration={0.6}>
                   <div className="relative mt-3 grid min-h-[56px] cursor-default md:mt-4">
                     <p
                       className="
@@ -434,6 +455,7 @@ export default function Process() {
                       {step.enDescription}
                     </p>
                   </div>
+                  </Reveal>
                 </div>
               </article>
             </Reveal>
@@ -441,7 +463,7 @@ export default function Process() {
         </div>
 
         {/* 精簡信任說明 */}
-        <Reveal delay={0.15}>
+        <Reveal variant="fade" delay={0.12} duration={0.48}>
           <div
             className="
               mt-10

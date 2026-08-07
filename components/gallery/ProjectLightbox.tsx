@@ -20,6 +20,7 @@ import type {
   ProjectPhase,
   ProjectPhaseKey,
 } from "@/data/projects";
+import Reveal from "@/components/ui/Reveal";
 
 type Props = {
   title: string;
@@ -136,6 +137,7 @@ function ProjectStory({
       aria-labelledby={`${projectCase.id}-title`}
       className="scroll-mt-[112px] border-b border-[#d8d3ca] pb-16 sm:scroll-mt-[124px] sm:pb-20 lg:scroll-mt-[136px] lg:pb-24"
     >
+      <Reveal variant="text" duration={0.78}>
       <header className="grid gap-8 lg:grid-cols-12 lg:gap-12">
         <div className="lg:col-span-5">
           <div className="flex items-center gap-4">
@@ -167,6 +169,7 @@ function ProjectStory({
           </p>
         </div>
       </header>
+      </Reveal>
 
       <div
         className="
@@ -352,7 +355,7 @@ function ProjectStory({
           mt-7
           grid
           grid-cols-1
-          animate-[phase-gallery-in_650ms_ease-out_both]
+          mm-phase-gallery
           gap-x-5
           gap-y-8
           sm:mt-9
@@ -365,8 +368,15 @@ function ProjectStory({
       >
         {activePhase.images.map(
           (image, imageIndex) => (
-            <button
+            <Reveal
               key={`${image.src}-${imageIndex}`}
+              variant="image"
+              delay={[0, 0.08, 0.2, 0.27][imageIndex % 4]}
+              duration={1.04}
+              amount={0.08}
+              className="min-w-0"
+            >
+            <button
               type="button"
               aria-label={`查看 ${projectCase.titleZh} ${activePhase.titleZh}第 ${
                 imageIndex + 1
@@ -379,6 +389,7 @@ function ProjectStory({
                 })
               }
               className="
+                mm-project-gallery-button
                 group/image
                 block
                 w-full
@@ -395,7 +406,7 @@ function ProjectStory({
                   }`}
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, (max-width: 1536px) 33vw, 25vw"
-                  className="object-cover transition-transform duration-[900ms] ease-out group-hover/image:scale-[1.04] group-focus-visible/image:scale-[1.04]"
+                  className="mm-project-gallery-image object-cover"
                 />
 
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent opacity-25 transition-opacity duration-500 group-hover/image:opacity-100 group-focus-visible/image:opacity-100" />
@@ -442,6 +453,7 @@ function ProjectStory({
                 </p>
               </div>
             </button>
+            </Reveal>
           )
         )}
       </div>
@@ -614,6 +626,7 @@ export default function ProjectLightbox({
                       src={preview.src}
                       alt={`${projectCase.titleZh} 作品封面`}
                       fill
+                      priority={caseIndex === 0}
                       sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                       className="object-cover transition-transform duration-[800ms] ease-out group-hover/case:scale-[1.035]"
                     />
@@ -754,8 +767,8 @@ export default function ProjectLightbox({
             ),
           }}
           animation={{
-            fade: 450,
-            swipe: 550,
+            fade: 400,
+            swipe: 330,
           }}
           styles={{
             root: {
@@ -781,16 +794,19 @@ export default function ProjectLightbox({
           }
         }
 
+        .mm-phase-gallery {
+          animation: phase-gallery-in 820ms
+            var(--motion-ease-editorial) both;
+        }
+
         @keyframes mm-lightbox-image-in {
           from {
             opacity: 0;
-            transform: scale(0.965);
-            filter: blur(8px);
+            transform: scale(0.99);
           }
           to {
             opacity: 1;
             transform: scale(1);
-            filter: blur(0);
           }
         }
 
@@ -806,8 +822,8 @@ export default function ProjectLightbox({
         }
 
         .mm-project-lightbox .yarl__slide_image {
-          animation: mm-lightbox-image-in 850ms
-            cubic-bezier(0.22, 1, 0.36, 1) both;
+          animation: mm-lightbox-image-in 480ms
+            var(--motion-ease-cinematic) both;
         }
 
         .mm-project-lightbox
@@ -819,8 +835,8 @@ export default function ProjectLightbox({
           width: min(520px, calc(100vw - 40px));
           padding: 0;
           background: transparent;
-          animation: mm-lightbox-text-in 700ms 180ms
-            cubic-bezier(0.22, 1, 0.36, 1) both;
+          animation: mm-lightbox-text-in 440ms 90ms
+            var(--motion-ease-editorial) both;
         }
 
         .mm-project-lightbox
@@ -876,8 +892,8 @@ export default function ProjectLightbox({
           align-items: center;
           gap: 14px;
           color: rgba(255, 255, 255, 0.6);
-          animation: mm-lightbox-text-in 700ms 100ms
-            cubic-bezier(0.22, 1, 0.36, 1) both;
+          animation: mm-lightbox-text-in 420ms 70ms
+            var(--motion-ease-editorial) both;
         }
 
         .mm-lightbox-story-number,
@@ -971,6 +987,15 @@ export default function ProjectLightbox({
             .yarl__captions_container,
           .mm-lightbox-story-mark {
             animation: none;
+          }
+
+          .mm-phase-gallery {
+            animation: none;
+          }
+
+          .mm-project-lightbox .yarl__container,
+          .mm-project-lightbox .yarl__slide {
+            transition-duration: 1ms !important;
           }
         }
       `}</style>

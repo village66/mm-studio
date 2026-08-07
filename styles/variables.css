@@ -46,10 +46,44 @@
 
   /* Motion */
 
-  --transition-fast: .25s ease;
+  --motion-duration-instant: 180ms;
+  --motion-duration-micro: 220ms;
+  --motion-duration-fast: 360ms;
+  --motion-duration-base: 580ms;
+  --motion-duration-elegant: 820ms;
+  --motion-duration-slow: 820ms;
+  --motion-duration-image: 1120ms;
+  --motion-duration-cinematic: 1450ms;
 
-  --transition-normal: .4s ease;
+  --motion-ease-ui: cubic-bezier(.25, .1, .25, 1);
+  --motion-ease-editorial: cubic-bezier(.16, 1, .3, 1);
+  --motion-ease-cinematic: cubic-bezier(.45, 0, .15, 1);
+  --motion-ease-standard: var(--motion-ease-ui);
+  --motion-ease-entrance: var(--motion-ease-editorial);
+  --motion-ease-exit: cubic-bezier(.4, 0, 1, 1);
 
-  --transition-slow: .7s ease;
+  --motion-distance-subtle: 12px;
+  --motion-distance-base: 20px;
+  --motion-distance-section: 32px;
 
+  --transition-fast: var(--motion-duration-fast) var(--motion-ease-standard);
+  --transition-normal: var(--motion-duration-base) var(--motion-ease-standard);
+  --transition-slow: var(--motion-duration-slow) var(--motion-ease-entrance);
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-duration-instant: 1ms;
+    --motion-duration-micro: 1ms;
+    --motion-duration-fast: 1ms;
+    --motion-duration-base: 1ms;
+    --motion-duration-slow: 1ms;
+    --motion-duration-elegant: 1ms;
+    --motion-duration-image: 1ms;
+    --motion-duration-cinematic: 1ms;
+    --motion-distance-subtle: 0px;
+    --motion-distance-base: 0px;
+    --motion-distance-section: 0px;
+  }
 }

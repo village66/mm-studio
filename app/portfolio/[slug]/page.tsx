@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import Header from "@/components/layout/Header";
 import Container from "@/components/ui/Container";
 import ProjectLightbox from "@/components/gallery/ProjectLightbox";
+import Reveal from "@/components/ui/Reveal";
 
 import { projects } from "@/data/projects";
 
@@ -114,10 +115,11 @@ export default async function ProjectPage({
       >
         <Container>
           {/* 返回作品案例 */}
-          <div>
+          <Reveal variant="fade" duration={0.56}>
             <Link
               href="/#portfolio"
               className="
+                mm-project-back-link
                 group/back
                 inline-flex
                 items-center
@@ -163,7 +165,7 @@ export default async function ProjectPage({
                 </span>
               </span>
             </Link>
-          </div>
+          </Reveal>
 
           {/*
             集合介紹區：
@@ -189,7 +191,8 @@ export default async function ProjectPage({
           >
             {/* 分類與標題 */}
             <div className="lg:col-span-7">
-              <div className="flex flex-wrap items-center gap-4">
+              <Reveal variant="fade" delay={0.06} duration={0.58}>
+                <div className="flex flex-wrap items-center gap-4">
                 <div className="grid">
                   <p
                     className="
@@ -234,9 +237,11 @@ export default async function ProjectPage({
                 <p className="text-[9px] uppercase tracking-[0.24em] text-neutral-400">
                   Curated Collection
                 </p>
-              </div>
+                </div>
+              </Reveal>
 
-              <div className="mt-5 grid">
+              <Reveal variant="text" delay={0.14} duration={0.88} className="mt-5">
+                <div className="grid">
                 <h1
                   className="
                     col-start-1
@@ -281,20 +286,24 @@ export default async function ProjectPage({
                 >
                   {project.titleEn}
                 </h1>
-              </div>
+                </div>
+              </Reveal>
 
-              <div className="mt-7 flex items-center gap-4">
+              <Reveal variant="fade" delay={0.25} duration={0.58} className="mt-7">
+                <div className="flex items-center gap-4">
                 <span className="h-px w-8 bg-[#c7b79f]" />
 
                 <p className="text-[8px] uppercase tracking-[0.26em] text-neutral-400">
                   移入查看英文 · Hover for English
                 </p>
-              </div>
+                </div>
+              </Reveal>
             </div>
 
             {/* 集合觀點與內容特色 */}
             <div className="lg:col-span-5">
-              <div className="grid grid-cols-3 border-y border-[#ded9d1]">
+              <Reveal variant="text" delay={0.2} duration={0.72}>
+                <div className="grid grid-cols-3 border-y border-[#ded9d1]">
                 {collectionDetails.map(
                   (detail, detailIndex) => (
                     <div
@@ -387,10 +396,12 @@ export default async function ProjectPage({
                     </div>
                   )
                 )}
-              </div>
+                </div>
+              </Reveal>
 
               {/* 中英文集合說明 */}
-              <div className="mt-6 grid">
+              <Reveal variant="text" delay={0.32} duration={0.7} className="mt-6">
+                <div className="grid">
                 <p
                   className="
                     col-start-1
@@ -432,7 +443,8 @@ export default async function ProjectPage({
                 >
                   {project.descriptionEn}
                 </p>
-              </div>
+                </div>
+              </Reveal>
             </div>
           </header>
 
@@ -443,6 +455,7 @@ export default async function ProjectPage({
           />
 
           {/* 前後作品分類 */}
+          <Reveal variant="fade" duration={0.72}>
           <nav
             aria-label="作品選集導覽"
             className="
@@ -460,6 +473,7 @@ export default async function ProjectPage({
                 <Link
                   href={`/portfolio/${previousProject.slug}`}
                   className="
+                    mm-project-navigation-link
                     group/previous
                     flex
                     min-h-[150px]
@@ -503,6 +517,7 @@ export default async function ProjectPage({
                 <Link
                   href={`/portfolio/${nextProject.slug}`}
                   className="
+                    mm-project-navigation-link
                     group/next
                     flex
                     min-h-[150px]
@@ -543,12 +558,14 @@ export default async function ProjectPage({
               )}
             </div>
           </nav>
+          </Reveal>
 
           {/* 底部返回按鈕 */}
-          <div className="mt-12 flex justify-center sm:mt-14">
+          <Reveal variant="fade" duration={0.56} className="mt-12 flex justify-center sm:mt-14">
             <Link
               href="/#portfolio"
               className="
+                mm-project-back-link
                 group/footer-back
                 inline-flex
                 items-center
@@ -578,7 +595,7 @@ export default async function ProjectPage({
                 </span>
               </span>
             </Link>
-          </div>
+          </Reveal>
         </Container>
       </main>
     </>
