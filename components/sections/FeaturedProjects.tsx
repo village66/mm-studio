@@ -22,9 +22,6 @@ type Project = {
   category: ProjectCategory;
   image: string;
   href: string;
-  location?: string;
-  year?: string;
-  area?: string;
 };
 
 /*
@@ -44,8 +41,6 @@ const projects: Project[] = [
     image:
       "/images/projects/residential/residence-01/cover/cover-01.jpg",
     href: "/portfolio/private-residence#residence-01",
-    location: "Taiwan",
-    year: "2026",
   },
   {
     id: "residence-02",
@@ -55,8 +50,6 @@ const projects: Project[] = [
     image:
       "/images/projects/residential/residence-02/completed/completed-00.jpg",
     href: "/portfolio/private-residence#residence-02",
-    location: "Taiwan",
-    year: "2026",
   },
   {
     id: "residence-03",
@@ -66,8 +59,6 @@ const projects: Project[] = [
     image:
       "/images/projects/residential/residence-03/cover/cover-01.jpg",
     href: "/portfolio/private-residence#residence-03",
-    location: "Taiwan",
-    year: "2026",
   },
   {
     id: "renovation-01",
@@ -77,8 +68,6 @@ const projects: Project[] = [
     image:
       "/images/projects/renovation/renovation-01/cover/cover-01.jpg",
     href: "/portfolio/modern-apartment#renovation-01",
-    location: "Taiwan",
-    year: "2026",
   },
   {
     id: "renovation-02",
@@ -88,8 +77,6 @@ const projects: Project[] = [
     image:
       "/images/projects/renovation/renovation-02/cover/cover-01.jpg",
     href: "/portfolio/modern-apartment#renovation-02",
-    location: "Taiwan",
-    year: "Selected Work",
   },
   {
     id: "commercial-01",
@@ -99,30 +86,24 @@ const projects: Project[] = [
     image:
       "/images/projects/commercial/commercial-01/cover/cover01.jpg",
     href: "/portfolio/commercial-space#commercial-01",
-    location: "Taiwan",
-    year: "2026",
   },
   {
     id: "commercial-02",
-    titleZh: "甜點品牌概念店",
-    titleEn: "Patisserie Concept Store",
+    titleZh: "彌月禮盒旗艦店",
+    titleEn: "Newborn Gift Box Flagship Store",
     category: "commercial",
     image:
       "/images/projects/commercial/commercial-02/completed/A1.jpg",
     href: "/portfolio/commercial-space#commercial-02",
-    location: "Taiwan",
-    year: "2026",
   },
   {
     id: "commercial-03",
-    titleZh: "簡約服飾專櫃",
-    titleEn: "Minimal Fashion Boutique",
+    titleZh: "設計師品牌專櫃",
+    titleEn: "Designer Brand Boutique",
     category: "commercial",
     image:
       "/images/projects/commercial/commercial-03/cover/cover-01.jpg",
     href: "/portfolio/commercial-space#commercial-03",
-    location: "Taiwan",
-    year: "2026",
   },
   {
     id: "commercial-04",
@@ -132,8 +113,6 @@ const projects: Project[] = [
     image:
       "/images/projects/commercial/commercial-04/cover/cover-01.jpg",
     href: "/portfolio/commercial-space#commercial-04",
-    location: "Taiwan",
-    year: "2026",
   },
 ];
 
@@ -184,14 +163,6 @@ const categoryLabels: Record<
     en: "Home Renovation",
   },
 };
-
-function getProjectMeta(project: Project) {
-  return [
-    project.location,
-    project.year,
-    project.area,
-  ].filter(Boolean);
-}
 
 export default function FeaturedProjects() {
   const [activeFilter, setActiveFilter] =
@@ -427,9 +398,6 @@ export default function FeaturedProjects() {
           >
             {visibleProjects.map(
               (project, index) => {
-                const meta =
-                  getProjectMeta(project);
-
                 return (
                   <Reveal
                     key={project.id}
@@ -586,11 +554,6 @@ export default function FeaturedProjects() {
                             </p>
                           </div>
 
-                          {meta.length > 0 && (
-                            <p className="mt-4 text-[11px] font-light tracking-[0.06em] text-neutral-500">
-                              {meta.join(" · ")}
-                            </p>
-                          )}
                         </div>
                       </article>
                     </ProjectTransitionLink>

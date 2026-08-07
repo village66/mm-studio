@@ -694,12 +694,12 @@ const projectCollections: Project[] = [
       },
       {
         id: "commercial-02",
-        titleZh: "甜點品牌概念店",
-        titleEn: "Patisserie Concept Store",
+        titleZh: "彌月禮盒旗艦店",
+        titleEn: "Newborn Gift Box Flagship Store",
         storyZh:
           "以明亮白色為基底，將甜點展示、品嚐座位與品牌接待整合於開放場域；格狀光膜天花與金色細節，讓產品在柔和光線下呈現精緻質感。",
         storyEn:
-          "A luminous patisserie concept store combining product display, tasting and reception within an open setting defined by soft ceiling light and subtle gold details.",
+          "A luminous newborn gift box flagship store combining product display, consultation and reception within an open setting defined by soft ceiling light and subtle gold details.",
         phases: [
           phase(
             "before",
@@ -802,12 +802,12 @@ const projectCollections: Project[] = [
       },
       {
         id: "commercial-03",
-        titleZh: "簡約服飾專櫃",
-        titleEn: "Minimal Fashion Boutique",
+        titleZh: "設計師品牌專櫃",
+        titleEn: "Designer Brand Boutique",
         storyZh:
           "以黑白框架和高亮度背景建立清楚商品辨識，開放式吊掛、中央展示台與鏡面端景維持俐落動線，讓服裝色彩成為空間主角。",
         storyEn:
-          "A minimal fashion boutique using crisp black-and-white geometry, open rails and mirrored focal points to let color, form and merchandise lead the experience.",
+          "A designer brand boutique using crisp black-and-white geometry, open rails and mirrored focal points to let color, form and merchandise lead the experience.",
         phases: [
           phase(
             "completed",
