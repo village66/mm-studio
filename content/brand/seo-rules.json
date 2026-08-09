@@ -4,8 +4,29 @@
   "siteName": "工厘設計 MM Studio",
   "primaryMarket": "台中",
   "titleTemplate": "{projectTitle}｜工厘設計 MM Studio",
+  "titleRules": {
+    "preferredLength": { "minimum": 20, "maximum": 32 },
+    "includeSiteName": true,
+    "includeLocationOnlyWhenVerified": true,
+    "avoidRepeatedKeywords": true
+  },
+  "metaDescriptionRules": {
+    "preferredLength": { "minimum": 70, "maximum": 120 },
+    "structure": ["案件條件", "核心設計策略", "可驗證成果"],
+    "requireCompleteSentence": true,
+    "avoidTitleDuplication": true,
+    "avoidCallsToActionWithoutContext": true
+  },
   "requiredProjectFields": ["title", "slug", "category", "location", "summary"],
   "keywordPolicy": { "useOnlyVerifiedLocations": true, "avoidKeywordStuffing": true, "maximumPrimaryKeywords": 3 },
   "imageAltTemplate": "{projectTitle}｜{spaceOrView}｜MM Studio",
+  "imageAltRules": {
+    "describeVisibleContent": true,
+    "includeProjectTitle": true,
+    "includeSpaceOrView": true,
+    "includeBeforeAfterStateWhenApplicable": true,
+    "avoidWords": ["圖片", "照片", "image", "photo"],
+    "doNotInfer": ["材料品牌", "空間用途", "施工方法", "人物身分"]
+  },
   "prohibitedClaims": ["未經確認的獎項", "未經確認的材料或品牌", "未經確認的客戶需求"]
 }
