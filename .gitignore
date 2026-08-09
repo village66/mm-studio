@@ -20,6 +20,11 @@
 # production
 /build
 
+# content engine outputs (rebuild with npm run content:generate -- <slug>)
+/generated/*
+!/generated/_template/
+!/generated/_template/*.json
+
 # misc
 .DS_Store
 *.pem
