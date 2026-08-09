@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!project) return { title: "找不到預覽案件", robots: { index: false, follow: false } };
 
   return {
-    title: `[Preview] ${project.seo.title}`,
+    title: { absolute: `[Preview] ${project.seo.title}` },
     description: project.seo.description,
     robots: { index: false, follow: false, noarchive: true },
   };
@@ -34,9 +34,9 @@ export default async function ContentProjectPreviewPage({ params }: Props) {
     { key: "after", title: "改造後", images: project.after },
   ];
   const warnings = [
-    project.district === null && "district 尚待確認",
-    project.area === null && "area 尚待確認",
-    project.publishDate === null && "publishDate 尚待確認",
+    project.district === null && "行政區（district）尚待確認",
+    project.area === null && "實際坪數（area）尚待確認",
+    project.publishDate === null && "正式發布日期（publishDate）尚待確認",
   ].filter((message): message is string => Boolean(message));
 
   return (
@@ -60,6 +60,7 @@ export default async function ContentProjectPreviewPage({ params }: Props) {
               <div><dt className="text-neutral-400">地點</dt><dd>{project.location}{project.district ?? "（行政區待確認）"}</dd></div>
               <div><dt className="text-neutral-400">坪數</dt><dd>{project.area ? `${project.area} 坪` : "待確認"}</dd></div>
               <div><dt className="text-neutral-400">風格</dt><dd>{project.style.join("、")}</dd></div>
+              <div><dt className="text-neutral-400">發布日期</dt><dd>{project.publishDate ?? "尚未發布（日期待確認）"}</dd></div>
             </dl>
           </header>
 
