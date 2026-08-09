@@ -58,9 +58,16 @@ export async function writeGeneratedFiles(project: ProjectInput, outputDirectory
 
 async function run(): Promise<void> {
   const repositoryRoot = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
-  const inputPath = resolve(repositoryRoot, process.argv[2] ?? "content/projects/_template/project.json");
-  const outputDirectory = resolve(repositoryRoot, process.argv[3] ?? "generated");
+  const slug = process.argv[2] ?? "_template";
+  if (slug !== "_template" && !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) {
+    throw new Error("案件 slug 必須使用小寫 kebab-case");
+  }
+  const inputPath = resolve(repositoryRoot, "content/projects", slug, "project.json");
   const project = JSON.parse(await readFile(inputPath, "utf8")) as ProjectInput;
+  if (slug !== "_template" && project.slug !== slug) {
+    throw new Error(`指定 slug（${slug}）與 project.json slug（${project.slug}）不一致`);
+  }
+  const outputDirectory = resolve(repositoryRoot, "generated", slug);
   const bundle = await writeGeneratedFiles(project, outputDirectory);
   if (!bundle.qa.valid) throw new Error(`案件驗證失敗：${bundle.qa.errors.join("；")}`);
 }

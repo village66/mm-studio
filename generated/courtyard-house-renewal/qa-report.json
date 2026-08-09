@@ -1,0 +1,26 @@
+{
+  "valid": true,
+  "errors": [],
+  "warnings": [
+    "district 尚待確認",
+    "area 尚待確認",
+    "publishDate 尚未設定"
+  ],
+  "checks": {
+    "schema": true,
+    "slug": true,
+    "title": true,
+    "subtitle": true,
+    "location": true,
+    "district": true,
+    "area": true,
+    "services": true,
+    "style": true,
+    "coverImage": true,
+    "gallery": true,
+    "before": true,
+    "after": true,
+    "publishDate": true,
+    "featured": true
+  }
+}
