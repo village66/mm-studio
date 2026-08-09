@@ -6,7 +6,9 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "content:validate": "node scripts/content-engine/validate-cli.ts",
+    "content:generate": "node scripts/content-engine/generate.ts"
   },
   "dependencies": {
     "@next/third-parties": "^16.2.10",

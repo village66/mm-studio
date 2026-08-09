@@ -1,0 +1,16 @@
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "待填寫案件名稱",
+  "description": "待根據已確認事實撰寫案件摘要",
+  "url": "https://www.mmstudio-design.com/portfolio/replace-with-project-slug",
+  "contentLocation": "待確認",
+  "image": [
+    "cover.jpg"
+  ],
+  "provider": {
+    "@type": "Organization",
+    "name": "工厘設計 MM Studio",
+    "url": "https://www.mmstudio-design.com"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "schemaVersion": "1.0",
+  "services": [
+    { "id": "residential-design", "nameZh": "住宅空間設計", "nameEn": "Residential Design" },
+    { "id": "commercial-design", "nameZh": "商業空間設計", "nameEn": "Commercial Design" },
+    { "id": "renovation", "nameZh": "老屋翻新工程", "nameEn": "Renovation" }
+  ]
+}

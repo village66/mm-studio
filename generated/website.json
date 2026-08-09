@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "1.0",
+  "status": "draft",
+  "slug": "replace-with-project-slug",
+  "title": "待填寫案件名稱",
+  "subtitle": "待根據已確認事實撰寫案件摘要",
+  "location": "待確認",
+  "district": null,
+  "area": null,
+  "services": [
+    "室內設計"
+  ],
+  "style": [
+    "待確認"
+  ],
+  "coverImage": "cover.jpg",
+  "gallery": [],
+  "before": [],
+  "after": [],
+  "publishDate": null,
+  "featured": false
+}

@@ -1,0 +1,9 @@
+{
+  "schemaVersion": "1.0",
+  "name": "MM Studio",
+  "legalName": "工厘室內裝修設計有限公司",
+  "positioning": "住宅與商業空間設計",
+  "tagline": "打造歷久彌新的生活空間",
+  "corePrinciples": ["回應真實需求", "兼顧美感與機能", "重視光線、比例、材質與細節"],
+  "defaultLocale": "zh-TW"
+}

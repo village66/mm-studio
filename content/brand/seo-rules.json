@@ -1,0 +1,11 @@
+{
+  "schemaVersion": "1.0",
+  "locale": "zh-TW",
+  "siteName": "工厘設計 MM Studio",
+  "primaryMarket": "台中",
+  "titleTemplate": "{projectTitle}｜工厘設計 MM Studio",
+  "requiredProjectFields": ["title", "slug", "category", "location", "summary"],
+  "keywordPolicy": { "useOnlyVerifiedLocations": true, "avoidKeywordStuffing": true, "maximumPrimaryKeywords": 3 },
+  "imageAltTemplate": "{projectTitle}｜{spaceOrView}｜MM Studio",
+  "prohibitedClaims": ["未經確認的獎項", "未經確認的材料或品牌", "未經確認的客戶需求"]
+}

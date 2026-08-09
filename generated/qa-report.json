@@ -1,0 +1,34 @@
+{
+  "valid": true,
+  "errors": [],
+  "warnings": [
+    "slug 仍是模板內容",
+    "title 仍是模板內容",
+    "subtitle 仍是模板內容",
+    "location 尚待確認",
+    "district 尚待確認",
+    "area 尚待確認",
+    "style 尚待確認",
+    "gallery 尚未加入圖片",
+    "before 尚未加入圖片",
+    "after 尚未加入圖片",
+    "publishDate 尚未設定"
+  ],
+  "checks": {
+    "schema": true,
+    "slug": true,
+    "title": true,
+    "subtitle": true,
+    "location": true,
+    "district": true,
+    "area": true,
+    "services": true,
+    "style": true,
+    "coverImage": true,
+    "gallery": false,
+    "before": false,
+    "after": false,
+    "publishDate": true,
+    "featured": true
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://www.mmstudio-design.com/schemas/project.schema.json",
+  "title": "MM Studio Project Schema",
+  "description": "MM Studio Content Engine V1 唯一案件資料規格。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion", "status", "slug", "title", "subtitle", "location",
+    "district", "area", "services", "style", "coverImage", "gallery",
+    "before", "after", "publishDate", "featured"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "1.0" },
+    "status": { "enum": ["draft", "review", "approved"] },
+    "slug": { "type": "string", "minLength": 1, "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+    "title": { "type": "string", "minLength": 1, "maxLength": 80 },
+    "subtitle": { "type": "string", "minLength": 1, "maxLength": 160 },
+    "location": { "type": "string", "minLength": 1, "maxLength": 40 },
+    "district": { "type": ["string", "null"], "maxLength": 40 },
+    "area": { "type": ["number", "null"], "exclusiveMinimum": 0 },
+    "services": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "style": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "coverImage": { "type": "string", "minLength": 1 },
+    "gallery": {
+      "type": "array", "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "before": {
+      "type": "array", "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "after": {
+      "type": "array", "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "publishDate": {
+      "type": ["string", "null"],
+      "format": "date",
+      "pattern": "^\\d{4}-(0[1-9]|1[0-2])-([0-2]\\d|3[01])$"
+    },
+    "featured": { "type": "boolean" }
+  }
+}
