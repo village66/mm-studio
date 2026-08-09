@@ -2,6 +2,12 @@ export const PROJECT_STATUSES = ["draft", "review", "approved"] as const;
 
 export type ProjectStatus = (typeof PROJECT_STATUSES)[number];
 
+export const PROJECT_FIELDS = [
+  "schemaVersion", "status", "slug", "title", "subtitle", "location", "district",
+  "area", "services", "style", "coverImage", "gallery", "before", "after",
+  "publishDate", "featured",
+] as const;
+
 /** 完全對應 content/schema/project.schema.json。 */
 export interface ProjectInput {
   schemaVersion: "1.0";
@@ -22,10 +28,8 @@ export interface ProjectInput {
   featured: boolean;
 }
 
-export type ValidationCheckName =
-  | "schema" | "slug" | "title" | "subtitle" | "location" | "district"
-  | "area" | "services" | "style" | "coverImage" | "gallery"
-  | "before" | "after" | "publishDate" | "featured";
+export type ProjectField = (typeof PROJECT_FIELDS)[number];
+export type ValidationCheckName = "schema" | Exclude<ProjectField, "schemaVersion" | "status">;
 
 export type ValidationChecks = Record<ValidationCheckName, boolean>;
 export interface ValidationResult { valid: boolean; errors: string[]; warnings: string[]; checks: ValidationChecks; }

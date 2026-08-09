@@ -1,5 +1,6 @@
 import projectSchema from "../../content/schema/project.schema.json" with { type: "json" };
-import type { ProjectInput, ValidationCheckName, ValidationResult } from "./types.ts";
+// @ts-expect-error Node 24 direct TypeScript execution requires the explicit extension.
+import { PROJECT_FIELDS, PROJECT_STATUSES, type ProjectInput, type ValidationCheckName, type ValidationResult } from "./types.ts";
 
 const properties = projectSchema.properties;
 const requiredKeys = new Set<string>(projectSchema.required);
@@ -9,6 +10,15 @@ const slugPattern = new RegExp(properties.slug.pattern);
 const publishDatePattern = new RegExp(properties.publishDate.pattern);
 const placeholderPattern = /待確認|待填寫|待根據|待補|replace-with/;
 const imagePattern = /\.(avif|gif|jpe?g|png|webp)$/i;
+
+const sameValues = (left: readonly string[], right: readonly string[]): boolean =>
+  left.length === right.length && left.every((value) => right.includes(value));
+
+const contractErrors = [
+  !sameValues([...allowedKeys], PROJECT_FIELDS) && "Schema properties 與 types.ts PROJECT_FIELDS 不一致",
+  !sameValues([...requiredKeys], PROJECT_FIELDS) && "Schema required 與 types.ts PROJECT_FIELDS 不一致",
+  !sameValues([...statuses], PROJECT_STATUSES) && "Schema status 與 types.ts PROJECT_STATUSES 不一致",
+].filter((message): message is string => Boolean(message));
 
 const isRecord = (value: unknown): value is Record<string, unknown> =>
   typeof value === "object" && value !== null && !Array.isArray(value);
@@ -41,6 +51,8 @@ export function validateProject(input: unknown): ValidationResult {
     return { valid: false, errors, warnings, checks };
   }
 
+  for (const message of contractErrors) fail("schema", `Schema contract drift：${message}`);
+
   for (const key of requiredKeys) {
     if (!(key in input)) fail("schema", `缺少 Schema 必填欄位：${key}`);
   }
@@ -64,9 +76,11 @@ export function validateProject(input: unknown): ValidationResult {
   else if (placeholderPattern.test(input.location)) warnings.push("location 尚待確認");
 
   if (input.district !== null && (!hasText(input.district) || input.district.length > properties.district.maxLength)) fail("district", "district 必須是 1–40 字元或 null");
+  else if (input.district === null && input.status === "approved") fail("district", "approved 發布前必須填入真實 district，不得由 Generator 猜測");
   else if (input.district === null) warnings.push("district 尚待確認");
 
   if (input.area !== null && (typeof input.area !== "number" || !Number.isFinite(input.area) || input.area <= 0)) fail("area", "area 必須是大於 0 的數字或 null");
+  else if (input.area === null && input.status === "approved") fail("area", "approved 發布前必須填入真實 area，不得由 Generator 猜測");
   else if (input.area === null) warnings.push("area 尚待確認");
 
   if (!isUniqueTextArray(input.services) || input.services.length < properties.services.minItems) fail("services", "services 至少需要一個不重複項目");
@@ -89,6 +103,8 @@ export function validateProject(input: unknown): ValidationResult {
 
   if (input.publishDate !== null) {
     if (!hasText(input.publishDate) || !publishDatePattern.test(input.publishDate) || !isCalendarDate(input.publishDate)) fail("publishDate", "publishDate 必須是有效 YYYY-MM-DD 或 null");
+  } else if (input.status === "approved") {
+    fail("publishDate", "approved 發布前必須填入真實 publishDate，不得由 Generator 猜測");
   } else {
     warnings.push("publishDate 尚未設定");
   }

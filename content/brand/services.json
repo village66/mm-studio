@@ -1,5 +1,17 @@
 {
   "schemaVersion": "1.0",
+  "descriptionRules": {
+    "useOnlyListedServices": true,
+    "describeScopeOnlyWhenVerified": true,
+    "doNotPromise": ["固定工期", "固定預算", "保證成效", "未確認的服務範圍"]
+  },
+  "locationRules": {
+    "primaryMarket": "台中",
+    "useOnlyVerifiedProjectLocations": true,
+    "districtRequiredForPublication": true,
+    "doNotInferFromImagesOrProjectName": true,
+    "avoidUnsupportedServiceAreaClaims": true
+  },
   "services": [
     { "id": "residential-design", "nameZh": "住宅空間設計", "nameEn": "Residential Design" },
     { "id": "commercial-design", "nameZh": "商業空間設計", "nameEn": "Commercial Design" },

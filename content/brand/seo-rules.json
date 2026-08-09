@@ -28,5 +28,23 @@
     "avoidWords": ["圖片", "照片", "image", "photo"],
     "doNotInfer": ["材料品牌", "空間用途", "施工方法", "人物身分"]
   },
+  "imageFilenameRules": {
+    "format": "lowercase-kebab-case",
+    "allowedExtensions": ["avif", "gif", "jpg", "jpeg", "png", "webp"],
+    "patterns": {
+      "cover": "cover/cover-{sequence}.{extension}",
+      "gallery": "gallery/{space-or-view}-{sequence}.{extension}",
+      "before": "before/{space-or-view}-{sequence}.{extension}",
+      "after": "after/{space-or-view}-{sequence}.{extension}"
+    },
+    "doNotInferUnverifiedSpaceNames": true
+  },
+  "captionRules": {
+    "requiredForPublicationWhenUsed": true,
+    "structure": ["可見空間或視角", "已確認的設計處理或狀態"],
+    "beforeAfterMustNameState": true,
+    "doNotRepeatAltVerbatim": true,
+    "doNotInfer": ["材料品牌", "客戶需求", "施工方法", "成效"]
+  },
   "prohibitedClaims": ["未經確認的獎項", "未經確認的材料或品牌", "未經確認的客戶需求"]
 }

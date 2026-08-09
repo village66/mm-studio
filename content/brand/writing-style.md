@@ -67,6 +67,35 @@
 >
 > After：調整開口或界面後，從相同視角可見的光線、動線或空間關係變化。
 
+## 圖片檔名與 Caption
+
+- 檔名使用小寫 kebab-case；以 `cover/`、`gallery/`、`before/`、`after/` 分類。
+- 已確認空間名稱時，gallery、Before、After 優先採 `{space-or-view}-{sequence}.jpg`；未確認時使用中性序號，不從影像猜用途。
+- Caption 說明可見的空間／視角，以及已確認的設計處理或狀態；不可逐字複製 ALT。
+- Before／After Caption 必須標示改造前後，並保持相同空間名稱與比較尺度。
+- 未有結構化 Caption 欄位前，Caption 視為發布前內容工作，不得由 Generator 自動補造。
+
+## CTA 規則
+
+- CTA 以了解服務、查看案件或提出真實需求為目的，語氣清楚、低壓、不製造稀缺焦慮。
+- 可使用：「了解設計服務」、「查看其他案例」、「與我們討論空間需求」。
+- 禁止：「立即搶約」、「保證完美」、「限時名額」、「免費取得專屬方案」等未經確認的承諾。
+- 案件摘要與 Meta description 不強塞 CTA；CTA 應位於頁面既定行動區並符合實際聯絡流程。
+
+## 服務與地區描述
+
+- 服務名稱使用 `services.json` 的正式清單；個案服務範圍必須由案件資料確認。
+- 地區僅使用已確認資料，不由案件名稱、圖片、電話或其他線索反推。
+- 「台中」是主要市場資訊，不代表每一案件都位於台中，也不等同未經確認的服務範圍。
+- 不承諾固定預算、工期、施工範圍或服務地區；資料不足時標記待確認。
+
+## Review 與 Publish Gate
+
+- `status: review` 時，`district`、`area`、`publishDate` 可為 `null`，Validator 必須輸出 WARNING。
+- `status: approved` 代表可發布門檻；上述任一欄為 `null` 時，Validator 必須升級為欄位級 ERROR。
+- Generator 只能搬運已驗證輸入，不得推測地區、坪數、發布日期、Caption 或任何案件事實。
+- `MODULE_TYPELESS_PACKAGE_JSON` 僅列為 Node 執行技術債，不為消除警告改動 `package.json`。
+
 ## 輸出與 QA 原則
 
 - 標題先說明案件辨識資訊，再補充設計特色。
