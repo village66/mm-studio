@@ -1,6 +1,6 @@
 import projectSchema from "../../content/schema/project.schema.json" with { type: "json" };
 // @ts-expect-error Node 24 direct TypeScript execution requires the explicit extension.
-import { PROJECT_FIELDS, PROJECT_STATUSES, type ProjectInput, type ValidationCheckName, type ValidationResult } from "./types.ts";
+import { PUBLISHABLE_PROJECT_STATUSES, PROJECT_FIELDS, PROJECT_STATUSES, type ProjectInput, type ValidationCheckName, type ValidationResult } from "./types.ts";
 
 const properties = projectSchema.properties;
 const requiredKeys = new Set<string>(projectSchema.required);
@@ -10,6 +10,7 @@ const slugPattern = new RegExp(properties.slug.pattern);
 const publishDatePattern = new RegExp(properties.publishDate.pattern);
 const placeholderPattern = /待確認|待填寫|待根據|待補|replace-with/;
 const imagePattern = /\.(avif|gif|jpe?g|png|webp)$/i;
+const publishableStatuses = new Set<string>(PUBLISHABLE_PROJECT_STATUSES);
 
 const sameValues = (left: readonly string[], right: readonly string[]): boolean =>
   left.length === right.length && left.every((value) => right.includes(value));
@@ -76,11 +77,11 @@ export function validateProject(input: unknown): ValidationResult {
   else if (placeholderPattern.test(input.location)) warnings.push("location 尚待確認");
 
   if (input.district !== null && (!hasText(input.district) || input.district.length > properties.district.maxLength)) fail("district", "district 必須是 1–40 字元或 null");
-  else if (input.district === null && input.status === "approved") fail("district", "approved 發布前必須填入真實 district，不得由 Generator 猜測");
+  else if (input.district === null && publishableStatuses.has(String(input.status))) fail("district", `${String(input.status)} 發布前必須填入真實 district，不得由 Generator 猜測`);
   else if (input.district === null) warnings.push("district 尚待確認");
 
   if (input.area !== null && (typeof input.area !== "number" || !Number.isFinite(input.area) || input.area <= 0)) fail("area", "area 必須是大於 0 的數字或 null");
-  else if (input.area === null && input.status === "approved") fail("area", "approved 發布前必須填入真實 area，不得由 Generator 猜測");
+  else if (input.area === null && publishableStatuses.has(String(input.status))) fail("area", `${String(input.status)} 發布前必須填入真實 area，不得由 Generator 猜測`);
   else if (input.area === null) warnings.push("area 尚待確認");
 
   if (!isUniqueTextArray(input.services) || input.services.length < properties.services.minItems) fail("services", "services 至少需要一個不重複項目");
@@ -103,15 +104,15 @@ export function validateProject(input: unknown): ValidationResult {
 
   if (input.publishDate !== null) {
     if (!hasText(input.publishDate) || !publishDatePattern.test(input.publishDate) || !isCalendarDate(input.publishDate)) fail("publishDate", "publishDate 必須是有效 YYYY-MM-DD 或 null");
-  } else if (input.status === "approved") {
-    fail("publishDate", "approved 發布前必須填入真實 publishDate，不得由 Generator 猜測");
+  } else if (publishableStatuses.has(String(input.status))) {
+    fail("publishDate", `${String(input.status)} 發布前必須填入真實 publishDate，不得由 Generator 猜測`);
   } else {
     warnings.push("publishDate 尚未設定");
   }
 
   if (typeof input.featured !== "boolean") fail("featured", "featured 必須是 boolean");
 
-  if (input.status === "approved" && warnings.length > 0) fail("schema", "approved 案件不得保留 Warning");
+  if (publishableStatuses.has(String(input.status)) && warnings.length > 0) fail("schema", `${String(input.status)} 案件不得保留 Warning`);
   return { valid: errors.length === 0, errors, warnings, checks };
 }
 

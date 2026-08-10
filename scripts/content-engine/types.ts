@@ -1,4 +1,6 @@
-export const PROJECT_STATUSES = ["draft", "review", "approved"] as const;
+export const PROJECT_STATUSES = ["draft", "review", "approved", "published"] as const;
+
+export const PUBLISHABLE_PROJECT_STATUSES = ["approved", "published"] as const;
 
 export type ProjectStatus = (typeof PROJECT_STATUSES)[number];
 
@@ -51,3 +53,24 @@ export interface GeneratedSchemaData {
   provider: { "@type": "Organization"; name: "工厘設計 MM Studio"; url: "https://www.mmstudio-design.com"; };
 }
 export interface GeneratedProjectBundle { website: ProjectInput; seo: GeneratedSeo; schema: GeneratedSchemaData; qa: ValidationResult; }
+
+export const PUBLISH_READINESS_CHECKS = [
+  "district", "area", "publishDate", "cover", "gallery", "seoTitle", "seoMeta",
+  "canonical", "jsonLd", "alt", "slugUniqueness", "status", "noindexRemoval",
+] as const;
+
+export type PublishReadinessCheckName = (typeof PUBLISH_READINESS_CHECKS)[number];
+export type PublishReadinessLevel = "PASS" | "WARNING" | "BLOCKER";
+
+export interface PublishReadinessCheck {
+  level: PublishReadinessLevel;
+  message: string;
+}
+
+export interface PublishReadinessReport {
+  level: PublishReadinessLevel;
+  productionEligible: boolean;
+  checks: Record<PublishReadinessCheckName, PublishReadinessCheck>;
+  warnings: string[];
+  blockers: string[];
+}

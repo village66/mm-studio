@@ -3,6 +3,9 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 // @ts-expect-error Node 24 direct TypeScript execution requires the explicit extension.
 import { validateProject } from "./validate.ts";
+// @ts-expect-error Node 24 direct TypeScript execution requires the explicit extension.
+import { assessPublishReadiness } from "./publish-readiness.ts";
+import type { ProjectInput } from "./types.ts";
 
 async function run(): Promise<void> {
   const repositoryRoot = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
@@ -20,7 +23,14 @@ async function run(): Promise<void> {
     result.checks.slug = false;
   }
 
-  console.log(JSON.stringify(result, null, 2));
+  const publishReadiness = typeof input === "object" && input !== null
+    ? await assessPublishReadiness(input as ProjectInput, {
+        repositoryRoot,
+        legacySlugs: ["private-residence", "modern-apartment", "commercial-space"],
+      })
+    : null;
+
+  console.log(JSON.stringify({ validation: result, publishReadiness }, null, 2));
 
   if (!result.valid) {
     process.exitCode = 1;

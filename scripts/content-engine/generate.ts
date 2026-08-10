@@ -4,13 +4,15 @@ import { fileURLToPath } from "node:url";
 import type { GeneratedProjectBundle, ProjectInput } from "./types.ts";
 // @ts-expect-error Node 24 direct TypeScript execution requires the explicit extension.
 import { validateProject } from "./validate.ts";
+// @ts-expect-error Node 24 direct TypeScript execution requires the explicit extension.
+import { assessPublishReadiness } from "./publish-readiness.ts";
 
 const SITE_URL = "https://www.mmstudio-design.com";
 
 export function generateProjectBundle(project: ProjectInput): GeneratedProjectBundle {
   const qa = validateProject(project);
   const canonical = `${SITE_URL}/portfolio/${project.slug}`;
-  const shouldIndex = project.status === "approved" && qa.valid;
+  const shouldIndex = (project.status === "approved" || project.status === "published") && qa.valid;
   const images = [project.coverImage, ...project.gallery, ...project.before, ...project.after];
 
   return {
@@ -40,14 +42,19 @@ export function generateProjectBundle(project: ProjectInput): GeneratedProjectBu
   };
 }
 
-export async function writeGeneratedFiles(project: ProjectInput, outputDirectory: string): Promise<GeneratedProjectBundle> {
+export async function writeGeneratedFiles(project: ProjectInput, outputDirectory: string, repositoryRoot: string): Promise<GeneratedProjectBundle> {
   const bundle = generateProjectBundle(project);
+  const publishReadiness = await assessPublishReadiness(project, {
+    repositoryRoot,
+    legacySlugs: ["private-residence", "modern-apartment", "commercial-space"],
+  });
   await mkdir(outputDirectory, { recursive: true });
   const outputs: Record<string, unknown> = {
     "website.json": bundle.website,
     "seo.json": bundle.seo,
     "schema.json": bundle.schema,
     "qa-report.json": bundle.qa,
+    "publish-qa-report.json": publishReadiness,
   };
 
   await Promise.all(Object.entries(outputs).map(([filename, value]) =>
@@ -68,7 +75,7 @@ async function run(): Promise<void> {
     throw new Error(`指定 slug（${slug}）與 project.json slug（${project.slug}）不一致`);
   }
   const outputDirectory = resolve(repositoryRoot, "generated", slug);
-  const bundle = await writeGeneratedFiles(project, outputDirectory);
+  const bundle = await writeGeneratedFiles(project, outputDirectory, repositoryRoot);
   if (!bundle.qa.valid) throw new Error(`案件驗證失敗：${bundle.qa.errors.join("；")}`);
 }
 
