@@ -1,12 +1,12 @@
 {
   "schemaVersion": "1.0",
-  "status": "review",
+  "status": "approved",
   "slug": "courtyard-house-renewal",
   "title": "庭院老宅新生",
   "subtitle": "從老宅外牆、庭院與室內機能全面更新，重新整理採光、通風與生活動線，讓既有住宅展開更自在的新生活。",
   "location": "台灣",
-  "district": null,
-  "area": null,
+  "district": "南區",
+  "area": 35,
   "services": [
     "老屋翻新工程",
     "住宅空間設計",
@@ -30,6 +30,6 @@
     "after/after-01.jpg",
     "after/after-02.jpg"
   ],
-  "publishDate": null,
+  "publishDate": "2026-08-10",
   "featured": false
 }
