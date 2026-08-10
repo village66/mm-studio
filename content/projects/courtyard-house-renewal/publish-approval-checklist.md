@@ -2,9 +2,9 @@
 
 ## 必須由使用者提供，不得推測
 
-- [ ] `district`：可公開的縣市／行政區正式寫法。
-- [ ] `area`：實際室內設計或工程坪數，並確認計算口徑。
-- [ ] `publishDate`：正式公開日期，格式 `YYYY-MM-DD`。
+- [ ] `district`：`project.json` 第 8 個欄位；填入可公開的縣市／行政區正式字串（1–40 字元），未確認時保持 `null`。
+- [ ] `area`：`project.json` 第 9 個欄位；填入實際室內設計或工程坪數（大於 0 的 JSON number，不加「坪」文字），未確認時保持 `null`。
+- [ ] `publishDate`：`project.json` 的 `before`／`after` 後方欄位；填入正式公開日期字串，格式 `YYYY-MM-DD` 且必須是有效日曆日期，未確認時保持 `null`。
 - [ ] 使用者明確核准由 `review` 轉為 `approved` 或 `published`。
 
 ## 可選但建議補齊
@@ -36,6 +36,9 @@
 2. 執行 `npm run content:validate -- courtyard-house-renewal`。
 3. 執行 `npm run content:generate -- courtyard-house-renewal`。
 4. 執行 `npm run content:publish-gate -- courtyard-house-renewal --target-status approved`。
-5. Gate 顯示 `PASS` 且使用者明確核准後，才可修改 status；不得由 CLI 自動改檔。
+5. 執行 `npm run content:final-qa`，確認隔離 fixture 的 approved／published 完整路徑 PASS。
+6. Gate 顯示 `PASS` 且使用者明確核准後，才可修改 status；不得由 CLI 自動改檔。
+
+完整 Final QA、release 與 rollback 流程見 `docs/content-engine/final-release-preparation.md`。
 
 目前案件保持 `review`、`featured=false`、`productionEligible=false`，不得進正式 route、sitemap 或首頁。

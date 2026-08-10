@@ -147,3 +147,35 @@ test("legacy route wins and production metadata never inherits preview noindex",
   assert.deepEqual(bundle.seo.robots, { index: true, follow: true });
   assert.match(bundle.schema.image[0], /^https:\/\/www\.mmstudio-design\.com\/content-assets\//);
 });
+
+test("approved and published fixtures satisfy every named final release consumer check", async () => {
+  for (const status of ["approved", "published"] as const) {
+    const project = {
+      ...baseProject,
+      status,
+      district: "Fixture District",
+      area: 1,
+      publishDate: "2099-01-01",
+      featured: false,
+    } satisfies ProjectInput;
+    const root = await fixture();
+    await writeFile(join(root, "content", "projects", baseProject.slug, "project.json"), JSON.stringify(project));
+    const readiness = await assessPublishReadiness(project, { repositoryRoot: root });
+    const bundle = generateProjectBundle(project);
+    const items = [{ project, readiness }];
+
+    assert.equal(readiness.productionEligible, true);
+    assert.equal(resolveProductionRouteSource(project.slug, [], items), "content-engine");
+    assert.equal(selectSitemapProjects(items).length, 1);
+    assert.equal(selectFeaturedProjects(items).length, 0);
+    assert.equal(selectFeaturedProjects([{ project: { ...project, featured: true }, readiness }]).length, 1);
+    assert.deepEqual(bundle.seo.robots, { index: true, follow: true });
+    assert.match(bundle.seo.canonical, new RegExp(`/portfolio/${project.slug}$`));
+    assert.equal(bundle.schema.name, project.title);
+    assert.ok(bundle.schema.image.length > 0);
+    assert.equal(readiness.checks.alt.level, "PASS");
+    assert.equal(readiness.checks.cover.level, "PASS");
+    assert.equal(readiness.checks.gallery.level, "PASS");
+    assert.equal(readiness.checks.slugUniqueness.level, "PASS");
+  }
+});

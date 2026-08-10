@@ -10,6 +10,8 @@
     "content:validate": "node scripts/content-engine/validate-cli.ts",
     "content:generate": "node scripts/content-engine/generate.ts",
     "content:publish-gate": "node scripts/content-engine/publish-gate-cli.ts",
+    "content:release-dry-run": "node scripts/content-engine/release-dry-run.ts",
+    "content:final-qa": "npm run content:test && npm run content:release-dry-run",
     "content:test": "node --test scripts/content-engine/content-engine.test.ts"
   },
   "dependencies": {
