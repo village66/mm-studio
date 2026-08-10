@@ -13,7 +13,8 @@ export function generateProjectBundle(project: ProjectInput): GeneratedProjectBu
   const qa = validateProject(project);
   const canonical = `${SITE_URL}/portfolio/${project.slug}`;
   const shouldIndex = (project.status === "approved" || project.status === "published") && qa.valid;
-  const images = [project.coverImage, ...project.gallery, ...project.before, ...project.after];
+  const images = [project.coverImage, ...project.gallery, ...project.before, ...project.after]
+    .map((image) => `${SITE_URL}/content-assets/${project.slug}/${image}`);
 
   return {
     website: project,

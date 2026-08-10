@@ -46,11 +46,15 @@ export function validateProject(input: unknown): ValidationResult {
     checks[check] = false;
     errors.push(message);
   };
-
   if (!isRecord(input)) {
     fail("schema", "案件資料必須是 JSON object");
     return { valid: false, errors, warnings, checks };
   }
+
+  const warnOrFailPlaceholder = (check: ValidationCheckName, message: string) => {
+    if (publishableStatuses.has(String(input.status))) fail(check, message);
+    else warnings.push(message);
+  };
 
   for (const message of contractErrors) fail("schema", `Schema contract drift：${message}`);
 
@@ -65,16 +69,16 @@ export function validateProject(input: unknown): ValidationResult {
   if (!hasText(input.status) || !statuses.has(input.status)) fail("schema", "status 不在允許清單");
 
   if (!hasText(input.slug) || !slugPattern.test(input.slug)) fail("slug", "slug 必須使用小寫 kebab-case");
-  else if (placeholderPattern.test(input.slug)) warnings.push("slug 仍是模板內容");
+  else if (placeholderPattern.test(input.slug)) warnOrFailPlaceholder("slug", "slug 仍是模板內容");
 
   if (!hasText(input.title) || input.title.length > properties.title.maxLength) fail("title", "title 必須為 1–80 字元");
-  else if (placeholderPattern.test(input.title)) warnings.push("title 仍是模板內容");
+  else if (placeholderPattern.test(input.title)) warnOrFailPlaceholder("title", "title 仍是模板內容");
 
   if (!hasText(input.subtitle) || input.subtitle.length > properties.subtitle.maxLength) fail("subtitle", "subtitle 必須為 1–160 字元");
-  else if (placeholderPattern.test(input.subtitle)) warnings.push("subtitle 仍是模板內容");
+  else if (placeholderPattern.test(input.subtitle)) warnOrFailPlaceholder("subtitle", "subtitle 仍是模板內容");
 
   if (!hasText(input.location) || input.location.length > properties.location.maxLength) fail("location", "location 必須為 1–40 字元");
-  else if (placeholderPattern.test(input.location)) warnings.push("location 尚待確認");
+  else if (placeholderPattern.test(input.location)) warnOrFailPlaceholder("location", "location 尚待確認");
 
   if (input.district !== null && (!hasText(input.district) || input.district.length > properties.district.maxLength)) fail("district", "district 必須是 1–40 字元或 null");
   else if (input.district === null && publishableStatuses.has(String(input.status))) fail("district", `${String(input.status)} 發布前必須填入真實 district，不得由 Generator 猜測`);
@@ -112,7 +116,6 @@ export function validateProject(input: unknown): ValidationResult {
 
   if (typeof input.featured !== "boolean") fail("featured", "featured 必須是 boolean");
 
-  if (publishableStatuses.has(String(input.status)) && warnings.length > 0) fail("schema", `${String(input.status)} 案件不得保留 Warning`);
   return { valid: errors.length === 0, errors, warnings, checks };
 }
 

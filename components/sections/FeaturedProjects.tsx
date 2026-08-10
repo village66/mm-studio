@@ -15,7 +15,7 @@ type ProjectCategory =
 
 type FilterValue = "all" | ProjectCategory;
 
-type Project = {
+export type FeaturedProject = {
   id: string;
   titleZh: string;
   titleEn: string;
@@ -32,7 +32,7 @@ type Project = {
   commercial  = 商業空間
   renovation  = 舊屋改造
 */
-const projects: Project[] = [
+const legacyProjects: FeaturedProject[] = [
   {
     id: "residence-01",
     titleZh: "柔光序居",
@@ -177,7 +177,10 @@ const getDesktopPortfolioSnapshot = () =>
 
 const getDesktopPortfolioServerSnapshot = () => false;
 
-export default function FeaturedProjects() {
+type Props = { contentProjects?: FeaturedProject[] };
+
+export default function FeaturedProjects({ contentProjects = [] }: Props) {
+  const projects = [...legacyProjects, ...contentProjects];
   const [activeFilter, setActiveFilter] =
     useState<FilterValue>("all");
   const isDesktopPortfolio = useSyncExternalStore(

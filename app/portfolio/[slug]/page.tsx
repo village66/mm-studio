@@ -3,17 +3,29 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import Header from "@/components/layout/Header";
+import ProductionProjectPage from "@/components/content-engine/ProductionProjectPage";
 import Container from "@/components/ui/Container";
 import ProjectLightbox from "@/components/gallery/ProjectLightbox";
 import Reveal from "@/components/ui/Reveal";
 
 import { projects } from "@/data/projects";
+import { getProductionContentProject, getProductionContentProjects } from "@/lib/content-engine/production-projects";
 
 type Props = {
   params: Promise<{
     slug: string;
   }>;
 };
+
+export const dynamicParams = false;
+
+export async function generateStaticParams() {
+  const contentProjects = await getProductionContentProjects();
+  return [
+    ...projects.map(({ slug }) => ({ slug })),
+    ...contentProjects.map(({ bundle }) => ({ slug: bundle.website.slug })),
+  ];
+}
 
 export async function generateMetadata({
   params,
@@ -22,11 +34,28 @@ export async function generateMetadata({
   const project = projects.find((item) => item.slug === slug);
 
   if (!project) {
+    const contentProject = await getProductionContentProject(slug);
+    if (!contentProject) return { title: "找不到作品", robots: { index: false, follow: false } };
+
+    const { seo, website } = contentProject.bundle;
     return {
-      title: "找不到作品",
-      robots: {
-        index: false,
-        follow: false,
+      title: { absolute: seo.title },
+      description: seo.description,
+      alternates: { canonical: seo.canonical },
+      robots: seo.robots,
+      openGraph: {
+        title: seo.title,
+        description: seo.description,
+        url: seo.canonical,
+        type: "article",
+        locale: "zh_TW",
+        images: [{ url: `/content-assets/${website.slug}/${website.coverImage}`, alt: `${website.title}｜MM Studio` }],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: seo.title,
+        description: seo.description,
+        images: [`/content-assets/${website.slug}/${website.coverImage}`],
       },
     };
   }
@@ -72,7 +101,9 @@ export default async function ProjectPage({
   );
 
   if (projectIndex === -1) {
-    notFound();
+    const contentProject = await getProductionContentProject(slug);
+    if (!contentProject) notFound();
+    return <ProductionProjectPage bundle={contentProject.bundle} />;
   }
 
   const project = projects[projectIndex];

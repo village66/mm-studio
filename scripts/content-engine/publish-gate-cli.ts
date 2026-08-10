@@ -6,6 +6,8 @@ import { fileURLToPath } from "node:url";
 import { assessPublishReadiness } from "./publish-readiness.ts";
 // @ts-expect-error Node 24 direct TypeScript execution requires the explicit extension.
 import { PUBLISHABLE_PROJECT_STATUSES, type ProjectInput, type ProjectStatus } from "./types.ts";
+// @ts-expect-error Node 24 direct TypeScript execution requires the explicit extension.
+import { PUBLISH_POLICY } from "./publish-policy.ts";
 
 const TARGET_FLAG = "--target-status";
 
@@ -44,6 +46,7 @@ async function run(): Promise<void> {
     targetStatus,
     decision,
     productionEligible: report.productionEligible,
+    policy: PUBLISH_POLICY,
     warnings: report.warnings,
     blockers: report.blockers,
     checks: report.checks,
