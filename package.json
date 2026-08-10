@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "eslint",
     "content:validate": "node scripts/content-engine/validate-cli.ts",
-    "content:generate": "node scripts/content-engine/generate.ts"
+    "content:generate": "node scripts/content-engine/generate.ts",
+    "content:publish-gate": "node scripts/content-engine/publish-gate-cli.ts",
+    "content:test": "node --test scripts/content-engine/content-engine.test.ts"
   },
   "dependencies": {
     "@next/third-parties": "^16.2.10",

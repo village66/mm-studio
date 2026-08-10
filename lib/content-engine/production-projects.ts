@@ -6,6 +6,7 @@ import { resolve } from "node:path";
 import { projects as legacyProjects } from "@/data/projects";
 import { generateProjectBundle } from "@/scripts/content-engine/generate";
 import { assessPublishReadiness } from "@/scripts/content-engine/publish-readiness";
+import { onlyProductionEligible } from "@/scripts/content-engine/production-eligibility";
 import type { GeneratedProjectBundle, ProjectInput, PublishReadinessReport } from "@/scripts/content-engine/types";
 
 export type ProductionContentProject = {
@@ -38,8 +39,7 @@ export async function getProductionContentProjects(): Promise<ProductionContentP
     }),
   })));
 
-  return assessed
-    .filter(({ readiness }) => readiness.productionEligible)
+  return onlyProductionEligible(assessed)
     .map(({ project, readiness }) => ({ bundle: generateProjectBundle(project), readiness }));
 }
 
