@@ -34,6 +34,7 @@ type PreviewDraft = {
     previewProjectCase?: DraftProjectCase;
   };
   review?: {
+    analysisReviewed?: unknown;
     imageAnalysis?: {
       status?: unknown;
     };
@@ -47,6 +48,7 @@ export function isSafeProjectSlug(value: string) {
 export async function readPreviewDraft(slug: string): Promise<{
   projectCase: ProjectCase;
   analysisStatus: string;
+  analysisReviewed: boolean;
 } | null> {
   if (!isSafeProjectSlug(slug)) return null;
 
@@ -109,5 +111,6 @@ export async function readPreviewDraft(slug: string): Promise<{
       typeof draft.review?.imageAnalysis?.status === "string"
         ? draft.review.imageAnalysis.status
         : "pending",
+    analysisReviewed: draft.review?.analysisReviewed === true,
   };
 }

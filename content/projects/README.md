@@ -33,6 +33,8 @@ content/projects/<slug>/
 
 執行 `npm run project:scan -- --project <slug>`，輸出位於 `drafts/project-auto-import/<slug>.draft.json`（已忽略 Git）。它包含首頁卡片、既有作品頁 `ProjectCase` / `ProjectPhase`、圖片複製審核清單及待分析欄位。
 
+接著執行 `npm run project:analyze -- --project <slug>`。流程只會使用 repo 已設定且可安全呼叫的圖片理解 provider；若能力不存在，會輸出 capability report、保留 `analysis.status = pending`、`analysisReviewed = false`，且 ALT、caption、description 一律維持空值。
+
 掃描後可在本機開啟 `/preview/project-auto-import/<slug>`。預覽 route 為 noindex，不會加入首頁、sitemap 或 `data/projects.ts`。
 
-目前沒有設定影像模型或外部 API，因此掃描器只整理檔案，不會假裝看過圖片，也不會產生虛構說明。
+目前沒有設定影像模型或外部 API，因此分析流程不會假裝看過圖片，也不會產生虛構說明。未來接入 provider 後，AI 文字仍須人工確認並將 `analysisReviewed` 設為 `true`，才可進入發布準備。

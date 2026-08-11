@@ -123,6 +123,10 @@ export function createDraft({ slug, metadata, phases }) {
   });
   const projectCase = createProjectCase(toPublicSrc);
   const previewProjectCase = createProjectCase(toPreviewSrc);
+  const analyses = phases.flatMap((phase) => phase.images.map((image) => image.analysis));
+  const generatedCount = analyses.filter((analysis) => analysis.status === "generated").length;
+  const providers = [...new Set(analyses.map((analysis) => analysis.provider).filter(Boolean))];
+  const analysisComplete = analyses.length > 0 && generatedCount === analyses.length;
 
   return {
     schemaVersion: 1,
@@ -170,6 +174,7 @@ export function createDraft({ slug, metadata, phases }) {
     }))),
     review: {
       productionDataChanged: false,
+      analysisReviewed: false,
       requiredBeforePublish: [
         ...(!metadata?.titleZh?.trim() ? ["補齊 titleZh"] : []),
         ...(!categoryKey ? ["選擇現有 category（residential / commercial / renovation）"] : []),
@@ -178,10 +183,14 @@ export function createDraft({ slug, metadata, phases }) {
         "補齊作品故事與各階段摘要後再人工寫入 data/projects.ts",
       ],
       imageAnalysis: {
-        status: "pending",
-        provider: null,
-        capability: "not-configured",
-        note: "目前 repo 沒有可用的影像模型或 API；未產生任何假描述。",
+        status: analysisComplete ? "generated" : "pending",
+        provider: providers.length === 1 ? providers[0] : null,
+        capability: analysisComplete ? "available" : "not-configured",
+        totalImages: analyses.length,
+        generatedImages: generatedCount,
+        note: analysisComplete
+          ? "影像文字已由可用 provider 產生，仍須逐張人工審核後才能進入 publish-ready。"
+          : "目前 repo 沒有可安全使用的影像模型或 API；未產生任何假描述。",
       },
     },
   };

@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "project:scan": "node scripts/project-auto-import/cli.mjs",
+    "project:analyze": "node scripts/project-auto-import/analyze.mjs",
     "project:scan:test": "node --test scripts/project-auto-import/core.test.mjs"
   },
   "dependencies": {

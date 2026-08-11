@@ -37,7 +37,11 @@ export default async function ProjectAutoImportPreviewPage({
           <aside className="border border-[#d7d2ca] bg-[#f1eee7] px-5 py-4 text-[12px] font-light leading-6 text-[#68645f] sm:px-6">
             <p className="font-medium tracking-[0.08em] text-[#806746]">DRAFT PREVIEW · 僅供審核</p>
             <p className="mt-1">
-              影像分析狀態：{preview.analysisStatus}。目前未產生 AI 說明；標題、分類與文案會在正式發布前另行審核。
+              影像分析狀態：{preview.analysisStatus}；人工審核：
+              {preview.analysisReviewed ? "已確認" : "尚未確認"}。
+              {preview.analysisStatus === "generated"
+                ? " 下方文字為真實分析結果，確認前不可發布。"
+                : " 目前未產生 AI 說明；標題、分類與文案會在正式發布前另行審核。"}
             </p>
           </aside>
 

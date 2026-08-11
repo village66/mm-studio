@@ -34,6 +34,9 @@ test("掃描三個現有階段並輸出與 golden sample 相同的層級", async
   assert.equal(draft.review.productionDataChanged, false);
   assert.equal(draft.review.imageAnalysis.status, "pending");
   assert.equal(draft.review.imageAnalysis.provider, null);
+  assert.equal(draft.review.analysisReviewed, false);
+  assert.equal(draft.review.imageAnalysis.totalImages, 4);
+  assert.equal(draft.review.imageAnalysis.generatedImages, 0);
 });
 
 test("只放 original、design、completed 照片也能建立待補資料 draft", async () => {
@@ -112,4 +115,8 @@ test("允許注入未來影像分析 provider，但預設不假造描述", async
   });
 
   assert.equal(scanned.phases[2].images[0].analysis.provider, "test-provider");
+  const draft = createDraft(scanned);
+  assert.equal(draft.review.imageAnalysis.status, "generated");
+  assert.equal(draft.review.imageAnalysis.provider, "test-provider");
+  assert.equal(draft.review.analysisReviewed, false);
 });
