@@ -37,7 +37,13 @@ if (!slug || slug.startsWith("-") || slug.includes("/") || slug.includes("\\")) 
     console.log(`Capability：${capability.capability}`);
     console.log(`圖片：${draft.review.imageAnalysis.generatedImages}/${draft.review.imageAnalysis.totalImages} 已真實分析`);
     console.log(`Draft 已更新：${path.relative(root, outputPath)}`);
-    if (!capability.available) console.log(capability.reason);
+    if (!capability.available) {
+      console.log(capability.code);
+      console.log(capability.reason);
+      console.log("最少設定需求：");
+      capability.requirements.forEach((requirement) => console.log(`- ${requirement}`));
+      console.log("建議：選定既有帳號可用的 Vision provider 後，再加入 server-side adapter 與 credential；目前不會產生假分析結果。");
+    }
   } catch (error) {
     console.error(error instanceof Error ? error.message : error);
     process.exitCode = 1;

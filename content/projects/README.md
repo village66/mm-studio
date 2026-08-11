@@ -37,4 +37,6 @@ content/projects/<slug>/
 
 掃描後可在本機開啟 `/preview/project-auto-import/<slug>`。預覽 route 為 noindex，不會加入首頁、sitemap 或 `data/projects.ts`。
 
-目前沒有設定影像模型或外部 API，因此分析流程不會假裝看過圖片，也不會產生虛構說明。未來接入 provider 後，AI 文字仍須人工確認並將 `analysisReviewed` 設為 `true`，才可進入發布準備。
+目前沒有設定影像模型或外部 API。執行分析時會明確輸出 `VISION_PROVIDER_REQUIRED`，分析流程不會假裝看過圖片，也不會產生虛構說明。
+
+最小 Vision 設定需求為：一個支援圖片輸入與結構化 JSON 輸出的 API、只供 server-side CLI 使用的 credential，以及明確的模型名稱、呼叫上限與成本上限。優先選用團隊已經有帳號與額度的 provider，再新增小型 adapter；不要將 credential 寫入 repo 或 `NEXT_PUBLIC_*` 變數。未來接入 provider 後，每張圖只允許產生 `alt`、`captionZh`、`descriptionZh` 與可選的內部 `roomType`，而且仍須人工確認並將 `analysisReviewed` 設為 `true`，才可進入發布準備。

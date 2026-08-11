@@ -6,6 +6,10 @@ import test from "node:test";
 
 import golden from "./golden-sample.json" with { type: "json" };
 import { createDraft, scanProject } from "./core.mjs";
+import {
+  resolveImageAnalysisCapability,
+  VISION_PROVIDER_REQUIRED,
+} from "./providers/capability.mjs";
 
 test("掃描三個現有階段並輸出與 golden sample 相同的層級", async () => {
   const root = await mkdtemp(path.join(os.tmpdir(), "mm-project-import-"));
@@ -119,4 +123,21 @@ test("允許注入未來影像分析 provider，但預設不假造描述", async
   assert.equal(draft.review.imageAnalysis.status, "generated");
   assert.equal(draft.review.imageAnalysis.provider, "test-provider");
   assert.equal(draft.review.analysisReviewed, false);
+});
+
+test("未設定 Vision provider 時回報穩定機器碼且不生成假文字", async () => {
+  const capability = resolveImageAnalysisCapability();
+  const result = await capability.analyzeImage();
+
+  assert.equal(capability.available, false);
+  assert.equal(capability.code, VISION_PROVIDER_REQUIRED);
+  assert.equal(capability.capability, "not-configured");
+  assert.ok(capability.requirements.length > 0);
+  assert.deepEqual(result, {
+    status: "pending",
+    alt: null,
+    captionZh: null,
+    descriptionZh: null,
+    provider: null,
+  });
 });
