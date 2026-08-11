@@ -6,7 +6,9 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "project:scan": "node scripts/project-auto-import/cli.mjs",
+    "project:scan:test": "node --test scripts/project-auto-import/core.test.mjs"
   },
   "dependencies": {
     "@next/third-parties": "^16.2.10",

@@ -13,6 +13,9 @@
 # testing
 /coverage
 
+# local project auto-import review drafts
+/drafts/project-auto-import/
+
 # next.js
 /.next/
 /out/

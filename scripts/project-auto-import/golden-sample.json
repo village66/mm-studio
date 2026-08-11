@@ -1,0 +1,16 @@
+{
+  "source": "data/projects.ts",
+  "collectionSlug": "modern-apartment",
+  "featuredProject": {
+    "id": "renovation-01",
+    "titleZh": "庭院老宅新生",
+    "titleEn": "Courtyard House Renewal",
+    "category": "renovation",
+    "image": "/images/projects/renovation/renovation-01/cover/cover-01.jpg",
+    "href": "/portfolio/modern-apartment#renovation-01"
+  },
+  "projectCaseKeys": ["id", "titleZh", "titleEn", "storyZh", "storyEn", "phases"],
+  "phaseKeys": ["before", "progress", "completed"],
+  "phaseTitlesZh": ["原始空間", "設計實現", "完成空間"],
+  "imageKeys": ["src", "captionZh"]
+}
