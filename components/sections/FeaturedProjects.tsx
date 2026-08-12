@@ -61,6 +61,15 @@ const projects: Project[] = [
     href: "/portfolio/private-residence#residence-03",
   },
   {
+    id: "residence-04",
+    titleZh: "木光暖居",
+    titleEn: "Warm Timber Residence",
+    category: "residential",
+    image:
+      "/images/projects/residential/residence-04/cover/cover-01.jpg",
+    href: "/portfolio/private-residence#residence-04",
+  },
+  {
     id: "renovation-01",
     titleZh: "庭院老宅新生",
     titleEn: "Courtyard House Renewal",

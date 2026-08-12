@@ -124,6 +124,8 @@ const residential02 =
   "/images/projects/residential/residence-02";
 const residential03 =
   "/images/projects/residential/residence-03";
+const residential04 =
+  "/images/projects/residential/residence-04";
 const renovation01 =
   "/images/projects/renovation/renovation-01";
 const renovation02 =
@@ -363,6 +365,65 @@ const projectCollections: Project[] = [
                 "開放展示格提供靈活收納",
                 "長向電視平台放大客廳寬度",
                 "從客廳望向玄關的完整空間秩序",
+              ]
+            )
+          ),
+        ],
+      },
+      {
+        id: "residence-04",
+        titleZh: "木光暖居",
+        titleEn: "Warm Timber Residence",
+        storyZh:
+          "以暖木色、白色櫃體與深色細節整理客餐廳及入口動線，整合展示、收納、照明與廚房機能，呈現明亮而沉穩的居住空間。",
+        storyEn:
+          "A warm residence where timber tones, white cabinetry and dark accents bring storage, display, lighting and kitchen functions into a clear living and dining setting.",
+        phases: [
+          phase(
+            "before",
+            "記錄空屋入口、客餐廳、走道與既有廚房的原始格局及採光條件。",
+            makeNumberedImages(
+              residential04,
+              "before",
+              [
+                "入口走道與大門的原始格局",
+                "入口側牆與既有木地板現況",
+                "客廳主牆與落地窗採光條件",
+                "客廳落地窗與公共空間尺度",
+                "客廳側牆與房間走道關係",
+                "客餐廳與既有開放廚房配置",
+                "既有廚房與公共空間銜接現況",
+              ]
+            )
+          ),
+          phase(
+            "completed",
+            "暖木色天花與地坪串聯客餐廳，白色收納櫃、深色展示面及照明細節共同建立清楚的空間層次。",
+            makeNumberedImages(
+              residential04,
+              "completed",
+              [
+                "入口走道整合白色收納櫃與展示層架",
+                "玄關收納櫃與深色展示平台",
+                "白色櫃體中的水平展示空間",
+                "客餐廳以木質天花與白色櫃體串聯",
+                "餐桌位於客廳與廚房之間",
+                "灰色窗簾與沙發構成客廳休憩區",
+                "餐區吊燈與半高櫃界定空間",
+                "木質與石紋電視牆形成客廳主景",
+                "客廳電視牆與灰色沙發配置",
+                "餐區收納櫃銜接走道與廚房",
+                "客餐廳開放格局與整合式收納",
+                "餐桌側木質櫃體與廚房視線",
+                "由走道望向客餐廳的空間關係",
+                "電視平台與石紋牆面近景",
+                "弱化結構樑形成的造形天花",
+                "走道展示平台與房門配置",
+                "房門間的黑色鹿角設計壁燈照明",
+                "歡喜迎接新居的幸福犬兒",
+                "新居主人與狗兒的甜密互動",
+                "白色廚房櫃體與基本料理設備",
+                "木質牆面上的有質感的深色開關面板",
               ]
             )
           ),
