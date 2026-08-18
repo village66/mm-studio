@@ -23,11 +23,11 @@ export default function Logo() {
         className="
           block
           h-auto
-          w-[205px]
-          sm:w-[238px]
-          lg:w-[250px]
-          xl:w-[270px]
-          2xl:w-[382px]
+          w-[188px]
+          sm:w-[205px]
+          lg:w-[190px]
+          xl:w-[215px]
+          2xl:w-[230px]
         "
       />
     </Link>

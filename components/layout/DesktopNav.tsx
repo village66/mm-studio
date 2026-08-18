@@ -15,33 +15,29 @@ const zhMap: Record<string, string> = {
 
 export default function DesktopNav() {
   return (
-    <nav className="hidden lg:flex items-center ml-20 gap-14 xl:ml-28 xl:gap-16">
+    <nav className="hidden items-center gap-7 lg:flex xl:gap-10">
       {navigation.map((item) => {
         return (
           <Link
   key={item.name}
   href={item.href}
-  className="group relative flex h-12 items-center justify-center px-2"
+  className="group relative flex h-10 items-center justify-center"
 >
-
-  <div className="relative h-5 w-[92px]">
-
-    <span
-      className="absolute inset-0 flex items-center justify-center whitespace-nowrap text-[11px] tracking-[0.20em] text-[#b6925d] transition-opacity duration-500 opacity-100 group-hover:opacity-0"
-    >
+  <span className="relative grid min-w-[66px] place-items-center xl:min-w-[76px]">
+    <span className="col-start-1 row-start-1 whitespace-nowrap text-[10px] font-medium tracking-[0.16em] text-[#5f5a54] opacity-100 transition-all duration-500 ease-[cubic-bezier(.22,1,.36,1)] group-hover:-translate-y-1 group-hover:opacity-0">
       {zhMap[item.name]}
     </span>
 
     <span
-      className="absolute inset-0 flex items-center justify-center whitespace-nowrap text-[11px] uppercase tracking-[0.30em] text-neutral-700 transition-opacity duration-500 opacity-0 group-hover:opacity-100"
+      aria-hidden="true"
+      className="col-start-1 row-start-1 translate-y-1 whitespace-nowrap text-[9px] font-medium uppercase tracking-[0.24em] text-[#9a7b54] opacity-0 transition-all duration-500 ease-[cubic-bezier(.22,1,.36,1)] group-hover:translate-y-0 group-hover:opacity-100"
     >
       {item.name}
     </span>
-
-  </div>
+  </span>
 
   <span
-  className="absolute bottom-0 left-1/2 h-px w-0 -translate-x-1/2 bg-[#b6925d] transition-all duration-500 group-hover:w-10"
+  className="absolute bottom-0 left-0 h-px w-full origin-left scale-x-0 bg-[#9a7b54] transition-transform duration-500 ease-[cubic-bezier(.22,1,.36,1)] group-hover:scale-x-100"
 />
 
 </Link>

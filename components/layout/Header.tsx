@@ -35,7 +35,7 @@ export default function Header() {
           duration-500
           ${
             scrolled
-              ? "bg-[#f8f8f5]/92 backdrop-blur-2xl shadow-[0_10px_40px_rgba(0,0,0,.06)]"
+              ? "bg-[#f8f8f5]/94 backdrop-blur-2xl"
               : "bg-transparent"
           }
         `}
@@ -51,14 +51,14 @@ export default function Header() {
               border-black/10
               transition-all
               duration-500
-              ${scrolled ? "h-[78px]" : "h-[96px]"}
+              ${scrolled ? "h-[68px]" : "h-[82px]"}
             `}
           >
             <Logo />
 
-            <div className="flex items-center gap-3 lg:gap-10">
+            <div className="flex items-center gap-3 lg:gap-7">
 
-              <div className="hidden lg:flex items-center gap-10">
+              <div className="hidden lg:flex items-center">
                 <DesktopNav />
               </div>
 
@@ -73,7 +73,7 @@ export default function Header() {
                 aria-label={playing ? "Mute background music" : "Play background music"}
                 className="
                   fixed
-                  top-[34px]
+                  top-[27px]
                   right-[86px]
                   z-[99999]
                   lg:static
@@ -81,8 +81,8 @@ export default function Header() {
                   lg:right-auto
                   lg:z-auto
                   flex
-                  h-8
-                  w-8
+                  h-7
+                  w-7
                   items-center
                   justify-center
                   rounded-full

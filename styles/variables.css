@@ -28,6 +28,10 @@
 
   --section-space: 180px;
 
+  --section-space-compact: 120px;
+
+  --page-gutter: clamp(1.5rem, 4vw, 6rem);
+
   /* Radius */
 
   --radius-sm: 4px;
@@ -51,5 +55,9 @@
   --transition-normal: .4s ease;
 
   --transition-slow: .7s ease;
+
+  --ease-premium: cubic-bezier(.22, 1, .36, 1);
+
+  --duration-premium: 900ms;
 
 }

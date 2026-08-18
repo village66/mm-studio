@@ -34,6 +34,11 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+::selection {
+  background: color-mix(in srgb, var(--accent) 28%, transparent);
+  color: var(--foreground);
+}
+
 img {
   display: block;
   max-width: 100%;
@@ -77,6 +82,11 @@ button {
 
 .caption {
   font-size: 0.75rem;
+}
+
+.editorial-rule {
+  background: linear-gradient(90deg, var(--accent), transparent);
+  height: 1px;
 }
 
 /* ---------- Project transition / 一厘切口 ---------- */
@@ -184,6 +194,19 @@ button {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+  }
+
   .mm-project-transition-overlay,
   .mm-project-transition-logo,
   .mm-project-transition-kicker,
