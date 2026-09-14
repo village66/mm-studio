@@ -44,9 +44,9 @@ export default function Hero() {
       <Container>
         <div className="grid items-center gap-9 lg:grid-cols-12 lg:gap-8 xl:gap-12">
           {/* Left Column: Text Content */}
-          <div className="relative z-10 lg:col-span-4 lg:pr-3 xl:pr-7">
+          <div className="relative z-10 min-w-0 lg:col-span-5 lg:pr-3 xl:pr-7">
             {/* Eyebrow */}
-            <p className="flex items-center gap-3 text-[9px] font-medium tracking-[0.26em] text-[#78716a] sm:text-[10px]">
+            <p className="flex items-center gap-3 text-[12px] font-medium tracking-[0.18em] text-[#78716a] sm:text-[14px]">
               <span>台中在地</span>
               <span aria-hidden="true" className="h-3 w-px bg-[#b9ad9d]" />
               <span>工厘室內設計</span>
@@ -62,7 +62,7 @@ export default function Hero() {
                   : "opacity-0 translate-y-4"
               }`}
             >
-              <h1 className="hero-title text-[2.55rem] font-extralight leading-[1.08] text-[#282522] sm:text-[3.25rem] md:text-[3.6rem] lg:text-[3.55rem] xl:text-[4.15rem] 2xl:text-[4.7rem]">
+              <h1 className="hero-title text-[clamp(2.75rem,13vw,4.5rem)] font-extralight leading-[1.16] text-[#282522] lg:text-[clamp(3.5rem,5.2vw,5.5rem)]">
                 <span className="block whitespace-nowrap">打造屬於你的</span>
                 <span className="mt-1 block whitespace-nowrap text-[#9a7b54]">理想空間。</span>
               </h1>
@@ -76,7 +76,7 @@ export default function Hero() {
                   : "opacity-0 translate-y-4"
               }`}
             >
-              <p className="text-[13px] font-light leading-[1.9] tracking-[0.04em] text-[#65605a] sm:text-[14px]">
+              <p className="text-[16px] font-light leading-[1.9] tracking-[0.04em] text-[#65605a] xl:text-[18px]">
                 以光線、材質與比例，回應每一種生活尺度。專注住宅與商業空間，讓設計安靜地留在日常裡。
               </p>
             </div>
@@ -91,7 +91,7 @@ export default function Hero() {
             >
               <Link
                 href="#portfolio"
-                className="group inline-flex h-12 items-center gap-7 border-b border-[#2f2b27] text-[10px] font-medium uppercase tracking-[0.24em] text-[#2f2b27] transition-colors duration-500 hover:border-[#9a7b54] hover:text-[#9a7b54]"
+                className="group inline-flex h-12 items-center gap-7 border-b border-[#2f2b27] text-[14px] font-medium uppercase tracking-[0.16em] text-[#2f2b27] transition-colors duration-500 hover:border-[#9a7b54] hover:text-[#9a7b54]"
               >
                 作品案例
                 <span aria-hidden="true" className="text-sm transition-transform duration-500 group-hover:translate-x-1">↗</span>
@@ -99,7 +99,7 @@ export default function Hero() {
 
               <Link
                 href="#contact"
-                className="inline-flex h-12 items-center text-[10px] font-medium uppercase tracking-[0.24em] text-[#77716a] transition-colors duration-500 hover:text-[#9a7b54]"
+                className="inline-flex h-12 items-center text-[14px] font-medium uppercase tracking-[0.16em] text-[#77716a] transition-colors duration-500 hover:text-[#9a7b54]"
               >
                 聯絡我們
               </Link>
@@ -107,7 +107,7 @@ export default function Hero() {
           </div>
 
           {/* Right Column: Hero Slider */}
-          <div className="relative lg:col-span-8">
+          <div className="relative min-w-0 lg:col-span-7">
             {/* 動態調整圖片比例，防止把頁面撐爆 */}
             <div className="relative aspect-[5/4] w-full overflow-hidden bg-neutral-200 lg:h-[min(70vh,700px)] lg:min-h-[540px] lg:aspect-auto">
               {slides.map((src, index) => (
@@ -126,7 +126,7 @@ export default function Hero() {
 
               <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-white/[0.03]" />
 
-              <p className="absolute bottom-5 left-5 text-[8px] font-medium uppercase tracking-[0.3em] text-white/80 sm:bottom-7 sm:left-7 sm:text-[9px]">
+              <p className="absolute bottom-5 left-5 text-[10px] font-medium uppercase tracking-[0.2em] text-white/90 sm:bottom-7 sm:left-7 sm:text-[11px]">
                 MM Studio · Selected Interior
               </p>
 
@@ -153,7 +153,7 @@ export default function Hero() {
                 ))}
               </div>
 
-              <div className="flex shrink-0 items-center gap-3 text-[8px] font-medium tracking-[0.28em] text-[#8c857d] sm:text-[9px]">
+              <div className="flex shrink-0 items-center gap-3 text-[12px] font-medium tracking-[0.16em] text-[#8c857d]">
                 <span className="text-[#9a7b54]">
                   {String(current + 1).padStart(2, "0")}
                 </span>

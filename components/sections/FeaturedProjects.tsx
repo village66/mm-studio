@@ -88,6 +88,15 @@ const projects: Project[] = [
     href: "/portfolio/modern-apartment#renovation-02",
   },
   {
+    id: "renovation-03",
+    titleZh: "逢甲葉宅翻修",
+    titleEn: "Fengjia Residence Renovation",
+    category: "renovation",
+    image:
+      "/images/projects/renovation/renovation-03/cover/109831_0.jpg",
+    href: "/portfolio/modern-apartment#renovation-03",
+  },
+  {
     id: "commercial-01",
     titleZh: "旅讀選物空間",
     titleEn: "Travel & Lifestyle Store",
