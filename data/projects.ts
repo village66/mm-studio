@@ -621,12 +621,12 @@ const projectCollections: Project[] = [
       },
       {
         id: "renovation-03",
-        titleZh: "逢甲葉宅翻修",
-        titleEn: "Fengjia Residence Renovation",
+        titleZh: "老城新序",
+        titleEn: "A New Chapter in the Old City",
         storyZh:
-          "針對既有住宅的外牆、屋頂、衛浴、廚房與室內空間進行整體翻修。工程包含拆除清運、泥作防水、管線整理、外牆修整與室內機能更新，完工後以淺色牆面、木質地坪及簡潔收納，形成明亮且易於使用的居住空間。",
+          "一棟走過四十餘年的老屋，座落於逢甲商圈的繁華之中。在保留歲月質地與生活記憶的同時，重新梳理空間關係，讓老屋不只是被翻新，而是重新回到當代生活。",
         storyEn:
-          "A comprehensive renovation of an existing residence, covering the roof, facade, bathrooms, kitchen and interior spaces. Demolition, waterproofing, service upgrades and new finishes create a brighter home with timber flooring and practical storage.",
+          "A home shaped by more than four decades of time, set within the vibrant energy of Fengjia. The renovation preserves its traces of time and memories while thoughtfully redefining the spatial relationships. Rather than simply renewing an old house, the project brings it back to life—reimagined for contemporary living.",
         phases: [
           phase(
             "before",
