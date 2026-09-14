@@ -89,8 +89,8 @@ const projects: Project[] = [
   },
   {
     id: "renovation-03",
-    titleZh: "逢甲葉宅翻修",
-    titleEn: "Fengjia Residence Renovation",
+    titleZh: "老城新序",
+    titleEn: "A New Chapter in the Old City",
     category: "renovation",
     image:
       "/images/projects/renovation/renovation-03/cover/109831_0.jpg",
